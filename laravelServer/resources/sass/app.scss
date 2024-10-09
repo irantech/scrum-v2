@@ -1,0 +1,41 @@
+// Fonts
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Variables
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/v4-shims';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import 'variables';
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import "nprogress";
+@import "progress-bar";
+@import "iransans";
+@import "rtl";
+
+* {
+    font-family: IRANSans, sans-serif;
+}
+
+.navbar-brand {
+    img {
+        max-height: 32px;
+    }
+
+}
+
+#app {
+    > main {
+        min-height: 85vh;
+    }
+}
+
+.swal2-popup {
+    &.swal2-toast {
+        &.swal2-show {
+            flex-direction:column;
+            align-items: flex-start;
+        }
+    }
+}

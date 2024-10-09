@@ -1,0 +1,181 @@
+<?php
+
+namespace App\Providers;
+
+//use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+//use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
+
+
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies
+        = [
+            'App\Model' => 'App\Policies\ModelPolicy',
+        ];
+
+    /**
+     * Register any authentication / authorization services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerPolicies();
+
+        Passport::tokensCan([
+            'create-contract'                   =>   'add new contract',
+            'delete-contract'                   =>   'remove contract' ,
+            'update-contract'                   =>   'update contract',
+            'restore-contract'                  =>   'restore contract',
+            'update-date-contract'              =>   'update contract dates',
+            'create-ancillary'                  =>   'add new ancillary to contract',
+            'delete-ancillary'                  =>   'remove ancillary from contract' ,
+            'update-ancillary'                  =>   'update ancillary',
+            'restore-ancillary'                 =>   'restore ancillary to contract',
+            'update-title-ancillary'            =>   'update ancillary title',
+            'create-baseProgress'               =>   'add new basProgress',
+            'delete-baseProgress'               =>   'remove basProgress' ,
+            'update-baseProgress'               =>   'update basProgress',
+            'restore-baseProgress'              =>   'restore basProgress',
+            'create-section'                    =>   'add new section',
+            'show-section'                      =>   'show section list',
+            'delete-section'                    =>   'remove section' ,
+            'update-section'                    =>   'update section',
+            'restore-section'                   =>   'restore section',
+            'create-software'                   =>   'add new software',
+            'delete-software'                   =>   'remove software' ,
+            'update-software'                   =>   'update software',
+            'restore-software'                  =>   'restore software',
+            'show-software'                     =>   'show software list',
+            'show-user'                         =>   'show all users',
+            'create-user'                       =>   'add new user',
+            'delete-user'                       =>   'remove user' ,
+            'update-user'                       =>   'update user',
+            'restore-user'                      =>   'restore user',
+            'show-role'                         =>   'show all roles',
+            'create-role'                       =>   'add new role',
+            'delete-role'                       =>   'remove role' ,
+            'update-role'                       =>   'update role',
+            'restore-role'                      =>   'restore role',
+            'show-permission'                   =>   'show all permissions',
+            'create-permission'                 =>   'add new permission',
+            'delete-permission'                 =>   'remove permission' ,
+            'update-permission'                 =>   'update permission',
+            'restore-permission'                =>   'restore permission',
+            'change-status-sub-progress'        =>    'change subProgress status',
+            'change-base-progress-status'       =>    'change-base-progress-status',
+            'ancillary-change-base-progress'    =>    'ancillary-change-base-progress',
+            'ancillary-change-sub-progress'     =>    'ancillary-change-sub-progress',
+            'create-contractType'               =>   'add new contractType',
+            'delete-contractType'               =>   'remove contractType' ,
+            'update-contractType'               =>   'update contractType',
+            'restore-contractType'              =>   'restore contractType',
+            'show-user-contracts'               =>   'show user contracts',
+            'show-customer-contracts'           =>   'show customer contracts',
+            'create-subProgress'                =>   'add new subProgress',
+            'delete-subProgress'                =>   'remove subProgress' ,
+            'update-subProgress'                =>   'update subProgress',
+            'restore-subProgress'               =>   'restore subProgress',
+            'show-customers'                    =>   'show customers' ,
+            'show-checklist'                    =>   'show checklist' ,
+            'create-checklist'                  =>   'add new checklist',
+            'delete-checklist'                  =>   'remove checklist' ,
+            'update-checklist'                  =>   'update checklist',
+            'restore-checklist'                 =>   'restore checklist',
+            'show-titleChecklist'               =>   'show titleChecklist',
+            'create-titleChecklist'             =>   'add new titleChecklist',
+            'delete-titleChecklist'             =>   'remove titleChecklist' ,
+            'update-titleChecklist'             =>   'update titleChecklist',
+            'restore-titleChecklist'            =>   'restore titleChecklist',
+            'assign-checklist-contract'         =>   'assign checklists to contract',
+            'show-contract-title_checklist'     =>   'show contract title checklist',
+            'assign-title-checklist-office'     =>   'office assign user to contract title checklist',
+            'assign-title-checklist-support'    =>   'support assign user to contract title checklist',
+            'assign-title-checklist-design'     =>   'design assign user to contract title checklist',
+            'assign-title-checklist-programmer' =>   'programmer assign user to contract title checklist',
+            'assign-title-checklist-graphic'    =>   'graphic assign user to contract title checklist',
+            'assign-title-checklist-sales'      =>   'sales assign user to contract title checklist',
+            'staff-approving-office'            =>   'office staff approves title checklist changes',
+            'staff-approving-programmer'        =>   'programmer staff approves title checklist changes',
+            'staff-approving-graphic'           =>   'graphic staff approves title checklist changes',
+            'staff-approving-support'           =>   'support staff approves title checklist changes',
+            'staff-approving-sale'              =>   'sale staff approves title checklist changes',
+            'manager-approving-office'          =>   'manager office approves title checklist',
+            'manager-approving-support'         =>   'manager support approves title checklist',
+            'manager-approving-programmer'      =>   'manager programmer approves title checklist',
+            'manager-approving-graphic'         =>   'manager graphic approves title checklist',
+            'manager-approving-sales'           =>   'manager sales approves title checklist',
+            'admin-handle-sms-templates'        =>   'admin handles sms templates' ,
+            'technical-manager'                 =>   'technical manager managing graphic,designer,programmer',
+            'administrator-manager'             =>   'administrator manager managing office',
+            'support-manager'                   =>   'support manager managing supports',
+            'sales-manager'                     =>   'sales manager supports sales',
+            'programmer'                        =>   'Programmer employee',
+            'graphic'                           =>   'Graphic employee' ,
+            'designer'                          =>   'designer employee' ,
+            'support'                           =>   'support manager',
+            'office'                            =>   'office manager',
+            'sales'                             => 'sale manager',
+            'staff-approving-design'            =>   'design staff approves title checklist changes',
+            'support-reverse-design'            =>   'support manager reverse design section',
+            'support-approve-design'            =>   'support manager approves design section',
+            'support-final-approve-design'      =>   'support manager final approves design section',
+            'reverse-to-office'                 =>   'reverse checklist to office section',
+            'reverse-to-programmer'             =>   'reverse checklist to programmer section',
+            'reverse-to-graphic'                =>   'reverse checklist to graphic section',
+            'reverse-to-support'                =>   'reverse checklist to support section',
+            'reverse-to-sale'                   =>   'reverse checklist to sale section',
+            'admin-edit-sections'               =>   'edit sections',
+            'manager-sign-office-checklist'     =>   'manager signs office checklist',
+            'manager-sign-designer-checklist'   =>   'manager signs designer checklist',
+            'manager-sign-programmer-checklist' =>   'manager signs programmer checklist',
+            'manager-sign-graphic-checklist'    =>   'manager signs graphic checklist',
+            'manager-sign-support-checklist'    =>   'manager signs support checklist',
+            'manager-sign-sale-checklist'       =>   'manager signs sale checklist',
+            'staff-sign-designer-checklist'     =>   'staff signs designer checklist',
+            'staff-sign-programmer-checklist'   =>   'staff signs programmer checklist',
+            'staff-sign-graphic-checklist'      =>   'staff signs graphic checklist',
+            'staff-sign-support-checklist'      =>   'staff signs support checklist',
+            'staff-sign-sale-checklist'         => 'staff signs sale checklist',
+            'staff-sign-office-checklist'       => 'staff-sign-office-checklist',
+            'reply-sub-task'          =>   'reply checklists which are reversed',
+            'force-login'                       =>   'admin login users profile',
+            'show-all-user-todolist'            =>   'see all user to do list',
+            'show-office-user-todolist'         =>   'see office user to do list',
+            'show-programmer-user-todolist'     =>   'see programmer user to do list',
+            'show-graphic-user-todolist'        =>   'see graphic user to do list',
+            'show-support-user-todolist'        =>   'see support user to do list',
+            'show-sale-user-todolist'           =>   'see sale user to do list',
+            'show-designer-user-todolist'       =>   'see designer user to do list',
+            'show-training-session'             =>   'show all training session',
+            'change-training-session'           =>   'change training session',
+            'show-sms-logs'                     =>   'show sms logs',
+            'manage-task-times'                      =>   'create, edit and delete tasks',
+            'manage-holidays'                   =>   'create, edit and delete holidays',
+            'manager-show-requests'             =>   'manager watch the requests',
+            'update-theme-link-contract'        =>   'update contract theme link',
+            'admin-show-requests'               =>   'admin watch the requests',
+            'create-taskLabel'                  =>   'admin create the taskLabel',
+            'update-taskLabel'                  =>   'admin update the taskLabel',
+            'delete-taskLabel'                  =>   'admin delete the taskLabel',
+            'restore-taskLabel'                 =>   'admin restore the taskLabel',
+            'show-taskLabel'                    =>   'admin show the taskLabel',
+            'manage-tasks'                      =>   'user manage task',
+            'set-task-times'                    =>   'user set task times',
+            'create-tasks'                      =>   'create edit and delete tasks',
+            'assign_tasks'                      =>   'manager assigns task to user',
+            'disable_checklist_sms'             =>   'manager disable not sending sms',
+        ]);
+
+        Passport::routes();
+
+
+    }
+}

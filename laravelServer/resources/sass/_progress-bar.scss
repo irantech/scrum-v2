@@ -1,0 +1,17 @@
+.progress-bar {
+    &.status {
+        cursor: pointer;
+        &-running {
+            background-color: $teal;
+        }
+        &-complete {
+            background-color: $green;
+        }
+        &-cancel {
+            background-color: $red;
+        }
+        &-hold {
+            background-color: $pink;
+        }
+    }
+}
