@@ -6,6 +6,7 @@ use App\Http\Controllers\API\Contract\SubTaskController;
 use App\Http\Controllers\API\ToDoList\ToDoListController;
 use App\Http\Controllers\API\User\UserController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\API\Task\showTasks;
 use App\Http\Resources\API\Task\SingleTask;
 use App\Http\Resources\API\Task\Task as TaskResource;
 use App\Http\Resources\API\Task\TaskCollection;
@@ -29,6 +30,15 @@ class TaskController extends Controller{
 
     }
 
+    public function showTasks()
+    {
+        $tasks=Task::with('user')->get();
+        $data=new TaskCollection($tasks);
+        return \response()->json([
+           'status'=>'true',
+           'data'=>$data
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *

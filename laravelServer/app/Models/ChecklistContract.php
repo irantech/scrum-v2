@@ -75,4 +75,9 @@ class ChecklistContract extends Model
     public function customerHold(){
         return $this->hasMany(CustomerHold::class);
     }
+
+    public function initialDesign()
+    {
+        return $this->hasOne(initialDesign::class);
+    }
 }
