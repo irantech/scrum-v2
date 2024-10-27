@@ -212,7 +212,7 @@ Route::namespace( 'API' )->group( function () {
             Route::post('task/list/period/{id}' , 'TaskController@getTaskListPeriod');
             Route::put('assignSubTask/{task}' , 'TaskController@setTaskUser');
             Route::put('changeTaskLabel/{id}' , 'TaskController@changeTaskLabel');
-            Route::put('changeTaskSection/{id}' , 'TaskController@changeTaskTodo');
+            Route::get('getFeatureTask' , [TaskController::class,'getFeatureTask']);
         });
         Route::middleware('scope:admin-handle-sms-templates')
             ->apiResource('smsTemplate' , 'SmsTemplateController');
