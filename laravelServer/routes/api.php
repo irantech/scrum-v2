@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Contract\SubTaskController;
 use App\Http\Controllers\API\InitialDesignController;
 use App\Http\Controllers\API\Requests\MeetingDetailController;
 use App\Http\Controllers\API\Requests\MeetingsController;
@@ -114,7 +115,7 @@ Route::namespace( 'API' )->group( function () {
             Route::post('sign/contract/{contract}/checklist/{checklist}' ,'ContractChecklistController@managerSignChecklist');
             Route::get('contract/{contract}/checklist/{checklist}/process/all' ,'ContractChecklistController@getChecklistProcess');
 
-            Route::post('subTask/create' ,'SubTaskController@create');
+            Route::post('subTask/create' ,[SubTaskController::class,'create']);
             Route::put('subTask/{sub_task}' ,'SubTaskController@updateFile');
             Route::post('reply/subTask' ,'SubTaskController@reply');
             Route::put('reply/subTask/{sub_task}' ,'SubTaskController@editReply');
@@ -124,6 +125,7 @@ Route::namespace( 'API' )->group( function () {
             Route::get('trainingSession/{ChecklistContract}'  , 'TrainingSessionController@getContractTrainingSession');
             Route::put('trainingSession/{TrainingSession}'  , 'TrainingSessionController@update');
             Route::post('subTask'  , 'SubTaskController@subTasks');
+            Route::get('subTask/lastReply'  , [SubTaskController::class,'lastReply']);
             Route::put('subTask/seen/{sub_task}' ,'SubTaskController@seenSubTask');
             Route::get('subTask/order' ,'SubTaskController@orderSubTask');
             Route::get('subTask/addKeyReverse' ,'SubTaskController@addKeySubTask');

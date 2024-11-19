@@ -60,14 +60,24 @@ class reverseProcess extends JsonResource
         $reject_count = 0;
 
         foreach ($comments as $comment) {
-            if($comment)  {
-                $reply =  $comment->lastReplies;
 
+            if($comment)  {
+
+                $reply =  $comment->lastReplies()->first();
                 if($reply['status'] == 'accept') {
                     $accept_count ++ ;
-                }else{
-                    $reject_count ++ ;
+
                 }
+                if($reply['status'] == 'reject'){
+                    $reject_count ++ ;
+
+
+                }
+//                if($reply['status'] == 'accept') {
+//                    $accept_count ++ ;
+//                }else{
+//                    $reject_count ++ ;
+//                }
             }
 
         }

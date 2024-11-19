@@ -9,14 +9,14 @@ class SubTask extends Model
 {
 
     protected $table = 'subtasks';
-    protected $fillable = ['description'  ,'status' , 'user_id' , 'order'];
+    protected $fillable = ['description'  ,'status' , 'user_id' , 'order','key_id'];
 
     public function replies() {
         return $this->hasMany(SubTask::class,'parent_id');
     }
 
     public function lastReplies() {
-        return $this->hasOne(SubTask::class,'key_id')->latest();
+        return $this->hasMany(SubTask::class,'key_id')->latest();
     }
 
     public function allReplies()
@@ -26,8 +26,6 @@ class SubTask extends Model
 
     public function countAcceptReplies()
     {
-
-
         return $this->allReplies()->where('status', 'accept')->latest()->first();
     }
 
