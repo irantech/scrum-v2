@@ -30,6 +30,14 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::tokensCan([
+            'update_meeting_details'            =>   'update one meeting details',
+            'show_meeting_details'              =>   'show one meeting details',
+            'index_meeting_details'             =>   'show all meeting details',
+            'create_meeting_details'            =>   'update one meeting details',
+            'update_meeting'                    =>   'update one meeting',
+            'show_meeting'                      =>   'show one meeting',
+            'index_meeting'                     =>   'show all meetings',
+            'create_meeting'                    =>   'add new meeting',
             'create-contract'                   =>   'add new contract',
             'delete-contract'                   =>   'remove contract' ,
             'update-contract'                   =>   'update contract',

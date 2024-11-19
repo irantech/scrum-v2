@@ -1,8 +1,10 @@
 <?php
 
-use App\Models\ChecklistContract;
-use App\Models\TrainingSession;
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\Contract\SubTaskController;
+use App\Http\Controllers\API\InitialDesignController;
+use App\Http\Controllers\API\Requests\MeetingDetailController;
+use App\Http\Controllers\API\Requests\MeetingsController;
+use App\Http\Controllers\API\Task\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +17,23 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::prefix( 'initialdesign' )->group( function () {
+    Route::post('store/{checklistContract}',[InitialDesignController::class,'store']);
+    Route::get('show/{checklistContract}',[InitialDesignController::class,'show']);
+    Route::post('update/{checklistContract}',[InitialDesignController::class,'update']);
+});
+Route::prefix( 'meetings' )->middleware(('auth:api'))->group( function () {
+    Route::post('store',[MeetingsController::class,'store']);
+    Route::get('index',[MeetingsController::class,'index']);
+    Route::get('show/{meeting}',[MeetingsController::class,'show']);
+    Route::post('update/{meeting}',[MeetingsController::class,'update']);
+});
+Route::prefix( 'meetingsdetails' )->middleware(('auth:api'))->group( function () {
+    Route::post('store',[MeetingDetailController::class,'store']);
+    Route::get('index',[MeetingDetailController::class,'index']);
+    Route::get('show/{meetingsDetails}',[MeetingDetailController::class,'show']);
+    Route::post('update/{meetingDetail}',[MeetingDetailController::class,'update']);
+});
 
 Route::namespace( 'API' )->group( function () {
 
@@ -97,7 +115,7 @@ Route::namespace( 'API' )->group( function () {
             Route::post('sign/contract/{contract}/checklist/{checklist}' ,'ContractChecklistController@managerSignChecklist');
             Route::get('contract/{contract}/checklist/{checklist}/process/all' ,'ContractChecklistController@getChecklistProcess');
 
-            Route::post('subTask/create' ,'SubTaskController@create');
+            Route::post('subTask/create' ,[SubTaskController::class,'create']);
             Route::put('subTask/{sub_task}' ,'SubTaskController@updateFile');
             Route::post('reply/subTask' ,'SubTaskController@reply');
             Route::put('reply/subTask/{sub_task}' ,'SubTaskController@editReply');
@@ -107,10 +125,12 @@ Route::namespace( 'API' )->group( function () {
             Route::get('trainingSession/{ChecklistContract}'  , 'TrainingSessionController@getContractTrainingSession');
             Route::put('trainingSession/{TrainingSession}'  , 'TrainingSessionController@update');
             Route::post('subTask'  , 'SubTaskController@subTasks');
+            Route::get('subTask/lastReply'  , [SubTaskController::class,'lastReply']);
             Route::put('subTask/seen/{sub_task}' ,'SubTaskController@seenSubTask');
             Route::get('subTask/order' ,'SubTaskController@orderSubTask');
             Route::get('subTask/addKeyReverse' ,'SubTaskController@addKeySubTask');
         });
+
         Route::group(['namespace' => 'Progress'], function()
         {
             Route::get( 'base-progress/all', 'BaseProgressController@showAllWithTrashed' );
@@ -194,11 +214,12 @@ Route::namespace( 'API' )->group( function () {
             Route::post('task/list/period/{id}' , 'TaskController@getTaskListPeriod');
             Route::put('assignSubTask/{task}' , 'TaskController@setTaskUser');
             Route::put('changeTaskLabel/{id}' , 'TaskController@changeTaskLabel');
-            Route::put('changeTaskSection/{id}' , 'TaskController@changeTaskTodo');
+            Route::get('getFeatureTask' , [TaskController::class,'getFeatureTask']);
         });
         Route::middleware('scope:admin-handle-sms-templates')
             ->apiResource('smsTemplate' , 'SmsTemplateController');
     });
+    Route::get('showTasks',[TaskController::class,'showTasks']);
 
     Route::group(['namespace' => 'Customer'] , function(){
         Route::any( 'customer/{hash}/get-contracts', 'CustomerController@CustomerProjectsByHash' );

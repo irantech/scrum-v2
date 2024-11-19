@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\API\Task;
+namespace App\Http\Resources\API\MeetingDetails;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class TaskCollection extends ResourceCollection
+class MeetingDetailsCollection extends ResourceCollection
 {
-
     /**
      * Transform the resource collection into an array.
      *

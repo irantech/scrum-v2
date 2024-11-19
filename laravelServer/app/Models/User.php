@@ -18,6 +18,21 @@ class User extends Authenticatable
 
     protected static $logName = 'کاربر';
     protected static $logAttributes = ['name' , 'username' , 'email' , 'phone_number'];
+
+//--------------------------------------------------------------------------------------
+
+    public function meetingDetails()
+    {
+        return $this->hasMany(MeetingDetail::class);
+    }
+    public function meetings()
+    {
+        return $this->hasMany(Meeting::class);
+    }
+
+
+//--------------------------------------------------------------------------------------
+
     public function getDescriptionForEvent(string $eventName): string
     {
         switch ($eventName) {

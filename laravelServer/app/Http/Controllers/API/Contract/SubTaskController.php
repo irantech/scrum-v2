@@ -26,7 +26,18 @@ class SubTaskController extends Controller
 //        $this->middleware('scopes:reply-sub-task')->only('reply');
     }
 
+    public function lastReply()
+    {
+        $subtask=SubTask::find(1184);
+        $lasts=$subtask->lastReplies;
+//        var_dump($lasts['status']);
+        var_dump($lasts->first()->status);
+        foreach ($lasts as $last ){
+            var_dump($last->status);
+        }
+    }
     public function create(Request $request){
+
         $request->validate( [
             'status'    => 'required|string',
             'body'      => 'required|string'
@@ -308,54 +319,57 @@ class SubTaskController extends Controller
                 })
                 ->having('sub_task_process_count' , '>' , 0)
                 ->orderBy('created_at' , 'desc')->get();
+//        var_dump($subTaskList->first());
+//        die();
             $data = new subTaskCollection($subTaskList);
         }
-        if($request['type'] == '' || (isset($request['type']) && $request['type'] == 'task')) {
+//        if($request['type'] == '' || (isset($request['type']) && $request['type'] == 'task')) {
+//
+//            $task_model = new Task();
+//            $task_list = $task_model
+//                ->with('doneTodoList')
+//                ->withCount('subtasks')
+//                ->with(['subtasks' =>  function($query) use ($request) {
+//                    if(isset($request['user']) && !empty($request['user'])) {
+//                        $query->where('assigned' , $request['user']);
+//                    }
+//                    $query->when($request['section'] ?? null , function($query_sec , $search){
+//                        $query_sec->whereHas('assignedSection.roleSection.section', function($q) use ($search) {
+//                            $q->where( 'section_id',$search);
+//                        });
+//                    });
+//                }])
+//                ->whereHas('subtasks', function($query) use ($request) {
+//                    if(isset($request['start_date']) && !empty($request['start_date'])  ){
+//                        $start_time = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
+//                        $query->whereDate('created_at', '>=' , $start_time);
+//                    }
+//                    if(isset($request['end_date']) && !empty($request['end_date'])) {
+//                        $end_time = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
+//                        $query->whereDate('created_at', '<=' , $end_time);
+//                    }
+//                    if(isset($request['user']) && !empty($request['user'])) {
+//                        $query->where('assigned' , $request['user']);
+//                    }
+//                    $query->when($request['section'] ?? null , function($query_sec , $search){
+//                        $query_sec->whereHas('assignedSection.roleSection.section', function($q) use ($search) {
+//                            $q->where( 'section_id',$search);
+//                        });
+//                    });
+//                })
+//
+//                ->when($request['contract_title'] ?? null , function($query , $search){
+//                    $query->whereHas('contract.customer', function($q) use ($search) {
+//                        $q->where( 'name', 'like', '%' . $search . '%' );
+//                    });
+//                })
+//                ->having('subtasks_count' , '>' , 0)
+//                ->orderBy('created_at' , 'desc')->get();
+//            $sub_tasks = new \App\Http\Resources\API\Task\SubTaskCollection($task_list);
+//        }
 
-            $task_model = new Task();
-            $task_list = $task_model
-                ->with('doneTodoList')
-                ->withCount('subtasks')
-                ->with(['subtasks' =>  function($query) use ($request) {
-                    if(isset($request['user']) && !empty($request['user'])) {
-                        $query->where('assigned' , $request['user']);
-                    }
-                    $query->when($request['section'] ?? null , function($query_sec , $search){
-                        $query_sec->whereHas('assignedSection.roleSection.section', function($q) use ($search) {
-                            $q->where( 'section_id',$search);
-                        });
-                    });
-                }])
-                ->whereHas('subtasks', function($query) use ($request) {
-                    if(isset($request['start_date']) && !empty($request['start_date'])  ){
-                        $start_time = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
-                        $query->whereDate('created_at', '>=' , $start_time);
-                    }
-                    if(isset($request['end_date']) && !empty($request['end_date'])) {
-                        $end_time = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
-                        $query->whereDate('created_at', '<=' , $end_time);
-                    }
-                    if(isset($request['user']) && !empty($request['user'])) {
-                        $query->where('assigned' , $request['user']);
-                    }
-                    $query->when($request['section'] ?? null , function($query_sec , $search){
-                        $query_sec->whereHas('assignedSection.roleSection.section', function($q) use ($search) {
-                            $q->where( 'section_id',$search);
-                        });
-                    });
-                })
-
-                ->when($request['contract_title'] ?? null , function($query , $search){
-                    $query->whereHas('contract.customer', function($q) use ($search) {
-                        $q->where( 'name', 'like', '%' . $search . '%' );
-                    });
-                })
-                ->having('subtasks_count' , '>' , 0)
-                ->orderBy('created_at' , 'desc')->get();
-            $sub_tasks = new \App\Http\Resources\API\Task\SubTaskCollection($task_list);
-        }
-
-        return response()->json(['message' => __('scrum.api.get_success') , 'data' => $data , 'tasks' => $sub_tasks], Response::HTTP_OK);
+//        return response()->json(['message' => __('scrum.api.get_success') , 'data' => $data , 'tasks' => $sub_tasks], Response::HTTP_OK);
+        return response()->json(['message' => __('scrum.api.get_success') , 'data' => $data ], Response::HTTP_OK);
 
     }
 
