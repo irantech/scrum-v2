@@ -15,9 +15,22 @@ class sumProceess extends JsonResource
      */
     public function toArray($request)
     {
+        list($hours, $minutes, $seconds) = explode(':', $this->sum);
+
+        $days = floor($hours / 24);
+        $remainingHours = $hours % 24;
+
         return [
-            'section'     => new Section($this->section),
-            'sumTime'     => $this->sum ? $this->sum : 0
+//            'section'     => new Section($this->section),
+            'section'     => [
+                                "id"=>$this->section_id,
+                                "title"=> $this->title,
+                                "order"=> $this->order,
+                                "color"=> $this->color
+                                ],
+            'sumTime'     => $this->sum ? "$days "."days "."( $remainingHours : ". "$minutes: "."$seconds )": 0
         ];
     }
 }
+
+

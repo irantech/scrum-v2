@@ -118,12 +118,22 @@ class ContractChecklistController extends Controller
 
     // calculate time has used in each section
     public function sumDuration(ChecklistContract $checklistContract){
-        $checklist_process = $checklistContract->checklistProcess()
-            ->groupBy('section_id')
-            ->selectRaw('* , SEC_TO_TIME(sum(TIME_TO_SEC(duration))) as sum')
-            ->get();
+        $checklist_process=[];
+            $checklist_process = $checklistContract->todoList()
+                ->join('users', 'todo_lists.user_id', '=', 'users.id')
+                ->join('roles', 'roles.id', '=', 'users.role_id')
+                ->join('sections', 'sections.id', '=', 'roles.section_id')
+                ->where('todo_lists.status', 'done')
+                ->groupBy('sections.id')
+                ->selectRaw('* , SEC_TO_TIME(sum(TIME_TO_SEC(it_todo_lists.difference_time))) as sum')
+                ->get();
+
+
+
+
 
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => new sumProceessCollection($checklist_process)], Response::HTTP_OK);
+
     }
 
 

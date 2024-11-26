@@ -20,9 +20,9 @@ class reverseProcess extends JsonResource
     public function toArray($request)
     {
 
-        $count_error = $this->countReplies($this->subTaskError);
-        $count_offer = $this->countReplies($this->subTaskOffer);
-        $count_Periodic = $this->countReplies($this->subTaskPeriodic);
+        $count_error = $this->countReplies($this->subError);
+        $count_offer = $this->countReplies($this->subOffer);
+        $count_Periodic = $this->countReplies($this->subPeriodic);
 
         return [
             'id' => $this->id,
@@ -30,17 +30,17 @@ class reverseProcess extends JsonResource
             'user_section' => new User($this->getUserSection($this->checklist_contract_id ,$this->section)),
             'date' => Verta::instance($this->created_at)->format((' j %B Y ')),
             'error_reverse_data' => [
-                'total_count'       => count($this->subTaskError),
+                'total_count'       => count($this->subError),
                 'accept_count'      => $count_error ? $count_error['accept_count'] : 0,
                 'reject_count'      => $count_error ? $count_error['reject_count'] : 0,
             ],
             'offer_reverse_data' => [
-                'total_count'       => count($this->subTaskOffer),
+                'total_count'       => count($this->subOffer),
                 'accept_count'      => $count_offer ?  $count_offer['accept_count'] :  0,
                 'reject_count'      => $count_offer ? $count_offer['reject_count'] : 0,
             ],
             'periodic_reverse_data' => [
-                'total_count'       => count($this->subTaskPeriodic),
+                'total_count'       => count($this->subPeriodic),
                 'accept_count'      => $count_Periodic ? $count_Periodic['accept_count'] : 0 ,
                 'reject_count'      => $count_Periodic ? $count_Periodic['reject_count'] :0,
             ],

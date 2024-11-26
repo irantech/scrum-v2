@@ -26,18 +26,8 @@ class SubTaskController extends Controller
 //        $this->middleware('scopes:reply-sub-task')->only('reply');
     }
 
-    public function lastReply()
-    {
-        $subtask=SubTask::find(1184);
-        $lasts=$subtask->lastReplies;
-//        var_dump($lasts['status']);
-        var_dump($lasts->first()->status);
-        foreach ($lasts as $last ){
-            var_dump($last->status);
-        }
-    }
-    public function create(Request $request){
 
+    public function create(Request $request){
         $request->validate( [
             'status'    => 'required|string',
             'body'      => 'required|string'
@@ -47,14 +37,16 @@ class SubTaskController extends Controller
 //        }else {
 //            $section = $request['section'];
 //        }
-        if(isset($request['checklist_process'])){
+        if(isset($request['checklist_process']) && !empty($request['checklist_process'])){
             $task = ChecklistProcess::find($request['checklist_process']);
             $last_sub_task = $task->subtasks()->whereNull('parent_id' )->orderBy('id' , 'desc')->first();
         }
-        else if(isset($request['task'])){
+        else if(isset($request['task']) && !empty($request['task'])){
             $task = Task::find($request['task']);
             $last_sub_task = $task->subtasks()->whereNull('parent_id' )->orderBy('id' , 'desc')->first();
         }
+//        var_dump('okk');
+//        die();
 
         $task->subtasks()->create([
             'status' => $request->status,
@@ -319,8 +311,6 @@ class SubTaskController extends Controller
                 })
                 ->having('sub_task_process_count' , '>' , 0)
                 ->orderBy('created_at' , 'desc')->get();
-//        var_dump($subTaskList->first());
-//        die();
             $data = new subTaskCollection($subTaskList);
         }
 //        if($request['type'] == '' || (isset($request['type']) && $request['type'] == 'task')) {
@@ -367,8 +357,8 @@ class SubTaskController extends Controller
 //                ->orderBy('created_at' , 'desc')->get();
 //            $sub_tasks = new \App\Http\Resources\API\Task\SubTaskCollection($task_list);
 //        }
-
 //        return response()->json(['message' => __('scrum.api.get_success') , 'data' => $data , 'tasks' => $sub_tasks], Response::HTTP_OK);
+
         return response()->json(['message' => __('scrum.api.get_success') , 'data' => $data ], Response::HTTP_OK);
 
     }

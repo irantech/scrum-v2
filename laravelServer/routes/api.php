@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\Contract\ContractChecklistController;
 use App\Http\Controllers\API\Contract\SubTaskController;
 use App\Http\Controllers\API\InitialDesignController;
+use App\Http\Controllers\API\Questions\QuestionController;
 use App\Http\Controllers\API\Requests\MeetingDetailController;
 use App\Http\Controllers\API\Requests\MeetingsController;
 use App\Http\Controllers\API\Task\TaskController;
@@ -17,23 +19,49 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//---------------------------------------------------------- initialdesign
 Route::prefix( 'initialdesign' )->group( function () {
     Route::post('store/{checklistContract}',[InitialDesignController::class,'store']);
     Route::get('show/{checklistContract}',[InitialDesignController::class,'show']);
     Route::post('update/{checklistContract}',[InitialDesignController::class,'update']);
 });
+
+
+//---------------------------------------------------------- meetings
 Route::prefix( 'meetings' )->middleware(('auth:api'))->group( function () {
-    Route::post('store',[MeetingsController::class,'store']);
-    Route::get('index',[MeetingsController::class,'index']);
-    Route::get('show/{meeting}',[MeetingsController::class,'show']);
-    Route::post('update/{meeting}',[MeetingsController::class,'update']);
+    Route::post('store',[MeetingsController::class,'store'])->middleware('scope:create_meeting');
+    Route::get('index',[MeetingsController::class,'index'])->middleware('scope:index_meeting');
+    Route::get('show/{meeting}',[MeetingsController::class,'show'])->middleware('scope:show_meeting');
+    Route::post('update/{meeting}',[MeetingsController::class,'update'])->middleware('scope:update');
 });
+
+
+//---------------------------------------------------------- meetingsdetails
 Route::prefix( 'meetingsdetails' )->middleware(('auth:api'))->group( function () {
     Route::post('store',[MeetingDetailController::class,'store']);
     Route::get('index',[MeetingDetailController::class,'index']);
     Route::get('show/{meetingsDetails}',[MeetingDetailController::class,'show']);
     Route::post('update/{meetingDetail}',[MeetingDetailController::class,'update']);
 });
+
+
+//---------------------------------------------------------- questions
+Route::prefix( 'questions' )->middleware(('auth:api'))->group( function () {
+    Route::post('/store',[QuestionController::class,'store'])->middleware('scope:index_question');
+    Route::get('/index',[QuestionController::class,'index'])->middleware('scope:store_question');
+    Route::delete('delete/{question}',[QuestionController::class,'delete'])->middleware('scope:delete_question');
+    Route::get('show/{question}',[QuestionController::class,'show'])->middleware('scope:show_question');
+    Route::post('update/{question}',[QuestionController::class,'update'])->middleware('scope:update_question');
+    Route::post('answer/{question}',[QuestionController::class,'answer'])->middleware('scope:answer_question');
+    Route::post('question_to_task',[QuestionController::class,'questionToTask']);
+});
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 Route::namespace( 'API' )->group( function () {
 
@@ -104,12 +132,12 @@ Route::namespace( 'API' )->group( function () {
             Route::put( 'assign-checklist/{contract}', 'ContractChecklistController@assignChecklist' );
 
             Route::post( 'assignUser/{checklistContract}', 'ContractChecklistController@assign' );
-            Route::get('all/checklist-contract/{checklistContract}' , 'ContractChecklistController@getContractChecklists');
-            Route::get('sum/checklist-contract/{checklistContract}' , 'ContractChecklistController@sumDuration');
+            Route::get('all/checklist-contract/{checklistContract}' , [ContractChecklistController::class,'getContractChecklists']);
+            Route::get('sum/checklist-contract/{checklistContract}' , [ContractChecklistController::class,'sumDuration']);
             Route::post('checklist-contract/{checklistContract}/titleChecklist/{titleChecklist}' , 'ContractChecklistController@changeStatus');
             Route::post('process/checklist-contract/{checklistContract}' ,'ContractChecklistController@setContractChecklistProcess');
             Route::get('process/checklist-contract/{checklistContract}' ,'ContractChecklistController@getLastChecklistProcess');
-            Route::get('reverse/checklist-contract/{checklistContract}' ,'ContractChecklistController@getChecklistReverse');
+            Route::get('reverse/checklist-contract/{checklistContract}' ,[ContractChecklistController::class,'getChecklistReverse']);
             Route::get('checklist-contract/{checklistContract}' , 'ContractChecklistController@checklistContract');
 
             Route::post('sign/contract/{contract}/checklist/{checklist}' ,'ContractChecklistController@managerSignChecklist');
@@ -124,8 +152,7 @@ Route::namespace( 'API' )->group( function () {
             Route::post('trainingSession'  , 'TrainingSessionController@store');
             Route::get('trainingSession/{ChecklistContract}'  , 'TrainingSessionController@getContractTrainingSession');
             Route::put('trainingSession/{TrainingSession}'  , 'TrainingSessionController@update');
-            Route::post('subTask'  , 'SubTaskController@subTasks');
-            Route::get('subTask/lastReply'  , [SubTaskController::class,'lastReply']);
+            Route::post('subTask'  , [SubTaskController::class,'subTasks']);
             Route::put('subTask/seen/{sub_task}' ,'SubTaskController@seenSubTask');
             Route::get('subTask/order' ,'SubTaskController@orderSubTask');
             Route::get('subTask/addKeyReverse' ,'SubTaskController@addKeySubTask');

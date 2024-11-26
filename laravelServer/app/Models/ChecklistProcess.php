@@ -39,6 +39,22 @@ class ChecklistProcess extends Model
             ->orderBy('order' , 'DESC');
     }
 
+    public function subError()
+    {
+        return $this->morphMany(SubTask::class, 'subtaskable')->with('lastReplies')->whereNull('parent_id')
+            ->where('status' , 'error');
+    }
+    public function subOffer()
+    {
+        return $this->morphMany(SubTask::class, 'subtaskable')->with('lastReplies')->whereNull('parent_id')
+            ->where('status' , 'Offer');
+    }
+    public function subPeriodic()
+    {
+        return $this->morphMany(SubTask::class, 'subtaskable')->with('lastReplies')->whereNull('parent_id')
+            ->where('status' , 'Periodic');
+    }
+
     public function subTaskError(){
         return $this->hasMany(SubTask::class)->with('lastReplies')->whereNull('parent_id')->where('status' , 'error');
 
