@@ -57,10 +57,9 @@ class reverseProcess extends JsonResource
 
     function countReplies($comments)
     {
-
+        dd($this->id);
         $accept_count = 0;
         $reject_count = 0;
-        dd($comments);
         foreach ($comments as $comment) {
 
             if ($comment) {

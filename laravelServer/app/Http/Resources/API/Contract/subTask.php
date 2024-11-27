@@ -26,7 +26,6 @@ class subTask extends JsonResource
         $users = \App\Models\User::whereIn('id' , $users)->get();
 
         $todoList = $this->todoList()->where('status' , '!=' , 'stop')->get() ;
-//        dd($todoList->first());
         return [
             'id'               => $this->id,
             'users'            => new UserCollection($users),
