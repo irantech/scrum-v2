@@ -333,14 +333,11 @@ class TaskController extends Controller
     public function getFilteredTasks(Request $request)
     {
 
-        $section_id=$request->section_id;
-        $section_order = Section::find($request->section_id);
-        $manager = new UserController();
-        $user_id = $manager->findManager($section_order->order)->id;
-        dd(['$user_id'=>$user_id,
-            '$section_order->order'=>$section_order->order,
-            '$request->section_id'=>$request->section_id,
-            '$section_order'=>$section_order]);
+//        $section_id=$request->section_id;
+//        $section_order = Section::find($request->section_id);
+//        $manager = new UserController();
+//        $user_id = $manager->findManager($section_order->order)->id;
+
         $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
         $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
         $start_delivery_time = null;
