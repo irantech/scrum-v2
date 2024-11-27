@@ -21,6 +21,7 @@ class reverseProcess extends JsonResource
     {
 
         $count_error = $this->countReplies($this->subError);
+        dd(['$this->subError'=>$this->subError,'id'=>$this->id]);
         $count_offer = $this->countReplies($this->subOffer);
         $count_Periodic = $this->countReplies($this->subPeriodic);
 
@@ -57,7 +58,6 @@ class reverseProcess extends JsonResource
 
     function countReplies($comments)
     {
-        dd($this->id);
         $accept_count = 0;
         $reject_count = 0;
         foreach ($comments as $comment) {
