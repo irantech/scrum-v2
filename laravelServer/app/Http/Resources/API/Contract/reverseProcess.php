@@ -14,7 +14,7 @@ class reverseProcess extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -27,41 +27,43 @@ class reverseProcess extends JsonResource
         return [
             'id' => $this->id,
             'section' => new Section($this->section),
-            'user_section' => new User($this->getUserSection($this->checklist_contract_id ,$this->section)),
+            'user_section' => new User($this->getUserSection($this->checklist_contract_id, $this->section)),
             'date' => Verta::instance($this->created_at)->format((' j %B Y ')),
             'error_reverse_data' => [
-                'total_count'       => count($this->subError),
-                'accept_count'      => $count_error ? $count_error['accept_count'] : 0,
-                'reject_count'      => $count_error ? $count_error['reject_count'] : 0,
+                'total_count' => count($this->subError),
+                'accept_count' => $count_error ? $count_error['accept_count'] : 0,
+                'reject_count' => $count_error ? $count_error['reject_count'] : 0,
             ],
             'offer_reverse_data' => [
-                'total_count'       => count($this->subOffer),
-                'accept_count'      => $count_offer ?  $count_offer['accept_count'] :  0,
-                'reject_count'      => $count_offer ? $count_offer['reject_count'] : 0,
+                'total_count' => count($this->subOffer),
+                'accept_count' => $count_offer ? $count_offer['accept_count'] : 0,
+                'reject_count' => $count_offer ? $count_offer['reject_count'] : 0,
             ],
             'periodic_reverse_data' => [
-                'total_count'       => count($this->subPeriodic),
-                'accept_count'      => $count_Periodic ? $count_Periodic['accept_count'] : 0 ,
-                'reject_count'      => $count_Periodic ? $count_Periodic['reject_count'] :0,
+                'total_count' => count($this->subPeriodic),
+                'accept_count' => $count_Periodic ? $count_Periodic['accept_count'] : 0,
+                'reject_count' => $count_Periodic ? $count_Periodic['reject_count'] : 0,
             ],
         ];
     }
 
-    private function getUserSection($contract_checklist , $section){
+    private function getUserSection($contract_checklist, $section)
+    {
 
         $contract_checklist = \App\Models\ChecklistContract::find($contract_checklist);
-        $user = $contract_checklist->titleChecklistUser->where('section_id' , $section->id)->first();
+        $user = $contract_checklist->titleChecklistUser->where('section_id', $section->id)->first();
         return \App\Models\User::find($user->user_id);
     }
 
-    function countReplies($comments) {
+    function countReplies($comments)
+    {
 
         $accept_count = 0;
         $reject_count = 0;
-
+        dd($comments);
         foreach ($comments as $comment) {
 
-            if($comment) {
+            if ($comment) {
 
                 $reply = $comment->lastReplies()->first();
                 if ($reply['status'] == 'accept') {
@@ -77,11 +79,10 @@ class reverseProcess extends JsonResource
 
         }
         return [
-            'accept_count' => $accept_count ,
-            'reject_count' => $reject_count ,
+            'accept_count' => $accept_count,
+            'reject_count' => $reject_count,
         ];
     }
-
 
 
 }

@@ -69,7 +69,6 @@ class ToDoList extends JsonResource
 
         $total_task_time = calculatePeriodOfTimeInMinutes($task_time->task_day_duration , $task_time->task_time_duration );
         $total_interval_task_time = calculatePeriodOfTimeInMinutes($task_time->interval_day_duration  , $task_time->interval_time_duration );
-
         $total_task_duration_in_minute = $total_task_time + $total_interval_task_time ;
 
         if($total_diff_minute != '0' ) {
