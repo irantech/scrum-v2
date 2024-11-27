@@ -17,7 +17,7 @@ class sumProceess extends JsonResource
     {
         list($hours, $minutes, $seconds) = explode(':', $this->sum);
 
-        $days = floor($hours / 24);
+        $days = (int)(floor($hours / 24));
         $remainingHours = $hours % 24;
 
         return [
