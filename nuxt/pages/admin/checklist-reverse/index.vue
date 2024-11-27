@@ -44,7 +44,7 @@ export default {
       this.$axios.post('subTask' , this.form)
         .then(response => {
           this.checklist_reverse = response.data.data;
-          this.tasks = response.data.tasks;
+          // this.tasks = response.data.tasks;
         })
         .catch(error => reject(error)).finally(() => {
         this.data_get_loading = false
