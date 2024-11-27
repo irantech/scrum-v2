@@ -37,7 +37,6 @@ class TaskController extends Controller
 
     public function getFeatureTask()
     {
-//        dd('ok');
         $tasks=Task::where('feature','yes')->get();
         $data = new GetFeartureTasksCollection($tasks);
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);
@@ -338,9 +337,7 @@ class TaskController extends Controller
         $section_order = Section::find($request->section_id);
         $manager = new UserController();
         $user_id = $manager->findManager($section_order->order)->id;
-//        dd($user_id);
         $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
-//        dd($start_date);
         $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
         $start_delivery_time = null;
         $end_delivery_time = null;
@@ -350,7 +347,6 @@ class TaskController extends Controller
         if (isset($request['end_delivery_date']) && !empty($request['end_delivery_date'])) {
             $end_delivery_time = Verta::parse($request['end_delivery_date'])->datetime()->format('y-m-d');
         }
-//        dd(Auth::user()->id);
         $task_model = new Task();
         DB::enableQueryLog();
         $task_list =$task_model

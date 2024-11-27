@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\API\Contract\ContractChecklistController;
 use App\Http\Controllers\API\Contract\SubTaskController;
-use App\Http\Controllers\API\InitialDesignController;
+use App\Http\Controllers\API\InitialDesign\InitialDesignController;
 use App\Http\Controllers\API\Questions\QuestionController;
 use App\Http\Controllers\API\Requests\MeetingDetailController;
 use App\Http\Controllers\API\Requests\MeetingsController;

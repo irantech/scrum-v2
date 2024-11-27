@@ -47,13 +47,12 @@ class SubTaskController extends Controller
         }
 
 
-        $x=$task->subtasks()->create([
+        $task->subtasks()->create([
             'status' => $request->status,
             'description' => $request->body,
             'order' => $last_sub_task ? $last_sub_task->order + 1  : '1',
             'user_id' => Auth::user()->id,
         ]);
-        dd($x);
 
 
         $sub_task = $task->subtasks()->orderBy('created_at' , 'desc')->first();
