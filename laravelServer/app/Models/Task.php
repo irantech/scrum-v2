@@ -12,7 +12,7 @@ class Task extends Model
     protected $table = 'tasks';
 
     use SoftDeletes , Timestamp ;
-    protected $fillable = ['title' , 'user_id'];
+    protected $guarded=[];
 
     public function user() {
         return $this->belongsTo(User::class) ;

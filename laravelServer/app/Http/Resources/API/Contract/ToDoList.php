@@ -19,7 +19,6 @@ class ToDoList extends JsonResource
     public function toArray($request)
     {
 
-
         $todo_progress = $this->todoStatusTime($this);
         return [
             'id'            => $this->id ,
@@ -43,7 +42,6 @@ class ToDoList extends JsonResource
 
 
         $total_diff_minute = calculatePeriodOfTimeInMinutes($diff_day  , $diff_time );
-
         if($todo->todoable_type == 'App\Models\ChecklistContract') {
         $checklist = \App\Models\ChecklistContract::find($todo->todoable_id)->checklist;
         }else if($todo->todoable_type == 'App\Models\Task'){
