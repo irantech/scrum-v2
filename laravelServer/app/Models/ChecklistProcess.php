@@ -41,7 +41,7 @@ class ChecklistProcess extends Model
 
     public function subError()
     {
-        return $this->morphMany(SubTask::class, 'subtaskable')->with('lastReplies')->whereNull('parent_id')
+        return $this->morphMany(SubTask::class, 'subtaskable')->whereNull('parent_id')
             ->where('status' , 'error');
     }
     public function subOffer()
