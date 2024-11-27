@@ -73,12 +73,6 @@ class reverseProcess extends JsonResource
 
 
                 }
-//                if($reply['status'] == 'accept') {
-//                    $accept_count ++ ;
-//                }else{
-//                    $reject_count ++ ;
-//                }
-            }
 
         }
         return [
