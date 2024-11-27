@@ -46,12 +46,12 @@ class ChecklistProcess extends Model
     }
     public function subOffer()
     {
-        return $this->morphMany(SubTask::class, 'subtaskable')->with('lastReplies')->whereNull('parent_id')
+        return $this->morphMany(SubTask::class, 'subtaskable')->whereNull('parent_id')
             ->where('status' , 'Offer');
     }
     public function subPeriodic()
     {
-        return $this->morphMany(SubTask::class, 'subtaskable')->with('lastReplies')->whereNull('parent_id')
+        return $this->morphMany(SubTask::class, 'subtaskable')->whereNull('parent_id')
             ->where('status' , 'Periodic');
     }
 
