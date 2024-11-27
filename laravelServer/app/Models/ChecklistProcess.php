@@ -47,12 +47,12 @@ class ChecklistProcess extends Model
     public function subOffer()
     {
         return $this->morphMany(SubTask::class, 'subtaskable')->whereNull('parent_id')
-            ->where('status' , 'Offer');
+            ->where('status' , 'offer');
     }
     public function subPeriodic()
     {
         return $this->morphMany(SubTask::class, 'subtaskable')->whereNull('parent_id')
-            ->where('status' , 'Periodic');
+            ->where('status' , 'periodical');
     }
 
     public function subTaskError(){
