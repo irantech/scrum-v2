@@ -20,8 +20,8 @@ class reverseProcess extends JsonResource
     public function toArray($request)
     {
 
-        $count_error = $this->countReplies($this->subError);
         dd(['$this->subError'=>$this->subError,'id'=>$this->id]);
+        $count_error = $this->countReplies($this->subError);
         $count_offer = $this->countReplies($this->subOffer);
         $count_Periodic = $this->countReplies($this->subPeriodic);
 
