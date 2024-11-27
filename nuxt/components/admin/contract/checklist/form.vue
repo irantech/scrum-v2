@@ -1,4 +1,5 @@
-<script src="../../../../../../karavel/nuxtServer/nuxt.config.js"></script>
+<script src="../../../../../../karavel/nuxtServer/nuxt.config.js">
+</script>
 <template>
   <div class="col-12 m-auto my-4 parent-padding">
     <nuxt-link class="btn-link" v-if="$route.params.id != 207  " :to="`/admin/contract-checklist/${checklistContract.id}/pdf`">
@@ -20,7 +21,6 @@
                 اختصاص دادن کاربران
               </nuxt-link>
             </p>
-
             <div>
               <div class="mb-2 contract-option ">
                 <div class="d-flex">
@@ -62,6 +62,10 @@
                 <div class="d-flex flex-wrap">
                   <div class="border p-2 justify-content-center align-items-center contract-info-cell" v-for="(section , index) in contractTitleChecklistSection" :key="index">
                     <span>{{ section.section.title }}</span> :  {{section.user.name}}
+                  </div>
+                  <div class="border p-2 justify-content-center align-items-center contract-info-cell">
+                    لینک طرح :
+                    <a :href="contract.theme_link" class="btn-link" target="_blank">{{contract.theme_link}}</a>
                   </div>
                 </div>
               </div>
