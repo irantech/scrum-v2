@@ -18,9 +18,7 @@ class sumProceess extends JsonResource
         list($hours, $minutes, $seconds) = explode(':', $this->sum);
 
         $days = (int)(floor($hours / 24));
-        $remainingHours = (int)$hours % 24;
-        $minutes=(int)$minutes;
-        $seconds=(int)$seconds;
+        $remainingHours = $hours % 24;
         return [
 //            'section'     => new Section($this->section),
             'section'     => [
