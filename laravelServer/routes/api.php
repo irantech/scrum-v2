@@ -236,7 +236,7 @@ Route::namespace( 'API' )->group( function () {
             Route::resource('taskLabel' , 'TaskLabelController');
             Route::put( 'taskLabel/{id}/restore', 'TaskLabelController@restore' );
             Route::resource('task' , 'TaskController');
-            Route::post('getTask' , [TaskController::class,'getFilteredTasks']);
+            Route::post('getTask' , 'TaskController@getFilteredTasks');
             Route::put('task/{id}/setTime' , 'TaskController@updateDeliveryTime');
             Route::post('task/list/period/{id}' , 'TaskController@getTaskListPeriod');
             Route::put('assignSubTask/{task}' , 'TaskController@setTaskUser');
