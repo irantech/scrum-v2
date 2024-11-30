@@ -28,7 +28,7 @@ class sumProceess extends JsonResource
                                 "order"=> $this->order,
                                 "color"=> $this->color
                                 ],
-            'sumTime'     => $this->sum ? "$days "."days "."( $remainingHours : ". "$minutes: "."$seconds )": 0
+            'sumTime'     => $this->sum ? $days ."days "."( $remainingHours : ". "$minutes: "."$seconds )": 0
         ];
     }
 }
