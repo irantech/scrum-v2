@@ -69,6 +69,13 @@
             </Select>
           </FormItem>
         </div>
+        <div class="col-12 col-md-4">
+          <FormItem prop="section" class="mb-2">
+            <Select v-model="searchForm.section_id" placeholder="انتخاب کنید">
+              <Option v-for="(section , index) in sectionList"  :key="index" :value="section.id">{{ section.title }}</Option>
+            </Select>
+          </FormItem>
+        </div>
         <div class="col-2">
           <Button type="success" :loading="searchLoading" html-type="submit">جستجو</Button>
         </div>
@@ -337,7 +344,7 @@ export default {
       this.$store.dispatch('admin/task/LoadSingleTask' , {id : task_id} ).finally(() => {
         this.single_task_loading = false
       })
-    }
+    },
   },
   computed : {
     ...mapState('admin/task' , ['singleTask']),
@@ -370,9 +377,12 @@ export default {
         })
       }
       return list
-    }
+    },
   },
 }
+
+
+
 </script>
 
 <style >

@@ -27,7 +27,8 @@ export default {
         contract  : '' ,
         title : '' ,
         has_delivery : '' ,
-        status : ''
+        status : '',
+        section_id : ''
       },
     }
   },
