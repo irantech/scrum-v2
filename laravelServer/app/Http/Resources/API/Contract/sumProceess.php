@@ -18,8 +18,9 @@ class sumProceess extends JsonResource
         list($hours, $minutes, $seconds) = explode(':', $this->sum);
 
         $days = (int)(floor($hours / 24));
-        $remainingHours = $hours % 24;
-
+        $remainingHours = (int)$hours % 24;
+        $minutes=(int)$minutes;
+        $seconds=(int)$seconds;
         return [
 //            'section'     => new Section($this->section),
             'section'     => [
@@ -28,7 +29,7 @@ class sumProceess extends JsonResource
                                 "order"=> $this->order,
                                 "color"=> $this->color
                                 ],
-            'sumTime'     => $this->sum ? $days ."days "."( $remainingHours : ". "$minutes: "."$seconds )": 0
+            'sumTime'     => $this->sum ? $days ." days "."( ".$remainingHours." : ".$minutes." : ".$seconds." )": 0
         ];
     }
 }
