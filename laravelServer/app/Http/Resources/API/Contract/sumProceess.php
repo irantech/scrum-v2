@@ -15,12 +15,11 @@ class sumProceess extends JsonResource
      */
     public function toArray($request)
     {
-//        dd($this->sum);
+//        dd($this);
         list($hours, $minutes, $seconds) = explode(':', $this->sum);
 
         $days = (int)(floor($hours / 24));
         $remainingHours = $hours % 24;
-        $seconds=(int)$seconds;
         return [
 //            'section'     => new Section($this->section),
             'section'     => [

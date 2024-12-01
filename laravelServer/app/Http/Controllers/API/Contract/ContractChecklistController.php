@@ -122,9 +122,9 @@ class ContractChecklistController extends Controller
 
         $checklist_process = $checklistContract->checklistProcess()
             ->groupBy('section_id')
+            ->where('duration','!=',null)
             ->selectRaw('* , SEC_TO_TIME(sum(TIME_TO_SEC(duration))) as sum')
             ->get();
-
 
 
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => new sumProceessCollection($checklist_process)], Response::HTTP_OK);
