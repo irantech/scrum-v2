@@ -15,6 +15,7 @@ class sumProceess extends JsonResource
      */
     public function toArray($request)
     {
+//        dd($this->sum);
         list($hours, $minutes, $seconds) = explode(':', $this->sum);
 
         $days = (int)(floor($hours / 24));
