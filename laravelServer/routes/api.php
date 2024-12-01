@@ -39,7 +39,8 @@ Route::prefix( 'meetings' )->middleware(('auth:api'))->group( function () {
 
 //---------------------------------------------------------- meetingsdetails
 Route::prefix( 'meetingsdetails' )->middleware(('auth:api'))->group( function () {
-    Route::post('store',[MeetingDetailController::class,'store']);
+    Route::post('store',[MeetingDetailController::class,'sl
+    tore']);
     Route::get('index',[MeetingDetailController::class,'index']);
     Route::get('show/{meetingsDetails}',[MeetingDetailController::class,'show']);
     Route::post('update/{meetingDetail}',[MeetingDetailController::class,'update']);
