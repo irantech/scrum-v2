@@ -31,10 +31,8 @@ class ToDoList extends JsonResource
     public function todoStatusTime($todo){
 
 
-
         $starting_time = Carbon::parse($todo->starting_time)  ;
         $ending_time = Carbon::parse($todo->ending_time)  ;
-
 
 
         $diff_time = $ending_time->diff($starting_time)->format('%H:%I:%S');
@@ -70,7 +68,6 @@ class ToDoList extends JsonResource
         $total_task_time = calculatePeriodOfTimeInMinutes($task_time->task_day_duration , $task_time->task_time_duration );
         $total_interval_task_time = calculatePeriodOfTimeInMinutes($task_time->interval_day_duration  , $task_time->interval_time_duration );
         $total_task_duration_in_minute = $total_task_time + $total_interval_task_time ;
-
         if($total_diff_minute != '0' ) {
 
             $percent_past = ( $total_diff_minute * 100 ) / $total_task_duration_in_minute ;
@@ -78,9 +75,9 @@ class ToDoList extends JsonResource
             if($percent_past > 100) {
                 $time_extend = $total_diff_minute - $total_task_duration_in_minute ;
 
-                $how_many_days = intdiv($time_extend , enV("EACH_DAY_MINUTE_TIME")) ;
+                $how_many_days = intdiv($time_extend , env("EACH_DAY_MINUTE_TIME")) ;
 
-                $remaining_minutes = $time_extend - ( $how_many_days * enV("EACH_DAY_MINUTE_TIME") );
+                $remaining_minutes = $time_extend - ( $how_many_days * env("EACH_DAY_MINUTE_TIME") );
                 $how_much_time = intdiv($remaining_minutes, 60).':'. ($remaining_minutes % 60) . ':00' ;
                 $total_extra_time = $how_many_days . ' ' . $how_much_time;
 
