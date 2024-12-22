@@ -13,6 +13,7 @@ use App\Http\Resources\API\Task\Task as TaskResource;
 use App\Http\Resources\API\Task\TaskCollection;
 use App\Models\Section;
 use App\Models\Task;
+use App\Models\User;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
@@ -41,14 +42,39 @@ class TaskController extends Controller
         $data = new GetFeartureTasksCollection($tasks);
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);
     }
-    public function showTasks()
+    public function showTasks(Request $request)
     {
-        $tasks = Task::with('user')->get();
+        $user_id="";
+        $reference_user_id="";
+        $reference_user=User::where('name',$request->reference_user)->first();
+        $user = User::where('name', $request->user_name)->first();
+        if($reference_user )
+            $reference_user_id=$reference_user->id;
+        if($user)
+            $user_id=$user->id;
+        $tasks = Task::with('user')
+            ->when($user_id ?? null, function ($q) use ($user_id) {
+                $q->where('user_id', $user_id);
+            })
+            ->when($reference_user_id ?? null, function ($q) use ($reference_user_id) {
+                $q->whereHas('todoList', function ($query) use ($reference_user_id) {
+                    $query->where('user_id', $reference_user_id)
+                        ->orderBy('created_at')
+                        ->limit(1);
+                });
+            })->get();
+
         $data = new TaskCollection($tasks);
         return \response()->json([
             'status' => 'true',
             'data' => $data
         ]);
+
+
+
+
+
+
     }
 
     /**
