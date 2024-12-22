@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\API\Contract\ContractChecklistController;
 use App\Http\Controllers\API\Contract\SubTaskController;
+use App\Http\Controllers\API\Customer\CustomerController;
+use App\Http\Controllers\API\DeliveryTime\CloseToDeliveryTime;
+use App\Http\Controllers\API\DeliveryTime\CloseToDeliveryTimeController;
 use App\Http\Controllers\API\InitialDesign\InitialDesignController;
 use App\Http\Controllers\API\Questions\QuestionController;
 use App\Http\Controllers\API\Requests\MeetingDetailController;
@@ -58,7 +61,11 @@ Route::prefix( 'questions' )->middleware(('auth:api'))->group( function () {
     Route::post('question_to_task',[QuestionController::class,'questionToTask']);
 });
 
+//---------------------------------------------------------- Close to delivery time
+Route::prefix( 'Close-to-delivery-time' )->middleware(('auth:api'))->group( function () {
+    Route::get('/tasks',[CloseToDeliveryTimeController::class,'showDeliveryTasks']);
 
+});
 
 //----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -250,7 +257,7 @@ Route::namespace( 'API' )->group( function () {
     Route::get('showTasks',[TaskController::class,'showTasks']);
 
     Route::group(['namespace' => 'Customer'] , function(){
-        Route::any( 'customer/{hash}/get-contracts', 'CustomerController@CustomerProjectsByHash' );
+        Route::any( 'customer/{hash}/get-contracts', [CustomerController::class,'CustomerProjectsByHash'] );
         Route::get( 'customer/{hash}/contract/{contract}/stats', 'CustomerController@CustomerProjectStatus' );
         Route::get( 'customer/{hash}/get-complete-percentage/{count}', 'CustomerController@CompletePercentageProjectsByHash' );
     });
