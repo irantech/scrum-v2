@@ -121,6 +121,7 @@ class CustomerController extends Controller {
             ,  'contracts.checklistContract'=> function($q) {
                 $q->where( 'checklist_id', '5');
                 $q->orWhere( 'checklist_id', '8');
+                $q->orWhere( 'checklist_id', '7');
             }])->first();
         $cid = new Report($customer);
         if ( $cid ) {
