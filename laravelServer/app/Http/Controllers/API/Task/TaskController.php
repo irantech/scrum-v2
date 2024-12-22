@@ -333,10 +333,13 @@ class TaskController extends Controller
     public function getFilteredTasks(Request $request)
     {
 
+        //-------------------------------------------------------------------------
+
 //        $section_id=$request->section_id;
 //        $section_order = Section::find($request->section_id);
 //        $manager = new UserController();
 //        $user_id = $manager->findManager($section_order->order)->id;
+//-------------------------------------------------------------------------
 
         $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
         $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
@@ -351,32 +354,18 @@ class TaskController extends Controller
         $task_model = new Task();
         DB::enableQueryLog();
         $task_list =$task_model
-
-
-//        ->whereHas('todoList', function ($query) use ($user_id) {
-//            $query->where('user_id', $user_id);
-//        })->with('todoList')
-
-//        join('todo_lists as tl', function ($join) {
-//            $join->on('tl.todoable_id', '=', 'tasks.id')
-//                ->where('tl.todoable_type', '=', 'App\Models\Task');
-//        })
-//            ->where('tl.user_id', $user_id)
-//            ->select('tasks.*')
-
-
-            ->where('user_id', Auth::user()->id)
-            ->whereDate('created_at', '>=', $start_date)
-            ->whereDate('created_at', '<=', $end_date)
-            ->Where('status', '!=', 'complete')
+            ->where('tasks.user_id', Auth::user()->id)
+            ->whereDate('tasks.created_at', '>=', $start_date)
+            ->whereDate('tasks.created_at', '<=', $end_date)
+            ->Where('tasks.status', '!=', 'complete')
             ->when($request['contract'] ?? null, function ($q) use ($request) {
-                $q->where('contract_id', $request['contract']);
+                $q->where('tasks.contract_id', $request['contract']);
             })
             ->when($request['title'] ?? null, function ($q) use ($request) {
-                $q->Where('title', 'like', '%' . $request['title'] . '%');
+                $q->Where('tasks.title', 'like', '%' . $request['title'] . '%');
             })
             ->when($request['status'] ?? null, function ($q) use ($request) {
-                $q->Where('status', $request['status']);
+                $q->Where('tasks.status', $request['status']);
             })
             ->when($request['has_delivery'] ?? null, function ($q) use ($request) {
                 if ($request['has_delivery'] == '1') {
@@ -390,38 +379,26 @@ class TaskController extends Controller
             })
             ->when($request['end_delivery_date'] ?? null, function ($q) use ($end_delivery_time) {
                 $q->whereDate('delivery_time', '<=', $end_delivery_time);
-            })->orderBy('delivery_time', 'desc')->orderBy('created_at', 'desc')->get();
+            })
+
+
+            ->orderBy('tasks.delivery_time', 'desc')->orderBy('tasks.created_at', 'desc')
+            ->get();
 
         $task_id_list = $task_list->pluck('id');
 
-        $unDoneTaskList = $task_model->where('user_id', Auth::user()->id)->where(function ($query) use ($task_id_list) {
-            $query->whereNotIn('id', $task_id_list)->whereNull('delivery_time')->orwhere('status', '!=', 'complete');
+        $unDoneTaskList = $task_model->where('tasks.user_id', Auth::user()->id)->where(function ($query) use ($task_id_list) {
+            $query->whereNotIn('tasks.id', $task_id_list)->whereNull('delivery_time')->orwhere('tasks.status', '!=', 'complete');
         })->get();
-//            ->map(function ($item) use($section_id)
-//        {
-//            $item['section_id'] = $section_id;
-//            return $item;
-//        });
+
 
         $merged = $task_list->merge($unDoneTaskList);
 
         $task_list = $merged->all();
 
-//        dd(DB::getQueryLog());
-//        dd($task_list);
-//        foreach ($task_list as $task)
-//        {
-//            var_dump([
-//                'task->id'=>$task->id,
-//                '$task->todolist->id'=>$task->todoList->first()->id,
-//            ]);
-//        }
-
 
         $data = new TaskCollection($task_list);
 
-//        $result = json_decode(json_encode($data, true),true);
-//        $data=array_filter($result);
 
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);
     }
