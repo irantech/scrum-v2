@@ -21,6 +21,10 @@ class User extends Authenticatable
 
 //--------------------------------------------------------------------------------------
 
+    public function scores()
+    {
+        return $this->belongsToMany(Score::class);
+    }
     public function meetingDetails()
     {
         return $this->hasMany(MeetingDetail::class);
