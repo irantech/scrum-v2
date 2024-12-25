@@ -333,8 +333,10 @@ class TaskController extends Controller
 
     public function getFilteredTasks(Request $request)
     {
+        $flag=1;
         if($request->status == ''){
             $request['status']='running';
+            $flag=0;
         }
 //        $section_id=$request->section_id;
 //        $section_order = Section::find($request->section_id);
@@ -373,10 +375,14 @@ class TaskController extends Controller
                 })
                 ->when($request['title'] ?? null, function ($q) use ($request) {
                     $q->Where('title', 'like', '%' . $request['title'] . '%');
-                })
-                ->when($request['status'] ?? null, function ($q) use ($request) {
+                });
+            if($flag)
+            {
+                $task_list=$task_list->when($request['status'] ?? null, function ($q) use ($request,$flag) {
                     $q->Where('status', $request['status']);
-                })
+                });
+            }
+        $task_list=$task_list
                 ->when($request['has_delivery'] ?? null, function ($q) use ($request) {
                     if ($request['has_delivery'] == '1') {
                         $q->whereNull('delivery_time');
@@ -392,6 +398,11 @@ class TaskController extends Controller
                 })->orderBy('delivery_time', 'desc')->orderBy('created_at', 'desc')->get();
 
             $task_id_list = $task_list->pluck('id');
+            if($flag){
+                $unDoneTaskList = $task_model->where('user_id', Auth::user()->id)->where(function ($query) use ($task_id_list) {
+                    $query->whereNotIn('id', $task_id_list)->whereNull('delivery_time')->orwhere('status', '!=', 'complete');
+                })->get();
+                $merged = $task_list->merge($unDoneTaskList);
 
             $unDoneTaskList = $task_model->where('user_id', Auth::user()->id)->where(function ($query) use ($task_id_list) {
                 $query->whereNotIn('id', $task_id_list)->whereNull('delivery_time')->orwhere('status', '!=', 'complete');
@@ -404,7 +415,9 @@ class TaskController extends Controller
 
             $merged = $task_list->merge($unDoneTaskList);
 
-            $task_list = $merged->all();
+                $task_list = $merged->all();
+            }
+
 
 //        dd(DB::getQueryLog());
 //        dd($task_list);
@@ -416,6 +429,9 @@ class TaskController extends Controller
 //            ]);
 //        }
 
+
+//        $queries = DB::getQueryLog();
+//        dd($queries);
 
             $data = new TaskCollection($task_list);
 
