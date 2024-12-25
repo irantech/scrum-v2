@@ -4,6 +4,7 @@ export const state = () => ({
   taskList: [] ,
   activeSubTask : '' ,
   selectedSubTask : [] ,
+  allTask : [] ,
   showTask : false
 })
 
@@ -21,6 +22,9 @@ function findSubTask(list , subtask_id){
     return  result ? result : null;
 
 }
+
+
+
 export const mutations = {
   SET_TASK_LABEL_LIST : (state, taskLabelList)  => {
     state.taskLabelList = taskLabelList;
@@ -30,6 +34,9 @@ export const mutations = {
   } ,
   SET_TASK_LIST : (state, taskList)  => {
     state.taskList = taskList;
+  } ,
+  ALL_TASK : (state, allTask)  => {
+    state.allTask = allTask;
   } ,
   SET_SINGLE_TASK : (state, task)  => {
     state.singleTask = task
@@ -65,7 +72,7 @@ export const mutations = {
     label.trashed = true
   },
   REMOVE_TASK : (state , payload) => {
-   
+
     let task = state.taskList.find(task => task.id == payload.id.toString())
 
     task.status = 'complete'
@@ -147,7 +154,7 @@ export const actions = {
   async LoadTaskLabelList(state) {
     this.$axios.get('taskLabel')
       .then(response => {
-        state.commit('SET_TASK_LABEL_LIST', response.data.data)
+        state.commit('SET_ALL_LIST', response.data.data)
       })
       .catch(error => console.log(error))
   } ,
@@ -235,6 +242,18 @@ export const actions = {
       .catch(error => console.log(error))
     });
   } ,
+
+  async AllTask(state , payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios.get('showTasks')
+        .then(response => {
+          state.commit('ALL_TASK', response.data.data)
+          resolve(response)
+        })
+        .catch(error => console.log(error))
+    });
+  } ,
+
   async LoadSingleTask(state , payload) {
     state.commit('FREE_SINGLE_TASK')
     return new Promise((resolve, reject) => {
