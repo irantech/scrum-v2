@@ -247,7 +247,7 @@ Route::namespace( 'API' )->group( function () {
         Route::middleware('scope:admin-handle-sms-templates')
             ->apiResource('smsTemplate' , 'SmsTemplateController');
     });
-    Route::get('showTasks',[TaskController::class,'showTasks']);
+    Route::post('showTasks',[TaskController::class,'showTasks']);
 
     Route::group(['namespace' => 'Customer'] , function(){
         Route::any( 'customer/{hash}/get-contracts', 'CustomerController@CustomerProjectsByHash' );
