@@ -399,10 +399,7 @@ class TaskController extends Controller
 
             $task_id_list = $task_list->pluck('id');
             if($flag){
-                $unDoneTaskList = $task_model->where('user_id', Auth::user()->id)->where(function ($query) use ($task_id_list) {
-                    $query->whereNotIn('id', $task_id_list)->whereNull('delivery_time')->orwhere('status', '!=', 'complete');
-                })->get();
-                $merged = $task_list->merge($unDoneTaskList);
+         
 
             $unDoneTaskList = $task_model->where('user_id', Auth::user()->id)->where(function ($query) use ($task_id_list) {
                 $query->whereNotIn('id', $task_id_list)->whereNull('delivery_time')->orwhere('status', '!=', 'complete');
