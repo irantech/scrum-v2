@@ -338,6 +338,10 @@ class TaskController extends Controller
             $request['status']='running';
             $flag=0;
         }
+//        $section_id=$request->section_id;
+//        $section_order = Section::find($request->section_id);
+//        $manager = new UserController();
+//        $user_id = $manager->findManager($section_order->order)->id;
 
             $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
             $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
@@ -352,6 +356,16 @@ class TaskController extends Controller
             $task_model = new Task();
             DB::enableQueryLog();
             $task_list =$task_model
+//        ->whereHas('todoList', function ($query) use ($user_id) {
+//            $query->where('user_id', $user_id);
+//        })->with('todoList')
+
+//        join('todo_lists as tl', function ($join) {
+//            $join->on('tl.todoable_id', '=', 'tasks.id')
+//                ->where('tl.todoable_type', '=', 'App\Models\Task');
+//        })
+//            ->where('tl.user_id', $user_id)
+//            ->select('tasks.*')
                 ->where('user_id', Auth::user()->id)
                 ->whereDate('created_at', '>=', $start_date)
                 ->whereDate('created_at', '<=', $end_date)
@@ -385,15 +399,32 @@ class TaskController extends Controller
 
             $task_id_list = $task_list->pluck('id');
             if($flag){
-                $unDoneTaskList = $task_model->where('user_id', Auth::user()->id)->where(function ($query) use ($task_id_list) {
-                    $query->whereNotIn('id', $task_id_list)->whereNull('delivery_time')->orwhere('status', '!=', 'complete');
-                })->get();
-                $merged = $task_list->merge($unDoneTaskList);
+         
+
+            $unDoneTaskList = $task_model->where('user_id', Auth::user()->id)->where(function ($query) use ($task_id_list) {
+                $query->whereNotIn('id', $task_id_list)->whereNull('delivery_time')->orwhere('status', '!=', 'complete');
+            })->get();
+//            ->map(function ($item) use($section_id)
+//        {
+//            $item['section_id'] = $section_id;
+//            return $item;
+//        });
+
+            $merged = $task_list->merge($unDoneTaskList);
 
                 $task_list = $merged->all();
             }
 
 
+//        dd(DB::getQueryLog());
+//        dd($task_list);
+//        foreach ($task_list as $task)
+//        {
+//            var_dump([
+//                'task->id'=>$task->id,
+//                '$task->todolist->id'=>$task->todoList->first()->id,
+//            ]);
+//        }
 
 
 //        $queries = DB::getQueryLog();
@@ -401,8 +432,8 @@ class TaskController extends Controller
 
             $data = new TaskCollection($task_list);
 
-
-
+//        $result = json_decode(json_encode($data, true),true);
+//        $data=array_filter($result);
 
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);
     }
