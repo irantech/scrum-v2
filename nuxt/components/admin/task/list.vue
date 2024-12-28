@@ -93,6 +93,8 @@
         <FormItem label="عنوان" prop="title" class="col-12">
           <Input v-model="formCreate.title"></Input>
         </FormItem>
+
+
         <FormItem label="لینک طرح" class="col-6">
           <Input v-model="formCreate.theme_link"></Input>
         </FormItem>
