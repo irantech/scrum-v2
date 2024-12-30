@@ -6,6 +6,7 @@ use App\Http\Controllers\API\InitialDesign\InitialDesignController;
 use App\Http\Controllers\API\Questions\QuestionController;
 use App\Http\Controllers\API\Requests\MeetingDetailController;
 use App\Http\Controllers\API\Requests\MeetingsController;
+use App\Http\Controllers\API\Score\ScoreController;
 use App\Http\Controllers\API\Task\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,9 +58,11 @@ Route::prefix( 'questions' )->middleware(('auth:api'))->group( function () {
     Route::post('answer/{question}',[QuestionController::class,'answer'])->middleware('scope:answer_question');
     Route::post('question_to_task',[QuestionController::class,'questionToTask']);
 });
-
-
-
+Route::prefix( 'scores' )->middleware(('auth:api'))->group( function () {
+    Route::get('score/checklist-contract/{checklistContract}', [ScoreController::class, 'score']);
+    Route::get('scores_all', [ScoreController::class, 'scoresAll']);
+    Route::get('persons_scores', [ScoreController::class, 'personsScores']);
+});
 //----------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -247,7 +250,7 @@ Route::namespace( 'API' )->group( function () {
         Route::middleware('scope:admin-handle-sms-templates')
             ->apiResource('smsTemplate' , 'SmsTemplateController');
     });
-    Route::get('showTasks',[TaskController::class,'showTasks']);
+    Route::post('showTasks',[TaskController::class,'showTasks']);
 
     Route::group(['namespace' => 'Customer'] , function(){
         Route::any( 'customer/{hash}/get-contracts', 'CustomerController@CustomerProjectsByHash' );
