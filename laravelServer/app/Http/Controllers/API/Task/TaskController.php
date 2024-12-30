@@ -6,11 +6,13 @@ use App\Http\Controllers\API\Contract\SubTaskController;
 use App\Http\Controllers\API\ToDoList\ToDoListController;
 use App\Http\Controllers\API\User\UserController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\API\Contract\ContractTasksCollection;
 use App\Http\Resources\API\Task\GetFeartureTasksCollection;
 use App\Http\Resources\API\Task\showTasks;
 use App\Http\Resources\API\Task\SingleTask;
 use App\Http\Resources\API\Task\Task as TaskResource;
 use App\Http\Resources\API\Task\TaskCollection;
+use App\Models\Contract;
 use App\Models\Section;
 use App\Models\Task;
 use App\Models\User;
@@ -45,27 +47,47 @@ class TaskController extends Controller
     }
     public function showTasks(Request $request)
     {
-        $user_id="";
-        $reference_user_id="";
-        $reference_user=User::where('name',$request->reference_user)->first();
+        $user_id = "";
+        $last_reference_user_id = "";
+        $last_reference_user = User::where('name', $request->last_reference_user)->first();
         $user = User::where('name', $request->user_name)->first();
-        if($reference_user )
-            $reference_user_id=$reference_user->id;
-        if($user)
-            $user_id=$user->id;
-        $tasks = Task::with('user')
-            ->when($user_id ?? null, function ($q) use ($user_id) {
-                $q->where('user_id', $user_id);
-            })
-            ->when($reference_user_id ?? null, function ($q) use ($reference_user_id) {
-                $q->whereHas('todoList', function ($query) use ($reference_user_id) {
-                    $query->where('user_id', $reference_user_id)
-                        ->orderBy('created_at')
-                        ->limit(1);
-                });
-            })->get();
+        if ($last_reference_user)
+            $last_reference_user_id = $last_reference_user->id;
+        if ($user)
+            $user_id = $user->id;
+        $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
+        $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
 
-        $data = new TaskCollection($tasks);
+
+//----------------------------------------------------------------
+        $contracts = Contract::whereHas('tasks.lastReferenceTodoList', function ($query) use($last_reference_user_id) {
+            $query->where('user_id', $last_reference_user_id)
+                ->whereIn('id', function ($subQuery) {
+                    $subQuery->selectRaw('max(id)')
+                        ->from('todo_lists')
+                        ->groupBy('todoable_id');
+                });
+        })
+            ->when($request['customer_id'] ?? null, function ($query) use ($request) {
+                $query->whereHas('customer', function ($query) use ($request) {
+                    $query->where('id', $request['customer_id']);
+                });
+            })
+            ->whereHas('tasks', function ($query) use ($start_date, $end_date) {
+                $query->whereDate('created_at', '>=', $start_date)
+                    ->whereDate('created_at', '<=', $end_date);
+            })
+            ->when($user_id ?? null, function ($query) use ($user_id) {
+                $query->whereHas('tasks.user', function ($query) use ($user_id) {
+                    $query->where('user_id', $user_id);
+                });
+            })
+
+            ->get();
+
+//        $queries = DB::getQueryLog();
+//        dd($queries);
+        $data = new ContractTasksCollection($contracts);
         return \response()->json([
             'status' => 'true',
             'data' => $data
@@ -419,7 +441,7 @@ class TaskController extends Controller
 
             $task_id_list = $task_list->pluck('id');
             if($flag){
-         
+
 
             $unDoneTaskList = $task_model->where('user_id', Auth::user()->id)->where(function ($query) use ($task_id_list) {
                 $query->whereNotIn('id', $task_id_list)->whereNull('delivery_time')->orwhere('status', '!=', 'complete');
@@ -447,10 +469,7 @@ class TaskController extends Controller
 //        }
 
 
-//        $queries = DB::getQueryLog();
-//        dd($queries);
-
-            $data = new TaskCollection($task_list);
+        $data = new TaskCollection($task_list);
 
 //        $result = json_decode(json_encode($data, true),true);
 //        $data=array_filter($result);

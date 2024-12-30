@@ -9,6 +9,7 @@ use App\Http\Controllers\API\InitialDesign\InitialDesignController;
 use App\Http\Controllers\API\Questions\QuestionController;
 use App\Http\Controllers\API\Requests\MeetingDetailController;
 use App\Http\Controllers\API\Requests\MeetingsController;
+use App\Http\Controllers\API\Score\ScoreController;
 use App\Http\Controllers\API\Task\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,6 +68,11 @@ Route::prefix( 'Close-to-delivery-time' )->middleware(('auth:api'))->group( func
 
 });
 
+Route::prefix( 'scores' )->middleware(('auth:api'))->group( function () {
+    Route::get('score/checklist-contract/{checklistContract}', [ScoreController::class, 'score']);
+    Route::get('scores_all', [ScoreController::class, 'scoresAll']);
+    Route::get('persons_scores', [ScoreController::class, 'personsScores']);
+});
 //----------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -254,10 +260,10 @@ Route::namespace( 'API' )->group( function () {
         Route::middleware('scope:admin-handle-sms-templates')
             ->apiResource('smsTemplate' , 'SmsTemplateController');
     });
-    Route::post('showTasks',[TaskController::class,'showTasks']);
+    Route::get('showTasks',[TaskController::class,'showTasks']);
 
     Route::group(['namespace' => 'Customer'] , function(){
-        Route::any( 'customer/{hash}/get-contracts', [CustomerController::class,'CustomerProjectsByHash'] );
+        Route::any( 'customer/{hash}/get-contracts', 'CustomerController@CustomerProjectsByHash' );
         Route::get( 'customer/{hash}/contract/{contract}/stats', 'CustomerController@CustomerProjectStatus' );
         Route::get( 'customer/{hash}/get-complete-percentage/{count}', 'CustomerController@CompletePercentageProjectsByHash' );
     });
