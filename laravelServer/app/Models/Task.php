@@ -30,6 +30,11 @@ class Task extends Model
     {
         return $this->morphMany(ToDoList::class, 'todoable');
     }
+    public function firstTodoList()
+    {
+        return $this->morphMany(ToDoList::class, 'todoable')->orderBy('id','asc');
+    }
+
     public function lastReferenceTodoList()
     {
         return $this->morphMany(ToDoList::class, 'todoable')->orderBy('created_at', 'desc')->limit(1);

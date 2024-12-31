@@ -374,8 +374,9 @@ class TaskController extends Controller
 
     public function getFilteredTasks(Request $request)
     {
-
         $flag = 1;
+        if ($request->section_id == 7)
+            $request['section_id'] = 2;
         if ($request->status == '') {
             $request['status'] = 'running';
             $flag = 0;
@@ -393,7 +394,17 @@ class TaskController extends Controller
         }
         $task_model = new Task();
         DB::enableQueryLog();
-        $task_list = $task_model
+        $task_list = $task_model->when($request['section_id'] ?? null, function ($q) use ($request) {
+            $q->whereHas('firstTodoList', function ($q) use ($request) {
+                $q->whereIn('id', function ($subQuery) {
+                    $subQuery->selectRaw('min(id)')
+                        ->from('todo_lists')
+                        ->groupBy('todoable_id');
+                })->whereHas('user.role', function ($q) use ($request) {
+                    $q->where('section_id', $request->section_id);
+                });
+            });
+        })
             ->where('user_id', Auth::user()->id)
             ->whereDate('created_at', '>=', $start_date)
             ->whereDate('created_at', '<=', $end_date)
