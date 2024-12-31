@@ -40,10 +40,11 @@ class TaskController extends Controller
 
     public function getFeatureTask()
     {
-        $tasks=Task::where('feature','yes')->get();
+        $tasks = Task::where('feature', 'yes')->get();
         $data = new GetFeartureTasksCollection($tasks);
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);
     }
+
     public function showTasks(Request $request)
     {
         $user_id = "";
@@ -59,7 +60,7 @@ class TaskController extends Controller
 
 
 //----------------------------------------------------------------
-        $contracts = Contract::whereHas('tasks.lastReferenceTodoList', function ($query) use($last_reference_user_id) {
+        $contracts = Contract::whereHas('tasks.lastReferenceTodoList', function ($query) use ($last_reference_user_id) {
             $query->where('user_id', $last_reference_user_id)
                 ->whereIn('id', function ($subQuery) {
                     $subQuery->selectRaw('max(id)')
@@ -81,7 +82,6 @@ class TaskController extends Controller
                     $query->where('user_id', $user_id);
                 });
             })
-
             ->get();
 
 //        $queries = DB::getQueryLog();
@@ -146,7 +146,7 @@ class TaskController extends Controller
         $task->contract_id = $request->contract_id;
         $task->site_link = $request->site_link;
         $task->theme_link = $request->theme_link;
-        $task->feature=$request->feature;
+        $task->feature = $request->feature;
         $task->save();
 
         $task->taskLabels()->sync($request->label_list);
