@@ -4,6 +4,12 @@ namespace App\Http\Resources\API\Score;
 
 use App\Http\Resources\API\Contract\reverseChecklist;
 use App\Http\Resources\API\Contract\reverseContract;
+use App\Http\Resources\API\Contract\reverseProcessCollection;
+use App\Http\Resources\API\User\User as User_resource;
+use App\Http\Resources\API\User\UserCollection;
+use App\Models\role;
+use App\Models\Section;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Score extends JsonResource
@@ -16,6 +22,7 @@ class Score extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'id'               => $this['id'],
             'users'            => $this['users'],
