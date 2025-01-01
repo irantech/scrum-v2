@@ -63,7 +63,7 @@ Route::prefix( 'questions' )->middleware(('auth:api'))->group( function () {
 //---------------------------------------------------------- scores
 Route::prefix( 'scores' )->middleware(('auth:api'))->group( function () {
     Route::get('score/checklist-contract/{checklistContract}', [ScoreController::class, 'score']);
-    Route::get('scores_all', [ScoreController::class, 'scoresAll']);
+    Route::post('scores_all', [ScoreController::class, 'scoresAll']);
     Route::get('persons_scores', [ScoreController::class, 'personsScores']);
 });
 //----------------------------------------------------------------------------------------------------------------------------------------
