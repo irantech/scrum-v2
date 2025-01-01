@@ -51,17 +51,19 @@ class ScoreController extends Controller
 
     }
 
-    public function scoresAll()
+    public function scoresAll(Request $request)
     {
-        $checklist_contracts = ChecklistContract::all();
-        foreach ($checklist_contracts as $checklist_contract) {
-            $calculateScore = $this->calculateScore($checklist_contract);
-            if ($calculateScore['checklist']->resource != null){
-                $scores = Score::make($calculateScore);
-                $this->scoreOneUser($scores, $checklist_contract);
-            }
+        $checklist_contracts = ChecklistContract::skip($request['start'])
+            ->take($request['end'] - $request['start'])
+            ->get();
+            foreach ($checklist_contracts as $checklist_contract) {
+                $calculateScore = $this->calculateScore($checklist_contract);
+                if ($calculateScore['checklist']->resource != null) {
+                    $scores = Score::make($calculateScore);
+                    $this->scoreOneUser($scores, $checklist_contract);
+                }
 
-        }
+            }
         return response()->json(['message' => __('scrum.api.get_success'), Response::HTTP_OK]);
 
     }
@@ -175,8 +177,8 @@ class ScoreController extends Controller
             $section = Section::where('order', $section_order)->first();
             $role = role::where('section_id', $section->id)->where('type', 'manager')->first();
 
-            $manager = new User_resource(User::where('role_id', $role->id)->first());
-            $manager=UserScore::make(User::firstWhere('id', $user_section_id))->additional([
+//            $manager = new User_resource(User::where('role_id', $role->id)->first());
+            $manager=UserScore::make(User::where('role_id', $role->id)->first())->additional([
                 'negative_score_sum'=>$manager_negative_score_sum
             ]);
 
