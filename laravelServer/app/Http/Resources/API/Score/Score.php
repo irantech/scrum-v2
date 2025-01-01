@@ -24,8 +24,8 @@ class Score extends JsonResource
             'todolist'         => new \App\Http\Resources\API\Contract\ToDoListCollection($this['todolist']),
             'process_reversed_count'    => $this['process_reversed_count'],
             'reverse_data'              => $this['reverse_data'],
-            'manager_user_negative'     =>$this['manager_user_negative'],
-            'manager_user_positive'     =>$this['manager_user_positive']
+            'negative_score'     =>$this['manager_user_negative'],
+            'positive_score'     =>$this['manager_user_positive']
         ];
     }
 }

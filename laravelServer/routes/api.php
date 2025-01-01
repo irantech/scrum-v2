@@ -68,6 +68,9 @@ Route::prefix( 'Close-to-delivery-time' )->middleware(('auth:api'))->group( func
 
 });
 
+
+
+//---------------------------------------------------------- scores
 Route::prefix( 'scores' )->middleware(('auth:api'))->group( function () {
     Route::get('score/checklist-contract/{checklistContract}', [ScoreController::class, 'score']);
     Route::get('scores_all', [ScoreController::class, 'scoresAll']);
@@ -260,7 +263,7 @@ Route::namespace( 'API' )->group( function () {
         Route::middleware('scope:admin-handle-sms-templates')
             ->apiResource('smsTemplate' , 'SmsTemplateController');
     });
-    Route::get('showTasks',[TaskController::class,'showTasks']);
+    Route::post('showTasks',[TaskController::class,'showTasks']);
 
     Route::group(['namespace' => 'Customer'] , function(){
         Route::any( 'customer/{hash}/get-contracts', 'CustomerController@CustomerProjectsByHash' );

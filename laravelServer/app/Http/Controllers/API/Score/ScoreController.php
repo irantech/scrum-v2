@@ -8,8 +8,11 @@ use App\Http\Resources\API\Contract\reverseContract;
 use App\Http\Resources\API\Contract\reverseProcessCollection;
 use App\Http\Resources\API\PersonScore\ManagerScoreCollection;
 use App\Http\Resources\API\PersonScore\PersonScoresCollection;
+use App\Http\Resources\API\Score\ManagerScorePositive;
 use App\Http\Resources\API\Score\Score;
 use App\Http\Resources\API\Score\UserPositiveCollection;
+use App\Http\Resources\API\Score\UserScore;
+use App\Http\Resources\API\Score\UserScorePositive;
 use App\Http\Resources\API\User\User as User_resource;
 use App\Http\Resources\API\User\UserCollection;
 use App\Models\ChecklistContract;
@@ -78,14 +81,14 @@ class ScoreController extends Controller
     public function scoreOneUser($scores, $checklist_contract)
     {
         $scores_json=json_decode($scores->toJson());
-
-        foreach ($scores_json->manager_user_positive as $calculate_positive_score) {
+        foreach ($scores_json->positive_score as $calculate_positive_score) {
+//            dd($calculate_positive_score->manager);
             $user_positive_id=$calculate_positive_score->user->id;
             $table_positive_score=User::find($user_positive_id)->scores()->where('checklist_contract_id', $checklist_contract->id);
 
             if (!$table_positive_score->exists()) {
                 $score_save = Scores::create([
-                    'manager_positive' => $calculate_positive_score->manager_positive_score,
+                    'manager_positive' => $calculate_positive_score->manager->manager_positive_score,
                     'user_positive' => 1,
                     'checklist_contract_id' => $checklist_contract->id
                 ]);
@@ -93,7 +96,7 @@ class ScoreController extends Controller
             }
         }
 
-        foreach ($scores_json->manager_user_negative as $calculate_negative_score) {
+        foreach ($scores_json->negative_score as $calculate_negative_score) {
             $user_negative_id=$calculate_negative_score->user->id;
             $table_negative_score = User::find($user_negative_id)->scores()->where('checklist_contract_id', $checklist_contract->id);
 
@@ -161,8 +164,10 @@ class ScoreController extends Controller
             });
 
             $user_section_id = $group->first()['user_section']['id'];
-            $select_user = new User_resource(User::firstWhere('id', $user_section_id));
-
+//            $select_user = new User_resource(User::firstWhere('id', $user_section_id));
+            $select_user=UserScore::make(User::firstWhere('id', $user_section_id))->additional([
+                'negative_score_sum'=>$user_negative_score_sum
+            ]);
             $section_order = User::firstWhere('id', $user_section_id)->role()->first()->section()->first()->order;
             if ($section_order == 2) {
                 $section_order = 4;
@@ -171,7 +176,9 @@ class ScoreController extends Controller
             $role = role::where('section_id', $section->id)->where('type', 'manager')->first();
 
             $manager = new User_resource(User::where('role_id', $role->id)->first());
-
+            $manager=UserScore::make(User::firstWhere('id', $user_section_id))->additional([
+                'negative_score_sum'=>$manager_negative_score_sum
+            ]);
 
             return [
                 'user_negative_score_sum' => $user_negative_score_sum,
@@ -211,10 +218,8 @@ class ScoreController extends Controller
         $role = \App\Models\role::where('section_id' , $section->id)->where('type' , 'manager')->first();
         return [
 
-            'user'=>new User_resource($positive_score_user),
-            'user_positive_score' => 1,
-            'manager'=>new User_resource( User::where('role_id' , $role->id)->first()),
-            'manager_positive_score'=> 5
+            'user'=>new UserScorePositive($positive_score_user),
+            'manager'=>new ManagerScorePositive( User::where('role_id' , $role->id)->first()),
         ];
     }
 

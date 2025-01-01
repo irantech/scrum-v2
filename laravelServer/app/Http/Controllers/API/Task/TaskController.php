@@ -375,106 +375,86 @@ class TaskController extends Controller
 
     public function getFilteredTasks(Request $request)
     {
-        $flag=1;
-        if($request->status == ''){
-            $request['status']='running';
-            $flag=0;
+        $flag = 1;
+        if ($request->section_id == 7)
+            $request['section_id'] = 2;
+        if ($request->status == '') {
+            $request['status'] = 'running';
+            $flag = 0;
         }
-//        $section_id=$request->section_id;
-//        $section_order = Section::find($request->section_id);
-//        $manager = new UserController();
-//        $user_id = $manager->findManager($section_order->order)->id;
 
-            $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
-            $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
-            $start_delivery_time = null;
-            $end_delivery_time = null;
-            if (isset($request['start_delivery_date']) && !empty($request['start_delivery_date'])) {
-                $start_delivery_time = Verta::parse($request['start_delivery_date'])->datetime()->format('y-m-d');
-            }
-            if (isset($request['end_delivery_date']) && !empty($request['end_delivery_date'])) {
-                $end_delivery_time = Verta::parse($request['end_delivery_date'])->datetime()->format('y-m-d');
-            }
-            $task_model = new Task();
-            DB::enableQueryLog();
-            $task_list =$task_model
-//        ->whereHas('todoList', function ($query) use ($user_id) {
-//            $query->where('user_id', $user_id);
-//        })->with('todoList')
-
-//        join('todo_lists as tl', function ($join) {
-//            $join->on('tl.todoable_id', '=', 'tasks.id')
-//                ->where('tl.todoable_type', '=', 'App\Models\Task');
-//        })
-//            ->where('tl.user_id', $user_id)
-//            ->select('tasks.*')
-                ->where('user_id', Auth::user()->id)
-                ->whereDate('created_at', '>=', $start_date)
-                ->whereDate('created_at', '<=', $end_date)
-                ->Where('status', '!=', 'complete')
-                ->when($request['contract'] ?? null, function ($q) use ($request) {
-                    $q->where('contract_id', $request['contract']);
-                })
-                ->when($request['title'] ?? null, function ($q) use ($request) {
-                    $q->Where('title', 'like', '%' . $request['title'] . '%');
+        $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
+        $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
+        $start_delivery_time = null;
+        $end_delivery_time = null;
+        if (isset($request['start_delivery_date']) && !empty($request['start_delivery_date'])) {
+            $start_delivery_time = Verta::parse($request['start_delivery_date'])->datetime()->format('y-m-d');
+        }
+        if (isset($request['end_delivery_date']) && !empty($request['end_delivery_date'])) {
+            $end_delivery_time = Verta::parse($request['end_delivery_date'])->datetime()->format('y-m-d');
+        }
+        $task_model = new Task();
+        DB::enableQueryLog();
+        $task_list = $task_model->when($request['section_id'] ?? null, function ($q) use ($request) {
+            $q->whereHas('firstTodoList', function ($q) use ($request) {
+                $q->whereIn('id', function ($subQuery) {
+                    $subQuery->selectRaw('min(id)')
+                        ->from('todo_lists')
+                        ->groupBy('todoable_id');
+                })->whereHas('user.role', function ($q) use ($request) {
+                    $q->where('section_id', $request->section_id);
                 });
-            if($flag)
-            {
-                $task_list=$task_list->when($request['status'] ?? null, function ($q) use ($request,$flag) {
-                    $q->Where('status', $request['status']);
-                });
-            }
-        $task_list=$task_list
-                ->when($request['has_delivery'] ?? null, function ($q) use ($request) {
-                    if ($request['has_delivery'] == '1') {
-                        $q->whereNull('delivery_time');
-                    } else {
-                        $q->whereNotNull('delivery_time');
-                    }
-                })
-                ->when($request['start_delivery_date'] ?? null, function ($q) use ($start_delivery_time) {
-                    $q->whereDate('delivery_time', '>=', $start_delivery_time);
-                })
-                ->when($request['end_delivery_date'] ?? null, function ($q) use ($end_delivery_time) {
-                    $q->whereDate('delivery_time', '<=', $end_delivery_time);
-                })->orderBy('delivery_time', 'desc')->orderBy('created_at', 'desc')->get();
+            });
+        })
+            ->where('user_id', Auth::user()->id)
+            ->whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->Where('status', '!=', 'complete')
+            ->when($request['contract'] ?? null, function ($q) use ($request) {
+                $q->where('contract_id', $request['contract']);
+            })
+            ->when($request['title'] ?? null, function ($q) use ($request) {
+                $q->Where('title', 'like', '%' . $request['title'] . '%');
+            });
+        if ($flag) {
+            $task_list = $task_list->when($request['status'] ?? null, function ($q) use ($request, $flag) {
+                $q->Where('status', $request['status']);
+            });
+        }
+        $task_list = $task_list
+            ->when($request['has_delivery'] ?? null, function ($q) use ($request) {
+                if ($request['has_delivery'] == '1') {
+                    $q->whereNull('delivery_time');
+                } else {
+                    $q->whereNotNull('delivery_time');
+                }
+            })
+            ->when($request['start_delivery_date'] ?? null, function ($q) use ($start_delivery_time) {
+                $q->whereDate('delivery_time', '>=', $start_delivery_time);
+            })
+            ->when($request['end_delivery_date'] ?? null, function ($q) use ($end_delivery_time) {
+                $q->whereDate('delivery_time', '<=', $end_delivery_time);
+            })->orderBy('delivery_time', 'desc')->orderBy('created_at', 'desc')->get();
 
-            $task_id_list = $task_list->pluck('id');
-            if($flag){
-
-
+        $task_id_list = $task_list->pluck('id');
+        if ($flag) {
             $unDoneTaskList = $task_model->where('user_id', Auth::user()->id)->where(function ($query) use ($task_id_list) {
                 $query->whereNotIn('id', $task_id_list)->whereNull('delivery_time')->orwhere('status', '!=', 'complete');
             })->get();
-//            ->map(function ($item) use($section_id)
-//        {
-//            $item['section_id'] = $section_id;
-//            return $item;
-//        });
-
             $merged = $task_list->merge($unDoneTaskList);
 
-                $task_list = $merged->all();
-            }
+            $task_list = $merged->all();
+        }
 
 
-//        dd(DB::getQueryLog());
-//        dd($task_list);
-//        foreach ($task_list as $task)
-//        {
-//            var_dump([
-//                'task->id'=>$task->id,
-//                '$task->todolist->id'=>$task->todoList->first()->id,
-//            ]);
-//        }
-
+//        $queries = DB::getQueryLog();
+//        dd($queries);
 
         $data = new TaskCollection($task_list);
 
-//        $result = json_decode(json_encode($data, true),true);
-//        $data=array_filter($result);
 
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);
+
     }
 
     public function changeTaskLabel($id, Request $request)
