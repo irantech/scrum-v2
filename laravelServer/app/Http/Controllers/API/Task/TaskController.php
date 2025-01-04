@@ -41,6 +41,7 @@ class TaskController extends Controller
 
     public function getFeatureTask()
     {
+//        dd('ok');
         $tasks=Task::where('feature','yes')->get();
         $data = new GetFeartureTasksCollection($tasks);
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);

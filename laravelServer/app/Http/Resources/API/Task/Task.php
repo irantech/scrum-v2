@@ -61,7 +61,8 @@ class Task extends JsonResource
                 $total_time = $total_time + $total_task_time + $total_task_interval_time;
             }
 
-            $how_many_days = intdiv($total_time, enV("EACH_DAY_MINUTE_TIME"));
+//            $how_many_days = intdiv($total_time, enV("EACH_DAY_MINUTE_TIME"));
+            $how_many_days = 0 ;
             $how_much_time = $total_time - ($how_many_days * enV("EACH_DAY_MINUTE_TIME"));
             $how_much_time = intdiv($how_much_time, 60) . ':' . ($how_much_time % 60);
 
