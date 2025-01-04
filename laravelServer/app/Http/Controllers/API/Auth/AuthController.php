@@ -94,6 +94,7 @@ class AuthController extends Controller
     public function details()
     {
         $user = Auth::user();
+
 //        return $tokenRequest;
         return response()->json(['data' => new ResourceUser($user)], $this->successStatus);
     }

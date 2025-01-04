@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="MessDetectorOptionsConfiguration">
-    <option name="transferred" value="true" />
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="PHPCSFixerOptionsConfiguration">
-    <option name="transferred" value="true" />
+  <component name="ChangeListManager">
+    <list default="true" id="423af2b6-631a-471c-9c94-4feb6926beb4" name="Changes" comment="Creating filters for tasks">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeception.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/scrum2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/.rnd" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/.rnd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Auth/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Auth/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Resources/API/Task/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Resources/API/Task/Task.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nuxt/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nuxt/pages/admin/tasks/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/pages/admin/tasks/index.vue" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="PHPCodeSnifferOptionsConfiguration">
-    <option name="highlightLevel" value="WARNING" />
-    <option name="transferred" value="true" />
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/laravelServer/composer.json</pharConfigPath>
+    <execution />
   </component>
-  <component name="PhpIncludePathManager">
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Options API Component" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\laragon\bin\php\php-8.2.20-nts-Win32-vs16-x64\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/laravelServer/vendor/psr/clock" />
       <path value="$PROJECT_DIR$/laravelServer/vendor/psr/cache" />
@@ -159,18 +195,112 @@
       <path value="$PROJECT_DIR$/laravelServer/vendor/composer" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.3">
-    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2pQBkIbs7b5GNcyJv8UwPwCeoje" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PhpStanOptionsConfiguration">
-    <option name="transferred" value="true" />
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;add-section__id-to-task-filter&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PhpStorm 2023.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;vuejs.nuxt.types-notification-shown&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Options API Component&quot;
+    ]
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="Main" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner configuration_file="$PROJECT_DIR$/laravelServer/phpunit.xml" scope="XML" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
   </component>
-  <component name="PhpUnit">
-    <phpunit_settings>
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravelServer/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravelServer/vendor/autoload.php" use_configuration_file="true" />
-    </phpunit_settings>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-php-predefined-ba97393d7c68-6f8e3395a2b4-com.jetbrains.php.sharedIndexes-PS-233.14015.96" />
+      </set>
+    </attachedChunks>
   </component>
-  <component name="PsalmOptionsConfiguration">
-    <option name="transferred" value="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="423af2b6-631a-471c-9c94-4feb6926beb4" name="Changes" comment="" />
+      <created>1732688561383</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732688561383</updated>
+      <workItem from="1732688564889" duration="5714000" />
+      <workItem from="1732966037877" duration="6312000" />
+      <workItem from="1733031590458" duration="598000" />
+      <workItem from="1733731553182" duration="3333000" />
+      <workItem from="1734168898489" duration="4179000" />
+      <workItem from="1734174582112" duration="6833000" />
+      <workItem from="1735109512666" duration="15004000" />
+      <workItem from="1735382173695" duration="43000" />
+      <workItem from="1735382290155" duration="1092000" />
+      <workItem from="1735455590597" duration="15327000" />
+      <workItem from="1735983180381" duration="743000" />
+    </task>
+    <task id="LOCAL-00001" summary="add section_id to task filter">
+      <option name="closed" value="true" />
+      <created>1732975027341</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732975027342</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Create a page for all tasks">
+      <option name="closed" value="true" />
+      <created>1735133476993</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1735133476993</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Create a page for all tasks">
+      <option name="closed" value="true" />
+      <created>1735382477201</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1735382477201</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Creating filters for tasks">
+      <option name="closed" value="true" />
+      <created>1735983675866</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1735983675866</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="add section_id to task filter" />
+    <MESSAGE value="Create a page for all tasks" />
+    <MESSAGE value="Creating filters for tasks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creating filters for tasks" />
   </component>
 </project>
