@@ -247,6 +247,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
       this.$axios.post('showTasks' , payload)
         .then(response => {
+
           state.commit('ALL_TASK', response.data.data)
           resolve(response)
         })
