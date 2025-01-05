@@ -1,5 +1,5 @@
 <template>
-  <all-task :task_all="allTask" />
+  <all-task :task_all="allTask" :searchForm="form" @setSearchData="setSearchData" />
 </template>
 
 
@@ -11,16 +11,21 @@ export default {
   components: {allTask},
   data() {
     return {
-      form: {
-
-      }
+      form : {
+        referrer : '' ,
+        receiver_delivery : '',
+        start_date : '' ,
+        end_date : '' ,
+      },
     }
   },
   computed :{
     ...mapState('admin/task' , ['allTask']),
+
   },
   created() {
     this.getTaskData()
+    this.$store.dispatch('admin/user/getUserList' )
   },
   methods: {
     getTaskData() {
@@ -29,6 +34,10 @@ export default {
         console.log('res' , res)
         this.task_loading = false
       })
+    },
+    setSearchData(form_data){
+      this.form = form_data
+      this.getTaskData();
     },
   }
 }

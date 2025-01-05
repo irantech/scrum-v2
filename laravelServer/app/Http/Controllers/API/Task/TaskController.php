@@ -55,18 +55,21 @@ class TaskController extends Controller
             $last_reference_user_id = $last_reference_user->id;
         if ($user)
             $user_id = $user->id;
-        $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
-        $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
+        $start_date = verta($request['start_date'])->format('y-m-d');
+        $end_date = verta($request['end_date'])->format('y-m-d');
 
 
 //----------------------------------------------------------------
-        $contracts = Contract::whereHas('tasks.lastReferenceTodoList', function ($query) use($last_reference_user_id) {
-            $query->where('user_id', $last_reference_user_id)
-                ->whereIn('id', function ($subQuery) {
-                    $subQuery->selectRaw('max(id)')
-                        ->from('todo_lists')
-                        ->groupBy('todoable_id');
-                });
+        $contracts = Contract::when($last_reference_user_id ?? null, function ($query) use ($last_reference_user_id) {
+
+            $query->whereHas('tasks.lastReferenceTodoList', function ($query) use ($last_reference_user_id) {
+                $query->where('user_id', $last_reference_user_id)
+                    ->whereIn('id', function ($subQuery) {
+                        $subQuery->selectRaw('max(id)')
+                            ->from('todo_lists')
+                            ->groupBy('todoable_id');
+                    });
+            });
         })
             ->when($request['customer_id'] ?? null, function ($query) use ($request) {
                 $query->whereHas('customer', function ($query) use ($request) {
