@@ -84,6 +84,7 @@ export default {
                   </svg>
                   <p>
                     {{ task.title }}
+
                   </p>
                 </div>
                 <div class="parent-contract-number">
