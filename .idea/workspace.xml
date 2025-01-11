@@ -4,307 +4,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="423af2b6-631a-471c-9c94-4feb6926beb4" name="Changes" comment="feat: Add start and end time input for tasks">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="a4cd567a-739f-499f-8a2a-36fd4d5e7e10" name="Changes" comment="deg: Fix task history">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nuxt/components/admin/tasks/allTask.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/components/admin/tasks/allTask.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nuxt/pages/admin/task/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/pages/admin/task/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nuxt/pages/admin/tasks/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/pages/admin/tasks/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nuxt/store/admin/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/store/admin/task.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
-    <pharConfigPath>$PROJECT_DIR$/laravelServer/composer.json</pharConfigPath>
+  <component name="ComposerSettings">
     <execution />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Vue Options API Component" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="add-section_id-to-task-filter" />
-      </map>
-    </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\laragon\bin\php\php-8.2.20-nts-Win32-vs16-x64\php.exe">
-    <include_path>
-      <path value="$PROJECT_DIR$/laravelServer/vendor/psr/clock" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/psr/cache" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/psr/event-dispatcher" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/psr/http-message" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/psr/http-factory" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/psr/simple-cache" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/filp/whoops" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/psy/psysh" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/twig/twig" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/opis/closure" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/asm89/stack-cors" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/voku/portable-ascii" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/nikic/php-parser" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/brick/math" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/stella-maris/clock" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/facade/flare-client-php" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/defuse/php-encryption" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/facade/ignition-contracts" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/facade/ignition" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/jean85/pretty-package-versions" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/jawira/plantuml" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/event" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/commonmark" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/mime-type-detection" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/flysystem" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/pipeline" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/oauth2-server" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/tactician-bundle" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/tactician" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/tactician-logger" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/tactician-container" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/uri-interfaces" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/league/uri" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/nyholm/psr7" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/nesbot/carbon" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/ramsey/uuid" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/ramsey/collection" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/vlucas/phpdotenv" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/spatie/laravel-activitylog" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/laminas/laminas-diactoros" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/egulias/email-validator" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/laravel/passport" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/laravel/framework" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/laravel/ui" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/laravel/tinker" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/monolog/monolog" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/mockery/mockery" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phar-io/manifest" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/myclabs/deep-copy" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpstan/phpdoc-parser" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phar-io/version" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpunit/php-file-iterator" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpunit/php-code-coverage" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpunit/php-timer" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpunit/php-text-template" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpunit/phpunit" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpunit/php-token-stream" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/config" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/cache" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/contracts" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/console" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/dependency-injection" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/css-selector" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/dotenv" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/dom-crawler" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/event-dispatcher" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/error-handler" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/filesystem" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/expression-language" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/flex" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/finder" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/http-foundation" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/framework-bundle" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/mime" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/http-kernel" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/monolog-bundle" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/monolog-bridge" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/polyfill-intl-grapheme" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/polyfill-ctype" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/polyfill-intl-normalizer" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/polyfill-intl-idn" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/polyfill-php73" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/polyfill-php81" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/polyfill-php80" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/psr-http-message-bridge" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/process" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/stopwatch" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/routing" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/translation" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/string" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/var-exporter" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/var-dumper" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/theseer/tokenizer" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/symfony/yaml" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/doctrine/dbal" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/doctrine/cache" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/doctrine/event-manager" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/doctrine/deprecations" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/doctrine/instantiator" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/doctrine/inflector" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/firebase/php-jwt" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/doctrine/lexer" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/lcobucci/clock" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/hamcrest/hamcrest-php" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/carbonphp/carbon-doctrine-types" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/lcobucci/jwt" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/fruitcake/laravel-cors" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/fideloper/proxy" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpseclib/phpseclib" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpoption/phpoption" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/code-unit-reverse-lookup" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/ralouphie/getallheaders" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/diff" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/comparator" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/exporter" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/environment" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/object-enumerator" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/global-state" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/recursion-context" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/object-reflector" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/type" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/resource-operations" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/webmozart/assert" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/sebastian/version" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/guzzlehttp/guzzle" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/fzaninotto/faker" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/guzzlehttp/psr7" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/guzzlehttp/promises" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/swiftmailer/swiftmailer" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/nunomaduro/collision" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/dragonmantank/cron-expression" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/tijsverkoyen/css-to-inline-styles" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/hekmatinasser/verta" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/hekmatinasser/notowo" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpdocumentor/graphviz" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpdocumentor/flyfinder" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpdocumentor/reflection" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpdocumentor/phpdocumentor" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpdocumentor/reflection-docblock" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpdocumentor/reflection-common" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/phpdocumentor/type-resolver" />
-      <path value="$PROJECT_DIR$/laravelServer/vendor/composer" />
-    </include_path>
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 4
-}</component>
-  <component name="ProjectId" id="2pQBkIbs7b5GNcyJv8UwPwCeoje" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/add-all-task-filter&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PhpStorm 2023.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;vuejs.nuxt.types-notification-shown&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;vue.recent.templates&quot;: [
-      &quot;Vue Options API Component&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "feature/add-all-task-filter",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PhpStorm 2023.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vuejs.nuxt.types-notification-shown": "true"
   }
-}</component>
-  <component name="RunManager">
-    <configuration name="Main" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner configuration_file="$PROJECT_DIR$/laravelServer/phpunit.xml" scope="XML" use_alternative_configuration_file="true" />
-      <method v="2" />
-    </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-php-predefined-ba97393d7c68-6f8e3395a2b4-com.jetbrains.php.sharedIndexes-PS-233.14015.96" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+}]]></component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="423af2b6-631a-471c-9c94-4feb6926beb4" name="Changes" comment="" />
-      <created>1732688561383</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1732688561383</updated>
-      <workItem from="1732688564889" duration="5714000" />
-      <workItem from="1732966037877" duration="6312000" />
-      <workItem from="1733031590458" duration="598000" />
-      <workItem from="1733731553182" duration="3333000" />
-      <workItem from="1734168898489" duration="4179000" />
-      <workItem from="1734174582112" duration="6833000" />
-      <workItem from="1735109512666" duration="15004000" />
-      <workItem from="1735382173695" duration="43000" />
-      <workItem from="1735382290155" duration="1092000" />
-      <workItem from="1735455590597" duration="15327000" />
-      <workItem from="1735983180381" duration="743000" />
-      <workItem from="1736056137430" duration="15913000" />
-    </task>
-    <task id="LOCAL-00001" summary="add section_id to task filter">
+    <task id="LOCAL-00001" summary="deg: Fix task history">
       <option name="closed" value="true" />
-      <created>1732975027341</created>
+      <created>1736340825388</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1732975027342</updated>
+      <updated>1736340825388</updated>
     </task>
-    <task id="LOCAL-00002" summary="Create a page for all tasks">
+    <task id="LOCAL-00002" summary="deg: Fix task history">
       <option name="closed" value="true" />
-      <created>1735133476993</created>
+      <created>1736341067782</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1735133476993</updated>
+      <updated>1736341067782</updated>
     </task>
-    <task id="LOCAL-00003" summary="Create a page for all tasks">
-      <option name="closed" value="true" />
-      <created>1735382477201</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1735382477201</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Creating filters for tasks">
-      <option name="closed" value="true" />
-      <created>1735983675866</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1735983675866</updated>
-    </task>
-    <task id="LOCAL-00005" summary="feat: Add start and end time input for tasks">
-      <option name="closed" value="true" />
-      <created>1735995538485</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1735995538487</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
   <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="add section_id to task filter" />
-    <MESSAGE value="Create a page for all tasks" />
-    <MESSAGE value="Creating filters for tasks" />
-    <MESSAGE value="feat: Add start and end time input for tasks" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add start and end time input for tasks" />
+    <MESSAGE value="feat: Adding tasks according to the contract" />
+    <MESSAGE value="deg: Fix task history" />
+    <option name="LAST_COMMIT_MESSAGE" value="deg: Fix task history" />
   </component>
 </project>
