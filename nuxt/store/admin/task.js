@@ -245,12 +245,13 @@ export const actions = {
 
   async AllTask(state , payload) {
     return new Promise((resolve, reject) => {
-      this.$axios.get('showTasks')
+      this.$axios.post('showTasks' , payload)
         .then(response => {
+
           state.commit('ALL_TASK', response.data.data)
           resolve(response)
         })
-        .catch(error => console.log(error))
+        .catch(error => reject(error))
     });
   } ,
 

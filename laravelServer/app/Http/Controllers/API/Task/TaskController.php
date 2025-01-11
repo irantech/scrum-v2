@@ -41,12 +41,10 @@ class TaskController extends Controller
 
     public function getFeatureTask()
     {
-//        dd('ok');
         $tasks=Task::where('feature','yes')->get();
         $data = new GetFeartureTasksCollection($tasks);
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);
     }
-
     public function showTasks(Request $request)
     {
         $user_id = $start_date = $end_date = "";
@@ -78,18 +76,19 @@ class TaskController extends Controller
                     $query->where('id', $request['customer_id']);
                 });
             })
-            ->when(($start_date && $end_date )?? null, function ($query) use ($start_date, $end_date) {
-                $query->whereHas('tasks', function ($query) use ($start_date, $end_date) {
-                    $query->whereDate('created_at', '>=', $start_date)
-                        ->whereDate('created_at', '<=', $end_date);
-                });
-            })
+//            ->when(($start_date && $end_date )?? null, function ($query) use ($start_date, $end_date) {
+//                $query->whereHas('tasks', function ($query) use ($start_date, $end_date) {
+//                    $query->whereDate('created_at', '>=', $start_date)
+//                        ->whereDate('created_at', '<=', $end_date);
+//                });
+//            })
             ->when($user_id ?? null, function ($query) use ($user_id) {
                 $query->whereHas('tasks.user', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 });
             })
             ->get();
+
 
 //        $queries = DB::getQueryLog();
 //        dd($queries);
@@ -99,6 +98,7 @@ class TaskController extends Controller
             'data' => $data
         ]);
     }
+
 
     /**
      * Display a listing of the resource.
@@ -153,7 +153,7 @@ class TaskController extends Controller
         $task->contract_id = $request->contract_id;
         $task->site_link = $request->site_link;
         $task->theme_link = $request->theme_link;
-        $task->feature = $request->feature;
+        $task->feature=$request->feature;
         $task->save();
 
         $task->taskLabels()->sync($request->label_list);

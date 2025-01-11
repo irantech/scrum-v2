@@ -1,9 +1,15 @@
 <template>
-  <all-task :task_all="allTask" :searchForm="form" @setSearchData="setSearchData" />
+  <div>
+    <all-task :task_all="allTask" :searchForm="form" @setSearchData="setSearchData" />
+  </div>
 </template>
 
 
 <script>
+
+// start_date : 'this.$moment().subtract(90, 'days').format('jYYYY-jMM-jDD')' ,
+//   end_date : this.$moment().utc().format('jYYYY-jMM-jDD') ,
+
 import allTask from "@/components/admin/tasks/allTask.vue";
 import {mapState} from "vuex";
 export default {
@@ -14,12 +20,13 @@ export default {
       form : {
         referrer : '' ,
         receiver_delivery : '',
+        start_date : '' ,
+        end_date : '' ,
       },
     }
   },
   computed :{
     ...mapState('admin/task' , ['allTask']),
-
 
   },
   created() {
