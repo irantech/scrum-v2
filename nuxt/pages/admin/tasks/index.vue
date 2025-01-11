@@ -14,6 +14,7 @@ import allTask from "@/components/admin/tasks/allTask.vue";
 import {mapState} from "vuex";
 export default {
   name: "tasks",
+  layout : 'admin',
   components: {allTask},
   data() {
     return {
