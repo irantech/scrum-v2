@@ -110,6 +110,7 @@
           </template>
           <MenuItem name="16-1" to="/admin/task/label"  v-if="$store.getters['auth/can']('show-taskLabel')">لیست لیبل ها</MenuItem>
           <MenuItem name="16-2" to="/admin/task" v-if="$store.getters['auth/can']('manage-tasks')">لیست تسک ها</MenuItem>
+          <MenuItem name="16-3" to="/admin/tasks">یست همه تسک ها</MenuItem>
         </Submenu>
       </Scroll>
     </Menu>
