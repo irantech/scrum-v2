@@ -93,15 +93,17 @@
         <FormItem label="عنوان" prop="title" class="col-12">
           <Input v-model="formCreate.title"></Input>
         </FormItem>
+
+
         <FormItem label="لینک طرح" class="col-6">
           <Input v-model="formCreate.theme_link"></Input>
         </FormItem>
         <FormItem label="لینک سایت" class="col-6">
           <Input v-model="formCreate.site_link"></Input>
         </FormItem>
-        <FormItem label="قرارداد مشخص" class="col-6">
-          <Select v-model="formCreate.contract_id" filterable label="مشتری">
-            <Option v-for="item in contractList" :value="item.id" :key="item.id">{{ item.customer ? item.customer.name : '' }}({{item.title}})</Option>
+        <FormItem label="قرارداد مشخص" prop="section_id" class="col-6">
+          <Select v-model="formCreate.section_id" filterable label="مشتری">
+            <Option v-for="item in contractList" :value="item.id" :key="item.id">{{ item.customer ? item.customer.name : '' }}({{item.title}}) {{item.contract_code}}</Option>
           </Select>
         </FormItem>
         <FormItem label="ارجاع به بخش" prop="section_id" class="col-6">

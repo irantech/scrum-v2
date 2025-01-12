@@ -56,8 +56,8 @@ export default {
       })
     },
     setFormData() {
-      this.form.start_date = this.$moment().subtract(15, 'days').format('jYYYY-jMM-jDD')
-      this.form.end_date = this.$moment().utc().format('jYYYY-jMM-jDD')
+      // this.form.start_date = this.$moment().subtract(15, 'days').format('jYYYY-jMM-jDD')
+      // this.form.end_date = this.$moment().utc().format('jYYYY-jMM-jDD')
     },
     setSearchData(form_data){
       this.form = form_data

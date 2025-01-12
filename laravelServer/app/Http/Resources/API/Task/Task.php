@@ -59,7 +59,7 @@ class Task extends JsonResource
             'delivery_time_base' => $this->delivery_time,
             'created_at' => Verta::instance($this->created_at)->format('Y-m-d'),
             'days_passed_since_making_task' => $days_passed_since_making_task ,
-        ];
+            ];
 
 
     }

@@ -11,6 +11,10 @@ class ChecklistContract extends Model
     protected $table = 'checklist_contract' ;
     protected $fillable = ['contract_id' , 'checklist_id'];
 
+
+    public function scores() {
+        return $this->hasMany(Score::class , 'checklist_contract_id');
+    }
     public function titleChecklistUser()
     {
         return $this->hasMany(titleChecklistUser::class , 'checklist_contract_id');

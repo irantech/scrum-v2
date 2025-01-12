@@ -3,12 +3,16 @@
 use App\Http\Controllers\API\Contract\ContractChecklistController;
 use App\Http\Controllers\API\Contract\ContractController;
 use App\Http\Controllers\API\Contract\SubTaskController;
+use App\Http\Controllers\API\Customer\CustomerController;
+use App\Http\Controllers\API\DeliveryTime\CloseToDeliveryTime;
+use App\Http\Controllers\API\DeliveryTime\CloseToDeliveryTimeController;
 use App\Http\Controllers\API\InitialDesign\InitialDesignController;
 use App\Http\Controllers\API\Questions\QuestionController;
 use App\Http\Controllers\API\Requests\MeetingDetailController;
 use App\Http\Controllers\API\Requests\MeetingsController;
 use App\Http\Controllers\API\Score\ScoreController;
 use App\Http\Controllers\API\Task\TaskController;
+use App\Http\Controllers\API\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,6 +63,13 @@ Route::prefix( 'questions' )->middleware(('auth:api'))->group( function () {
     Route::post('answer/{question}',[QuestionController::class,'answer'])->middleware('scope:answer_question');
     Route::post('question_to_task',[QuestionController::class,'questionToTask']);
 });
+
+//---------------------------------------------------------- Close to delivery time
+Route::prefix( 'Close-to-delivery-time' )->middleware(('auth:api'))->group( function () {
+    Route::get('/tasks',[CloseToDeliveryTimeController::class,'showDeliveryTasks']);
+
+});
+
 
 
 //---------------------------------------------------------- scores
@@ -141,6 +152,10 @@ Route::namespace( 'API' )->group( function () {
             //contract checklist
             Route::put( 'assign-checklist/{contract}', 'ContractChecklistController@assignChecklist' );
 
+            Route::get('score/checklist-contract/{checklistContract}' , [ScoreController::class,'score']);
+            Route::get('scores_all' , [ScoreController::class,'scoresAll']);
+            Route::get('persons_scores' , [ScoreController::class,'personsScores']);
+
             Route::post( 'assignUser/{checklistContract}', 'ContractChecklistController@assign' );
             Route::get('all/checklist-contract/{checklistContract}' , [ContractChecklistController::class,'getContractChecklists']);
             Route::get('sum/checklist-contract/{checklistContract}' , [ContractChecklistController::class,'sumDuration']);
@@ -194,7 +209,7 @@ Route::namespace( 'API' )->group( function () {
             Route::get('user/activity/list' , 'UserController@getActivity');
             Route::get('user/todo/list' , 'UserController@todoList');
             Route::put('user/todo/{id}/markAsRead' , 'UserController@markAsRead');
-            Route::get('user/managers/get' , 'UserController@getManager');
+            Route::get('user/managers/get' , [UserController::class,'getManager']);
         });
         Route::group(['namespace' => 'Customer'], function()
         {
