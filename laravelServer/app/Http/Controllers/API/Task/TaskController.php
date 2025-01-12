@@ -94,10 +94,16 @@ class TaskController extends Controller
                 });
             })
             ->get();
-
+        $tasks_not_assign=Task::doesntHave('contract')->get();
 //        $queries = DB::getQueryLog();
 //        dd($queries);
-        $data = new ContractTasksCollection($contracts);
+        $data_contract = new ContractTasksCollection($contracts);
+        $data_tasks_not_assign = new TaskCollection($tasks_not_assign);
+        $data=[
+            'data_contract' => $data_contract,
+            'data_tasks_not_assign' => $data_tasks_not_assign
+        ];
+
         return \response()->json([
             'status' => 'true',
             'data' => $data
