@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Contract\ContractChecklistController;
+use App\Http\Controllers\API\Contract\ContractController;
 use App\Http\Controllers\API\Contract\SubTaskController;
 use App\Http\Controllers\API\InitialDesign\InitialDesignController;
 use App\Http\Controllers\API\Questions\QuestionController;
@@ -83,6 +84,7 @@ Route::namespace( 'API' )->group( function () {
         Route::get( 'get_airline_image', 'CurlController@get_image' );
 
 
+
     } );
     Route::prefix( 'curl' )->namespace('Agency')->group( function () {
 
@@ -122,6 +124,7 @@ Route::namespace( 'API' )->group( function () {
             Route::middleware('scope:ancillary-change-base-progress')->put( 'ancillary-change-base-progress', 'AncillaryController@ChangeBaseProgressStatus' );
             Route::middleware('scope:ancillary-change-sub-progress')->put( 'ancillary-change-sub-progress', 'AncillaryController@ChangeSubProgressStatus' );
 
+            Route::get( 'contract_execution_time_management', [ContractController::class,'contractExecutionTimeManagement'] );
             Route::post('contractCount/month' , 'ContractController@countMonthContracts');
             Route::middleware('scope:change-status-sub-progress')->patch( 'change-sub-progress-status', 'ContractController@ChangeSubProgressStatus' );
             Route::middleware('scope:change-base-progress-status')->patch( 'change-base-progress-status', 'ContractController@ChangeBaseProgressStatus' );
