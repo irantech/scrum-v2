@@ -22,7 +22,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use function _HumbugBox7eb78fbcc73e\Amp\Iterator\filter;
 use function _HumbugBox7eb78fbcc73e\Amp\Iterator\toArray;
@@ -41,10 +40,11 @@ class TaskController extends Controller
 
     public function getFeatureTask()
     {
-        $tasks=Task::where('feature','yes')->get();
+        $tasks = Task::where('feature', 'yes')->get();
         $data = new GetFeartureTasksCollection($tasks);
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);
     }
+
     public function showTasks(Request $request)
     {
         $user_id = $start_date = $end_date = "";
@@ -55,11 +55,12 @@ class TaskController extends Controller
             $last_reference_user_id = $last_reference_user->id;
         if ($user)
             $user_id = $user->id;
-        if ($request['start_date'])
+        if (isset($request['start_date']) && !empty($request['start_date'])) {
             $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
-        if ($request['end_date'])
+        }
+        if (isset($request['end_date']) && !empty($request['end_date'])) {
             $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
-
+        }
 //----------------------------------------------------------------
         $contracts = Contract::when($last_reference_user_id ?? null, function ($query) use ($last_reference_user_id) {
             $query->whereHas('tasks.lastReferenceTodoList', function ($query) use ($last_reference_user_id) {
@@ -76,19 +77,23 @@ class TaskController extends Controller
                     $query->where('id', $request['customer_id']);
                 });
             })
-//            ->when(($start_date && $end_date )?? null, function ($query) use ($start_date, $end_date) {
-//                $query->whereHas('tasks', function ($query) use ($start_date, $end_date) {
-//                    $query->whereDate('created_at', '>=', $start_date)
-//                        ->whereDate('created_at', '<=', $end_date);
-//                });
-//            })
+            ->when($start_date ?? null, function ($query) use ($start_date) {
+                $query->whereHas('tasks', function ($query) use ($start_date) {
+                    $query->whereDate('created_at', '>=', $start_date);
+                });
+            })
+            ->when($end_date ?? null, function ($query) use ($end_date) {
+                $query->whereHas('tasks', function ($query) use ($end_date) {
+                    $query->whereDate('created_at', '<=', $end_date);
+                });
+            })
+            ->whereHas('tasks')
             ->when($user_id ?? null, function ($query) use ($user_id) {
                 $query->whereHas('tasks.user', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 });
             })
             ->get();
-
 
 //        $queries = DB::getQueryLog();
 //        dd($queries);
@@ -98,7 +103,6 @@ class TaskController extends Controller
             'data' => $data
         ]);
     }
-
 
     /**
      * Display a listing of the resource.
@@ -153,7 +157,7 @@ class TaskController extends Controller
         $task->contract_id = $request->contract_id;
         $task->site_link = $request->site_link;
         $task->theme_link = $request->theme_link;
-        $task->feature=$request->feature;
+        $task->feature = $request->feature;
         $task->save();
 
         $task->taskLabels()->sync($request->label_list);
