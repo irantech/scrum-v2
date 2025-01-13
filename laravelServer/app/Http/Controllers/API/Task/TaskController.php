@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use function _HumbugBox7eb78fbcc73e\Amp\Iterator\filter;
 use function _HumbugBox7eb78fbcc73e\Amp\Iterator\toArray;
@@ -44,7 +45,6 @@ class TaskController extends Controller
         $data = new GetFeartureTasksCollection($tasks);
         return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);
     }
-
     public function showTasks(Request $request)
     {
         $user_id = $start_date = $end_date = "";
@@ -94,15 +94,22 @@ class TaskController extends Controller
                 });
             })
             ->get();
-
+        $tasks_not_assign=Task::doesntHave('contract')->get();
 //        $queries = DB::getQueryLog();
 //        dd($queries);
-        $data = new ContractTasksCollection($contracts);
+        $data_contract = new ContractTasksCollection($contracts);
+        $data_tasks_not_assign = new TaskCollection($tasks_not_assign);
+        $data=[
+            'data_contract' => $data_contract,
+            'data_tasks_not_assign' => $data_tasks_not_assign
+        ];
+
         return \response()->json([
             'status' => 'true',
             'data' => $data
         ]);
     }
+
 
     /**
      * Display a listing of the resource.

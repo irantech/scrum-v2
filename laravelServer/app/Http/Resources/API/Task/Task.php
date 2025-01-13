@@ -11,6 +11,7 @@ use App\Http\Resources\API\User\TodoCollection;
 use App\Models\User;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 use phpDocumentor\Reflection\Types\Void_;
 
 class Task extends JsonResource
@@ -25,10 +26,21 @@ class Task extends JsonResource
     public function toArray($request)
     {
 
+
         $todo_user = $this->todoList()->groupBy('user_id')->pluck('user_id');
         $todo_user = User::whereIn('id', $todo_user)->get();
-
+//        $task_id = $this->id;
+//        $user = new User() ;
+//        $userList = $user->with(['taskSubTasks' =>  function ($request) use($task_id) {
+//            $request->where('subtaskable_id' , $task_id);
+//        }])->whereHas('taskSubTasks' , function ($request) use($task_id) {
+//            $request->where('subtaskable_id' , $task_id);
+//        })->get();
         $totalTimeDuration = $this->totalTimeDuration($this->taskTimes);
+
+        $now = Carbon::now();
+        $create_task=Carbon::parse($this->created_at)->toDateString();
+        $days_passed_since_making_task=$now->diffInDays($create_task);
 
         return [
             'id' => $this->id,
@@ -46,7 +58,8 @@ class Task extends JsonResource
             'delivery_time' => $this->delivery_time ? Verta::instance($this->delivery_time)->format('Y-m-d') : '',
             'delivery_time_base' => $this->delivery_time,
             'created_at' => Verta::instance($this->created_at)->format('Y-m-d'),
-        ];
+            'days_passed_since_making_task' => $days_passed_since_making_task ,
+            ];
 
 
     }
