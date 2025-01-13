@@ -25,6 +25,22 @@ class ContractController extends Controller
         $this->middleware('scopes:delete-contract')->only('destroy');
     }
 
+    public function contractExecutionTimeManagement()
+    {
+        $now=Carbon::now();
+        $delivery_days=Carbon::now()->addDays(7);
+        $contract_seven_days_before_delivery=Contract::whereBetween('end_date',[$now,$delivery_days])->get();
+        $contract_expired=Contract::whereDate('end_date','<',$now)->get();
+
+        $data_seven_days=ContractCollection::make($contract_seven_days_before_delivery);
+        $data_expired=ContractCollection::make($contract_expired);
+        $data=[
+            'contract_seven_days_before_delivery' =>$data_seven_days,
+            'contract_expired' => $data_expired
+            ];
+        return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data], Response::HTTP_OK);
+
+    }
     /**
      * Display a listing of the resource.
      *
