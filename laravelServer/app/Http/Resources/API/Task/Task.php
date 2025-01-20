@@ -37,11 +37,12 @@ class Task extends JsonResource
 //            $request->where('subtaskable_id' , $task_id);
 //        })->get();
         $totalTimeDuration = $this->totalTimeDuration($this->taskTimes);
-
-        $now = Carbon::now();
-        $create_task=Carbon::parse($this->created_at)->toDateString();
-        $days_passed_since_making_task=$now->diffInDays($create_task);
-
+        $days_passed_since_making_task=0;
+        if($this->status == 'running') {
+            $now = Carbon::now();
+            $create_task = Carbon::parse($this->created_at)->toDateString();
+            $days_passed_since_making_task = $now->diffInDays($create_task);
+        }
         return [
             'id' => $this->id,
             'title' => $this->title,

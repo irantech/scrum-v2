@@ -93,7 +93,20 @@ class TaskController extends Controller
                     $query->where('user_id', $user_id);
                 });
             })
-            ->get();
+            ->with(['runningTasks' => function ($query) {
+                $query->selectRaw('it_tasks.*,
+                               CASE
+                                   WHEN status = "running" THEN DATEDIFF(CURRENT_DATE(), created_at)
+                                   ELSE 0
+                               END AS days_left')
+                    ->orderByDesc('days_left');
+            }])
+            ->get()
+            ->map(function ($contract) {
+                $contract->max_days_left = $contract->runningTasks->max('days_left');
+                return $contract;
+            })
+            ->sortByDesc('max_days_left');
         $tasks_not_assign=Task::doesntHave('contract')->get();
 //        $queries = DB::getQueryLog();
 //        dd($queries);
