@@ -37,7 +37,8 @@ class Task extends JsonResource
 //            $request->where('subtaskable_id' , $task_id);
 //        })->get();
         $totalTimeDuration = $this->totalTimeDuration($this->taskTimes);
-
+        if($this->status != 'running')
+            $this->days_left = 0;
         return [
             'id' => $this->id,
             'title' => $this->title,
