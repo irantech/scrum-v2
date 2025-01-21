@@ -85,4 +85,8 @@ class Contract extends Model {
     public function tasks(){
         return $this->hasMany(Task::class);
     }
+    public function runningTasks(){
+        return $this->hasMany(Task::class);
+    }
+
 }

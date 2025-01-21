@@ -17,6 +17,7 @@ class ContractTasks extends JsonResource
     public function toArray($request)
     {
         return[
+            'max_days_left'    => $this->max_days_left,
             'id'               => $this->id,
             'user_id'	       => $this->user_id ,
             'old_id_customer'  => $this->old_id_customer,
@@ -26,11 +27,11 @@ class ContractTasks extends JsonResource
             'end_date'         => $this->end_date ,
             'start_date'       => $this->start_date,
             'customer'         => new Customer($this->customer),
-            'tasks'             =>new TaskCollection($this->tasks),
+            'tasks'            => new TaskCollection($this->runningTasks),
             'ancillary'        => new AncillaryCollection($this->ancillary) ,
             'jalali_created_at'=> Verta::instance($this->created_at)->formatDatetime(),
             'jalali_sign_date' => Verta::instance($this->sign_date)->formatDate(),
-            'jalali_start_date'=>Verta::instance($this->start_date)->formatDate(),
+            'jalali_start_date'=> Verta::instance($this->start_date)->formatDate(),
             'jalali_end_date'  => Verta::instance($this->end_date)->formatDate(),
             'checklistContract'=> new ChecklistContractCollection($this->checklistContract)
         ];
