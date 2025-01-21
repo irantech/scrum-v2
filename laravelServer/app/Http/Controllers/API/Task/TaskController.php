@@ -93,7 +93,20 @@ class TaskController extends Controller
                     $query->where('user_id', $user_id);
                 });
             })
-            ->get();
+            ->with(['runningTasks' => function ($query) {
+                $query->selectRaw('it_tasks.*,
+                               CASE
+                                   WHEN status = "running" THEN DATEDIFF(CURRENT_DATE(), created_at)
+                                   ELSE 0
+                               END AS days_left')
+                    ->orderByDesc('days_left');
+            }])
+            ->get()
+            ->map(function ($contract) {
+                $contract->max_days_left = $contract->runningTasks->max('days_left');
+                return $contract;
+            })
+            ->sortByDesc('max_days_left');
         $tasks_not_assign=Task::doesntHave('contract')->get();
 //        $queries = DB::getQueryLog();
 //        dd($queries);
@@ -399,9 +412,15 @@ class TaskController extends Controller
             $request['status'] = 'running';
             $flag = 0;
         }
+        $start_date=null;
+        $end_date=null;
+        if (isset($request['start_date']) && !empty($request['start_date'])) {
+            $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
+        }
+        if (isset($request['end_date']) && !empty($request['end_date'])) {
+            $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
+        }
 
-        $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
-        $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
         $start_delivery_time = null;
         $end_delivery_time = null;
         if (isset($request['start_delivery_date']) && !empty($request['start_delivery_date'])) {
@@ -424,8 +443,12 @@ class TaskController extends Controller
             });
         })
             ->where('user_id', Auth::user()->id)
-            ->whereDate('created_at', '>=', $start_date)
-            ->whereDate('created_at', '<=', $end_date)
+            ->when($request['start_date'] ?? null, function ($q) use ($start_date) {
+                $q->whereDate('created_at', '>=', $start_date);
+            })
+            ->when($request['end_date'] ?? null, function ($q) use ($end_date) {
+                $q->whereDate('created_at', '<=', $end_date);
+                    })
             ->Where('status', '!=', 'complete')
             ->when($request['contract'] ?? null, function ($q) use ($request) {
                 $q->where('contract_id', $request['contract']);

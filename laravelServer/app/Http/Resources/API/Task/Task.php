@@ -38,10 +38,6 @@ class Task extends JsonResource
 //        })->get();
         $totalTimeDuration = $this->totalTimeDuration($this->taskTimes);
 
-        $now = Carbon::now();
-        $create_task=Carbon::parse($this->created_at)->toDateString();
-        $days_passed_since_making_task=$now->diffInDays($create_task);
-
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -58,7 +54,7 @@ class Task extends JsonResource
             'delivery_time' => $this->delivery_time ? Verta::instance($this->delivery_time)->format('Y-m-d') : '',
             'delivery_time_base' => $this->delivery_time,
             'created_at' => Verta::instance($this->created_at)->format('Y-m-d'),
-            'days_passed_since_making_task' => $days_passed_since_making_task ,
+            'days_passed_since_making_task' => $this->days_left ,
             ];
 
 
