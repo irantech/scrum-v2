@@ -1,6 +1,7 @@
 <template>
   <div>
-    <all-task :task_all="allTask" :searchForm="form" @setSearchData="setSearchData" />
+
+    <all-task :task_all="allTask.data_contract" :not_assign_tasks="allTask.data_tasks_not_assign" :searchForm="form" @setSearchData="setSearchData" />
   </div>
 </template>
 
