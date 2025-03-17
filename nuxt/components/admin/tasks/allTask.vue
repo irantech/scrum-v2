@@ -73,7 +73,7 @@ export default {
         <div class="parent-box-all-task">
           <h3 class="title-tasks">تسک های تایم داده شده</h3>
           <div class="box-all-task" v-for="(contract , tasks_index) in task_all" :key="tasks_index"  v-if="contract.tasks.length">
-            <div class="title-all-task">
+            <div v-if="contract.customer" class="title-all-task">
               <div class="">{{contract.customer.name}}</div>
               <div class="">{{contract.max_days_left}} روز</div>
             </div>
