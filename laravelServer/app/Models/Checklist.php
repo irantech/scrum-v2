@@ -24,7 +24,7 @@ class Checklist extends Model
         return $this->hasMany(TitleChecklist::class);
     }
     public function contracts() {
-        return $this->belongsToMany(Contract::class , 'checklist_contract' , 'checklist_id' , 'contract_id');
+        return $this->belongsToMany(Contract::class , 'checklist_contract' , 'checklist_id' , 'contract_id')->withPivot('delivery_date');
     }
     public function language() {
         return $this->belongsTo(Language::class);

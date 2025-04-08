@@ -2,47 +2,29 @@
 
 namespace App\Http\Resources\API\Task;
 
-use App\Http\Resources\API\Contract\ChecklistContract;
-use App\Http\Resources\API\ContractChecklist\subTaskCollection;
-use App\Http\Resources\API\Task\UserCollection;
 use App\Http\Resources\API\ToDoList\contract;
-use App\Http\Resources\API\ToDoList\todoListCollection;
-use App\Http\Resources\API\User\TodoCollection;
 use App\Models\User;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Carbon;
-use phpDocumentor\Reflection\Types\Void_;
 
-class Task extends JsonResource
+class ArchiveTasks extends JsonResource
 {
-
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
     {
-
-
         $todo_user_ids = $this->todoList()->pluck('user_id');
         $todo_users = User::whereIn('id', $todo_user_ids)->get();
 
         $users_with_duplicates = $todo_user_ids->map(function ($user_id) use ($todo_users) {
             return $todo_users->firstWhere('id', $user_id);
         });
-//        $task_id = $this->id;
-//        $user = new User() ;
-//        $userList = $user->with(['taskSubTasks' =>  function ($request) use($task_id) {
-//            $request->where('subtaskable_id' , $task_id);
-//        }])->whereHas('taskSubTasks' , function ($request) use($task_id) {
-//            $request->where('subtaskable_id' , $task_id);
-//        })->get();
         $totalTimeDuration = $this->totalTimeDuration($this->taskTimes);
-        if($this->status != 'running')
-            $this->days_left = 0;
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -60,11 +42,8 @@ class Task extends JsonResource
             'delivery_time_base' => $this->delivery_time,
             'created_at' => Verta::instance($this->created_at)->format('Y-m-d'),
             'days_passed_since_making_task' => $this->days_left ,
-            ];
-
-
+        ];
     }
-
     private function totalTimeDuration($taskTimes)
     {
         if (count($taskTimes) > 0) {
@@ -90,5 +69,4 @@ class Task extends JsonResource
         ];
 
     }
-
 }
