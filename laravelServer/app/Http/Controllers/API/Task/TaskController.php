@@ -7,6 +7,7 @@ use App\Http\Controllers\API\ToDoList\ToDoListController;
 use App\Http\Controllers\API\User\UserController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\Contract\ContractTasksCollection;
+use App\Http\Resources\API\Task\ArchiveTasksCollection;
 use App\Http\Resources\API\Task\GetFeartureTasksCollection;
 use App\Http\Resources\API\Task\showTasks;
 use App\Http\Resources\API\Task\SingleTask;
@@ -101,20 +102,24 @@ class TaskController extends Controller
                                END AS days_left')
                     ->orderByDesc('days_left');
             }])
-            ->get()
+            ->paginate(85)
             ->map(function ($contract) {
                 $contract->max_days_left = $contract->runningTasks->max('days_left');
                 return $contract;
             })
             ->sortByDesc('max_days_left');
-        $tasks_not_assign=Task::doesntHave('contract')->get();
+        $tasks_not_assign=Task::doesntHave('contract')->paginate(85);
+        $tasks_archive=Task::where('status','complete')->paginate(85);
 //        $queries = DB::getQueryLog();
 //        dd($queries);
         $data_contract = new ContractTasksCollection($contracts);
         $data_tasks_not_assign = new TaskCollection($tasks_not_assign);
+        $data_tasks_archive = new ArchiveTasksCollection($tasks_archive);
+
         $data=[
             'data_contract' => $data_contract,
-            'data_tasks_not_assign' => $data_tasks_not_assign
+            'data_tasks_not_assign' => $data_tasks_not_assign,
+            'tasks_archive'=>$data_tasks_archive
         ];
 
         return \response()->json([
