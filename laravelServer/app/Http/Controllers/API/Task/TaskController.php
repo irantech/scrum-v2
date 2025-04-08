@@ -48,12 +48,14 @@ class TaskController extends Controller
     }
     public function showTasks(Request $request)
     {
+
         if($request->flag == "given_time" || !$request->has('flag') || $request->flag == null)
         {
             $user_id = $start_date = $end_date = "";
             $last_reference_user_id = "";
             $last_reference_user = User::where('name', $request->last_reference_user)->first();
             $user = User::where('name', $request->user_name)->first();
+
             if ($last_reference_user)
                 $last_reference_user_id = $last_reference_user->id;
             if ($user)
@@ -64,6 +66,7 @@ class TaskController extends Controller
             if (isset($request['end_date']) && !empty($request['end_date'])) {
                 $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
             }
+
 //----------------------------------------------------------------
             $contracts = Contract::when($last_reference_user_id ?? null, function ($query) use ($last_reference_user_id) {
                 $query->whereHas('tasks.lastReferenceTodoList', function ($query) use ($last_reference_user_id) {
@@ -110,9 +113,10 @@ class TaskController extends Controller
                     return $contract;
                 })
                 ->sortByDesc('max_days_left');
+
             $data_contract = new ContractTasksCollection($contracts);
             $data=[
-                'data' => $data_contract,
+                'data_contract' => $data_contract,
             ];
         }
         if($request->flag == "no_time_given")
@@ -121,15 +125,15 @@ class TaskController extends Controller
             $data_tasks_not_assign = new TaskCollection($tasks_not_assign);
 
             $data=[
-                'data' => $data_tasks_not_assign,
+                'data_tasks_not_assign' => $data_tasks_not_assign,
             ];
         }
         if($request->flag == "archive_tasks")
         {
             $tasks_archive=Task::where('status','complete')->get();
-            $data_tasks_archive = new ArchiveTasksCollection($tasks_archive);
+            $data_tasks_archive = new TaskCollection($tasks_archive);
             $data=[
-                'data'=>$data_tasks_archive
+                'data_tasks_not_assign'=>$data_tasks_archive
             ];
         }
 //        $queries = DB::getQueryLog();
