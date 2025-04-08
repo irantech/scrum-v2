@@ -17,9 +17,12 @@ class ArchiveTasks extends JsonResource
      */
     public function toArray($request)
     {
-        $todo_user = $this->todoList()->groupBy('user_id')->pluck('user_id');
-        $todo_user = User::whereIn('id', $todo_user)->get();
+        $todo_user_ids = $this->todoList()->pluck('user_id');
+        $todo_users = User::whereIn('id', $todo_user_ids)->get();
 
+        $users_with_duplicates = $todo_user_ids->map(function ($user_id) use ($todo_users) {
+            return $todo_users->firstWhere('id', $user_id);
+        });
         $totalTimeDuration = $this->totalTimeDuration($this->taskTimes);
 
         return [
@@ -32,7 +35,7 @@ class ArchiveTasks extends JsonResource
             'site_link' => $this->site_link,
             'theme_link' => $this->theme_link,
             'label_list' => new TaskLabelCollection($this->taskLabels),
-            'user_list' => new UserCollection($todo_user),
+            'user_list' => new UserCollection($users_with_duplicates),
             'total_task_day' => $totalTimeDuration['days'],
             'total_task_time' => $totalTimeDuration['time'],
             'delivery_time' => $this->delivery_time ? Verta::instance($this->delivery_time)->format('Y-m-d') : '',
