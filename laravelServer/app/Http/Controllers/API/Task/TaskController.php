@@ -112,7 +112,7 @@ class TaskController extends Controller
                 ->sortByDesc('max_days_left');
             $data_contract = new ContractTasksCollection($contracts);
             $data=[
-                'data_contract' => $data_contract,
+                'data' => $data_contract,
             ];
         }
         if($request->flag == "no_time_given")
@@ -121,7 +121,7 @@ class TaskController extends Controller
             $data_tasks_not_assign = new TaskCollection($tasks_not_assign);
 
             $data=[
-                'data_tasks_not_assign' => $data_tasks_not_assign,
+                'data' => $data_tasks_not_assign,
             ];
         }
         if($request->flag == "archive_tasks")
@@ -129,7 +129,7 @@ class TaskController extends Controller
             $tasks_archive=Task::where('status','complete')->get();
             $data_tasks_archive = new ArchiveTasksCollection($tasks_archive);
             $data=[
-                'tasks_archive'=>$data_tasks_archive
+                'data'=>$data_tasks_archive
             ];
         }
 //        $queries = DB::getQueryLog();
