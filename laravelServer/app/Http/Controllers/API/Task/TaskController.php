@@ -476,6 +476,7 @@ class TaskController extends Controller
             ->when($request['title'] ?? null, function ($q) use ($request) {
                 $q->Where('title', 'like', '%' . $request['title'] . '%');
             });
+
         if ($flag) {
             $task_list = $task_list->when($request['status'] ?? null, function ($q) use ($request, $flag) {
                 $q->Where('status', $request['status']);
