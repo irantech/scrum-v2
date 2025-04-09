@@ -12,6 +12,7 @@ use App\Models\User;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Void_;
 
 class Task extends JsonResource
@@ -26,7 +27,13 @@ class Task extends JsonResource
     public function toArray($request)
     {
 
-
+        $lastTodoList = $this->lastReferenceTodoList()->first();
+        if ($lastTodoList && $lastTodoList->user_id == Auth::user()->id) {
+            $flagStatus = 'yes';
+        }
+        else{
+            $flagStatus = 'no';
+        }
         $todo_user_ids = $this->todoList()->pluck('user_id');
         $todo_users = User::whereIn('id', $todo_user_ids)->get();
 
@@ -60,7 +67,9 @@ class Task extends JsonResource
             'delivery_time_base' => $this->delivery_time,
             'created_at' => Verta::instance($this->created_at)->format('Y-m-d'),
             'days_passed_since_making_task' => $this->days_left ,
-            ];
+            'flagStatus' => $flagStatus
+
+        ];
 
 
     }
