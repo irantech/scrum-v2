@@ -24,6 +24,7 @@ export default {
         receiver_delivery : '',
         start_date : '' ,
         end_date : '' ,
+        flag: 'given_time'
       },
     }
   },

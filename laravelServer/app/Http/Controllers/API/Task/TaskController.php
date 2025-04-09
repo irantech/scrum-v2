@@ -48,79 +48,98 @@ class TaskController extends Controller
     }
     public function showTasks(Request $request)
     {
-        $user_id = $start_date = $end_date = "";
-        $last_reference_user_id = "";
-        $last_reference_user = User::where('name', $request->last_reference_user)->first();
-        $user = User::where('name', $request->user_name)->first();
-        if ($last_reference_user)
-            $last_reference_user_id = $last_reference_user->id;
-        if ($user)
-            $user_id = $user->id;
-        if (isset($request['start_date']) && !empty($request['start_date'])) {
-            $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
-        }
-        if (isset($request['end_date']) && !empty($request['end_date'])) {
-            $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
-        }
+
+        if($request->flag == "given_time" || !$request->has('flag') || $request->flag == null)
+        {
+            $user_id = $start_date = $end_date = "";
+            $last_reference_user_id = "";
+            $last_reference_user = User::where('name', $request->last_reference_user)->first();
+            $user = User::where('name', $request->user_name)->first();
+
+            if ($last_reference_user)
+                $last_reference_user_id = $last_reference_user->id;
+            if ($user)
+                $user_id = $user->id;
+            if (isset($request['start_date']) && !empty($request['start_date'])) {
+                $start_date = Verta::parse($request['start_date'])->datetime()->format('y-m-d');
+            }
+            if (isset($request['end_date']) && !empty($request['end_date'])) {
+                $end_date = Verta::parse($request['end_date'])->datetime()->format('y-m-d');
+            }
+
 //----------------------------------------------------------------
-        $contracts = Contract::when($last_reference_user_id ?? null, function ($query) use ($last_reference_user_id) {
-            $query->whereHas('tasks.lastReferenceTodoList', function ($query) use ($last_reference_user_id) {
-                $query->where('user_id', $last_reference_user_id)
-                    ->whereIn('id', function ($subQuery) {
-                        $subQuery->selectRaw('max(id)')
-                            ->from('todo_lists')
-                            ->groupBy('todoable_id');
+            $contracts = Contract::when($last_reference_user_id ?? null, function ($query) use ($last_reference_user_id) {
+                $query->whereHas('tasks.lastReferenceTodoList', function ($query) use ($last_reference_user_id) {
+                    $query->where('user_id', $last_reference_user_id)
+                        ->whereIn('id', function ($subQuery) {
+                            $subQuery->selectRaw('max(id)')
+                                ->from('todo_lists')
+                                ->groupBy('todoable_id');
+                        });
+                });
+            })
+                ->when($request['customer_id'] ?? null, function ($query) use ($request) {
+                    $query->whereHas('customer', function ($query) use ($request) {
+                        $query->where('id', $request['customer_id']);
                     });
-            });
-        })
-            ->when($request['customer_id'] ?? null, function ($query) use ($request) {
-                $query->whereHas('customer', function ($query) use ($request) {
-                    $query->where('id', $request['customer_id']);
-                });
-            })
-            ->when($start_date ?? null, function ($query) use ($start_date) {
-                $query->whereHas('tasks', function ($query) use ($start_date) {
-                    $query->whereDate('created_at', '>=', $start_date);
-                });
-            })
-            ->when($end_date ?? null, function ($query) use ($end_date) {
-                $query->whereHas('tasks', function ($query) use ($end_date) {
-                    $query->whereDate('created_at', '<=', $end_date);
-                });
-            })
-            ->whereHas('tasks')
-            ->when($user_id ?? null, function ($query) use ($user_id) {
-                $query->whereHas('tasks.user', function ($query) use ($user_id) {
-                    $query->where('user_id', $user_id);
-                });
-            })
-            ->with(['runningTasks' => function ($query) {
-                $query->selectRaw('it_tasks.*,
+                })
+                ->when($start_date ?? null, function ($query) use ($start_date) {
+                    $query->whereHas('tasks', function ($query) use ($start_date) {
+                        $query->whereDate('created_at', '>=', $start_date);
+                    });
+                })
+                ->when($end_date ?? null, function ($query) use ($end_date) {
+                    $query->whereHas('tasks', function ($query) use ($end_date) {
+                        $query->whereDate('created_at', '<=', $end_date);
+                    });
+                })
+                ->whereHas('tasks')
+                ->when($user_id ?? null, function ($query) use ($user_id) {
+                    $query->whereHas('tasks.user', function ($query) use ($user_id) {
+                        $query->where('user_id', $user_id);
+                    });
+                })
+                ->with(['runningTasks' => function ($query) {
+                    $query->selectRaw('it_tasks.*,
                                CASE
                                    WHEN status = "running" THEN DATEDIFF(CURRENT_DATE(), created_at)
                                    ELSE 0
                                END AS days_left')
-                    ->orderByDesc('days_left');
-            }])
-            ->paginate(85)
-            ->map(function ($contract) {
-                $contract->max_days_left = $contract->runningTasks->max('days_left');
-                return $contract;
-            })
-            ->sortByDesc('max_days_left');
-        $tasks_not_assign=Task::doesntHave('contract')->paginate(85);
-        $tasks_archive=Task::where('status','complete')->paginate(85);
+                        ->orderByDesc('days_left');
+                }])
+                ->get()
+                ->map(function ($contract) {
+                    $contract->max_days_left = $contract->runningTasks->max('days_left');
+                    return $contract;
+                })
+                ->sortByDesc('max_days_left');
+
+            $data_contract = new ContractTasksCollection($contracts);
+            $data=[
+                'data_contract' => $data_contract,
+            ];
+        }
+        if($request->flag == "no_time_given")
+        {
+            $tasks_not_assign=Task::doesntHave('contract')->get();
+            $data_tasks_not_assign = new TaskCollection($tasks_not_assign);
+
+            $data=[
+                'data_tasks_not_assign' => $data_tasks_not_assign,
+            ];
+        }
+        if($request->flag == "archive_tasks")
+        {
+            $tasks_archive=Task::where('status','complete')->get();
+            $data_tasks_archive = new TaskCollection($tasks_archive);
+            $data=[
+                'data_tasks_not_assign'=>$data_tasks_archive
+            ];
+        }
 //        $queries = DB::getQueryLog();
 //        dd($queries);
-        $data_contract = new ContractTasksCollection($contracts);
-        $data_tasks_not_assign = new TaskCollection($tasks_not_assign);
-        $data_tasks_archive = new ArchiveTasksCollection($tasks_archive);
 
-        $data=[
-            'data_contract' => $data_contract,
-            'data_tasks_not_assign' => $data_tasks_not_assign,
-            'tasks_archive'=>$data_tasks_archive
-        ];
+
 
         return \response()->json([
             'status' => 'true',
