@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\API\Contract\ContractChecklistController;
 use App\Http\Controllers\API\Contract\ContractController;
 use App\Http\Controllers\API\Contract\SubTaskController;
@@ -65,8 +64,8 @@ Route::prefix( 'questions' )->middleware(('auth:api'))->group( function () {
 });
 
 //---------------------------------------------------------- Close to delivery time
-Route::prefix( 'Close-to-delivery-time' )->middleware(('auth:api'))->group( function () {
-    Route::get('/tasks',[CloseToDeliveryTimeController::class,'showDeliveryTasks']);
+Route::prefix( 'Close-to-delivery-time' )->group( function () {
+    Route::get('tasks',[CloseToDeliveryTimeController::class,'showDeliveryTasks']);
 
 });
 
@@ -164,9 +163,19 @@ Route::namespace( 'API' )->group( function () {
             Route::get('process/checklist-contract/{checklistContract}' ,'ContractChecklistController@getLastChecklistProcess');
             Route::get('reverse/checklist-contract/{checklistContract}' ,[ContractChecklistController::class,'getChecklistReverse']);
             Route::get('checklist-contract/{checklistContract}' , 'ContractChecklistController@checklistContract');
-
             Route::post('sign/contract/{contract}/checklist/{checklist}' ,'ContractChecklistController@managerSignChecklist');
             Route::get('contract/{contract}/checklist/{checklist}/process/all' ,'ContractChecklistController@getChecklistProcess');
+            Route::put('delivery-date/{checklistContract}' ,[ContractChecklistController::class,'updateChecklistDeliveryTime']);
+
+
+
+
+
+
+
+
+
+
 
             Route::post('subTask/create' ,[SubTaskController::class,'create']);
             Route::put('subTask/{sub_task}' ,'SubTaskController@updateFile');

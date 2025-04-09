@@ -75,7 +75,7 @@ class Contract extends Model {
         return $value;
     }
     public function checklists() {
-        return $this->belongsToMany(Checklist::class , 'checklist_contract' , 'contract_id' , 'checklist_id')
+        return $this->belongsToMany(Checklist::class , 'checklist_contract' , 'contract_id' , 'checklist_id')->withPivot('delivery_date')
             ;
     }
 

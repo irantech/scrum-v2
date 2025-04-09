@@ -64,6 +64,18 @@ class ContractChecklistController extends Controller
         return response()->json(['message' => __('scrum.api.insert_success'), 'data' => $data]);
     }
 
+    public function updateChecklistDeliveryTime(ChecklistContract $checklistContract,Request $request)
+    {
+        $checklist = $checklistContract->checklist;
+        $contract = $checklistContract->contract;
+        $checklist->contracts()->updateExistingPivot($contract->id, [
+            'delivery_date' => $request->delivery_date,
+        ]);
+        return response()->json([
+            'success' => true,
+            'message' => __('scrum.api.update_success', ['item' => trans_choice('scrum.title.task', 1)]),
+        ], 200);
+    }
     /**
      * assign checklist to a contract
      * @param Contract $contract

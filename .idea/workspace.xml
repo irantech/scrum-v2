@@ -5,8 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4cd567a-739f-499f-8a2a-36fd4d5e7e10" name="Changes" comment="feat: All Task new Design">
+      <change afterPath="$PROJECT_DIR$/laravelServer/app/Http/Resources/API/Task/ArchiveTasks.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laravelServer/app/Http/Resources/API/Task/ArchiveTasksCollection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laravelServer/app/Http/Resources/Resource/API/ArchiveTasksCollection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laravelServer/database/migrations/2025_04_06_174105_add_end_date_to_checklist_contract_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nuxt/components/admin/tasks/allTask.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/components/admin/tasks/allTask.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/.rnd" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/.rnd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Contract/ContractChecklistController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Contract/ContractChecklistController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Resources/API/Task/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Resources/API/Task/Task.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/app/Models/Checklist.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Models/Checklist.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/app/Models/Contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Models/Contract.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/database/migrations/2024_12_28_134003_create_scores_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/database/migrations/2024_12_28_134223_create_score_user_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,24 +194,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/chenge-tasks-design&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PhpStorm 2023.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;vuejs.nuxt.types-notification-shown&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Merging main",
+    "last_opened_file_path": "X:/gds",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PhpStorm 2023.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true",
+    "vuejs.nuxt.types-notification-shown": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-php-predefined-ba97393d7c68-6f8e3395a2b4-com.jetbrains.php.sharedIndexes-PS-233.14015.96" />
+        <option value="bundled-php-predefined-ba97393d7c68-b4dcf6bb9de9-com.jetbrains.php.sharedIndexes-PS-233.13135.108" />
       </set>
     </attachedChunks>
   </component>
@@ -227,6 +242,13 @@
       <updated>1742107072874</updated>
       <workItem from="1742107074764" duration="6177000" />
       <workItem from="1742196245935" duration="328000" />
+      <workItem from="1742208634864" duration="3399000" />
+      <workItem from="1742277639337" duration="938000" />
+      <workItem from="1742812658868" duration="2006000" />
+      <workItem from="1744005466025" duration="1150000" />
+      <workItem from="1744103939719" duration="547000" />
+      <workItem from="1744105870285" duration="3249000" />
+      <workItem from="1744199608137" duration="2413000" />
     </task>
     <task id="LOCAL-00003" summary="feat: All Task new Design">
       <option name="closed" value="true" />
