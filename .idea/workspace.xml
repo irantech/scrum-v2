@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4cd567a-739f-499f-8a2a-36fd4d5e7e10" name="Changes" comment="feat: All Task new Design">
+    <list default="true" id="a4cd567a-739f-499f-8a2a-36fd4d5e7e10" name="Changes" comment="bug: Conditional on the existence of a customer Second change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nuxt/components/admin/tasks/allTask.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/components/admin/tasks/allTask.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nuxt/pages/admin/tasks/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/pages/admin/tasks/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,7 +228,8 @@
       <option name="presentableId" value="Default" />
       <updated>1742107072874</updated>
       <workItem from="1742107074764" duration="6177000" />
-      <workItem from="1742196245935" duration="328000" />
+      <workItem from="1742196245935" duration="3292000" />
+      <workItem from="1744109451113" duration="8432000" />
     </task>
     <task id="LOCAL-00003" summary="feat: All Task new Design">
       <option name="closed" value="true" />
@@ -236,7 +239,23 @@
       <option name="project" value="LOCAL" />
       <updated>1742117085652</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="bug: Conditional on the existence of a customer">
+      <option name="closed" value="true" />
+      <created>1742196661860</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1742196661860</updated>
+    </task>
+    <task id="LOCAL-00005" summary="bug: Conditional on the existence of a customer Second change">
+      <option name="closed" value="true" />
+      <created>1742196996093</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1742196996093</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,6 +277,19 @@
     <MESSAGE value="deg: Fix task history" />
     <MESSAGE value="Creating filters for tasks" />
     <MESSAGE value="feat: All Task new Design" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: All Task new Design" />
+    <MESSAGE value="bug: Conditional on the existence of a customer" />
+    <MESSAGE value="bug: Conditional on the existence of a customer Second change" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug: Conditional on the existence of a customer Second change" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php</url>
+          <line>51</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

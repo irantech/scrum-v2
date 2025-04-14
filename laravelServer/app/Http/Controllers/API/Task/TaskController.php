@@ -48,8 +48,9 @@ class TaskController extends Controller
     }
     public function showTasks(Request $request)
     {
+
         if($request->flag == "given_time" || $request->flag == null){
-            $tasks_given_time=Task::whereNotNull('delivery_time')
+               $tasks_given_time=Task::whereNotNull('delivery_time')
                 ->where('status', '!=', 'complete')
                 ->get();
             $data_tasks_given_time = new TaskCollection($tasks_given_time);
@@ -122,7 +123,7 @@ class TaskController extends Controller
                 ->sortByDesc('max_days_left');
             $data_contract = new ContractTasksCollection($contracts);
             $data=[
-                'data' => $data_contract,
+                'data_contract' => $data_contract,
             ];
         }
         if($request->flag == "no_time_given")
@@ -134,15 +135,15 @@ class TaskController extends Controller
             $data_tasks_no_time_given = new TaskCollection($tasks_no_time_given);
 
             $data=[
-                'data' => $data_tasks_no_time_given,
+                'data_tasks_not_assign' => $data_tasks_no_time_given,
             ];
         }
         if($request->flag == "archive_tasks")
         {
             $tasks_archive=Task::where('status','complete')->get();
-            $data_tasks_archive = new ArchiveTasksCollection($tasks_archive);
+            $data_tasks_archive = new TaskCollection($tasks_archive);
             $data=[
-                'data'=>$data_tasks_archive
+                'data_tasks_not_assign'=>$data_tasks_archive
             ];
         }
 //        $queries = DB::getQueryLog();
@@ -489,7 +490,6 @@ class TaskController extends Controller
             ->when($request['title'] ?? null, function ($q) use ($request) {
                 $q->Where('title', 'like', '%' . $request['title'] . '%');
             });
-
         if ($flag) {
             $task_list = $task_list->when($request['status'] ?? null, function ($q) use ($request, $flag) {
                 $q->Where('status', $request['status']);
