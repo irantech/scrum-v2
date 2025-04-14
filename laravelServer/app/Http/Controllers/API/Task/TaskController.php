@@ -48,7 +48,17 @@ class TaskController extends Controller
     }
     public function showTasks(Request $request)
     {
-        if($request->flag == "given_time" || !$request->has('flag') || $request->flag == null)
+        if($request->flag == "given_time" || $request->flag == null){
+            $tasks_given_time=Task::whereNotNull('delivery_time')
+                ->where('status', '!=', 'complete')
+                ->get();
+            $data_tasks_given_time = new TaskCollection($tasks_given_time);
+
+            $data=[
+                'data' => $data_tasks_given_time,
+            ];
+        }
+        if(!$request->has('flag'))
         {
             $user_id = $start_date = $end_date = "";
             $last_reference_user_id = "";
@@ -117,11 +127,14 @@ class TaskController extends Controller
         }
         if($request->flag == "no_time_given")
         {
-            $tasks_not_assign=Task::doesntHave('contract')->get();
-            $data_tasks_not_assign = new TaskCollection($tasks_not_assign);
+//            $tasks_not_assign=Task::doesntHave('contract')->get();
+            $tasks_no_time_given=Task::whereNull('delivery_time')
+                ->where('status', '!=', 'complete')
+                ->get();
+            $data_tasks_no_time_given = new TaskCollection($tasks_no_time_given);
 
             $data=[
-                'data' => $data_tasks_not_assign,
+                'data' => $data_tasks_no_time_given,
             ];
         }
         if($request->flag == "archive_tasks")
