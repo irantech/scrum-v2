@@ -12,6 +12,7 @@ use App\Models\User;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Void_;
 
 class Task extends JsonResource
@@ -26,7 +27,13 @@ class Task extends JsonResource
     public function toArray($request)
     {
 
-
+        $lastTodoList = $this->lastReferenceTodoList()->first();
+        if ($lastTodoList && $lastTodoList->user_id == Auth::user()->id) {
+            $flagStatus = 'yes';
+        }
+        else{
+            $flagStatus = 'no';
+        }
         $todo_user_ids = $this->todoList()->pluck('user_id');
         $todo_users = User::whereIn('id', $todo_user_ids)->get();
 
@@ -60,7 +67,9 @@ class Task extends JsonResource
             'delivery_time_base' => $this->delivery_time,
             'created_at' => Verta::instance($this->created_at)->format('Y-m-d'),
             'days_passed_since_making_task' => $this->days_left ,
-            ];
+            'flagStatus' => $flagStatus
+
+        ];
 
 
     }
@@ -75,7 +84,8 @@ class Task extends JsonResource
                 $total_time = $total_time + $total_task_time + $total_task_interval_time;
             }
 
-            $how_many_days = intdiv($total_time, enV("EACH_DAY_MINUTE_TIME"));
+//            $how_many_days = intdiv($total_time, enV("EACH_DAY_MINUTE_TIME"));
+            $how_many_days = 0 ;
             $how_much_time = $total_time - ($how_many_days * enV("EACH_DAY_MINUTE_TIME"));
             $how_much_time = intdiv($how_much_time, 60) . ':' . ($how_much_time % 60);
 

@@ -93,16 +93,14 @@
         <FormItem label="عنوان" prop="title" class="col-12">
           <Input v-model="formCreate.title"></Input>
         </FormItem>
-
-
         <FormItem label="لینک طرح" class="col-6">
           <Input v-model="formCreate.theme_link"></Input>
         </FormItem>
         <FormItem label="لینک سایت" class="col-6">
           <Input v-model="formCreate.site_link"></Input>
         </FormItem>
-        <FormItem label="قرارداد مشخص" prop="section_id" class="col-6">
-          <Select v-model="formCreate.section_id" filterable label="مشتری">
+        <FormItem label="قرارداد مشخص" prop="contract_id" class="col-6">
+          <Select v-model="formCreate.contract_id" filterable label="مشتری">
             <Option v-for="item in contractList" :value="item.id" :key="item.id">{{ item.customer ? item.customer.name : '' }}({{item.title}}) {{item.contract_code}}</Option>
           </Select>
         </FormItem>
@@ -304,7 +302,10 @@ export default {
           { required: true, message: 'یک عنوان وارد کنید', trigger: 'change' }
         ],
         section_id: [
-          { required: true, message: 'انتخاب بخش مورد نظر الزامی است', trigger: 'change' , type : 'integer'}
+          { required: true, message: 'انتخاب بخش مورد نظر الزامی است', trigger: 'change' , type : 'integer'},
+        ],
+        contract_id: [
+          { required: true, message: 'انتخاب بخش مورد نظر الزامی است', trigger: 'change' , type : 'integer'},
         ],
       },
       createLoading : false
