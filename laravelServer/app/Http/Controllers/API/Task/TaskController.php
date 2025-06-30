@@ -464,39 +464,35 @@ class TaskController extends Controller
             $end_delivery_time = Verta::parse($request['end_delivery_date'])->datetime()->format('y-m-d');
         }
         $task_model = new Task();
-        DB::enableQueryLog();
-        $task_list = $task_model->when($request['section_id'] ?? null, function ($q) use ($request) {
-            $q->whereHas('firstTodoList', function ($q) use ($request) {
-                $q->whereIn('id', function ($subQuery) {
-                    $subQuery->selectRaw('min(id)')
-                        ->from('todo_lists')
-                        ->groupBy('todoable_id');
-                })->whereHas('user.role', function ($q) use ($request) {
-                    $q->where('section_id', $request->section_id);
+        $task_list_with_316 = $task_model
+            ->when($request['section_id'] ?? null, function ($q) use ($request) {
+                $q->whereHas('firstTodoList', function ($q) use ($request) {
+                    $q->whereIn('id', function ($subQuery) {
+                        $subQuery->selectRaw('min(id)')
+                            ->from('todo_lists')
+                            ->groupBy('todoable_id');
+                    })->whereHas('user.role', function ($q) use ($request) {
+                        $q->where('section_id', $request->section_id);
+                    });
                 });
-            });
-        })
-            ->where('user_id', Auth::user()->id)
-            ->when($request['start_date'] ?? null, function ($q) use ($start_date) {
+            })->where('contract_id',  316)
+            ->when(Auth::user()->id != 1, function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            })->when($request['start_date'] ?? null, function ($q) use ($start_date) {
                 $q->whereDate('created_at', '>=', $start_date);
             })
             ->when($request['end_date'] ?? null, function ($q) use ($end_date) {
                 $q->whereDate('created_at', '<=', $end_date);
-                    })
+            })
             ->Where('status', '!=', 'complete')
             ->when($request['contract'] ?? null, function ($q) use ($request) {
                 $q->where('contract_id', $request['contract']);
             })
             ->when($request['title'] ?? null, function ($q) use ($request) {
                 $q->Where('title', 'like', '%' . $request['title'] . '%');
-            });
-        if ($flag) {
-            $task_list = $task_list->when($request['status'] ?? null, function ($q) use ($request, $flag) {
-                $q->Where('status', $request['status']);
-            });
-        }
-        $task_list = $task_list
-            ->when($request['has_delivery'] ?? null, function ($q) use ($request) {
+            })->when($flag, function ($q) use ($request) {
+                $q->where('status', $request['status']);
+            })->when($request['has_delivery'] ?? null, function ($q) use ($request) {
                 if ($request['has_delivery'] == '1') {
                     $q->whereNull('delivery_time');
                 } else {
@@ -508,7 +504,56 @@ class TaskController extends Controller
             })
             ->when($request['end_delivery_date'] ?? null, function ($q) use ($end_delivery_time) {
                 $q->whereDate('delivery_time', '<=', $end_delivery_time);
-            })->orderBy('delivery_time', 'desc')->orderBy('created_at', 'desc')->get();
+            })
+            ->orderBy('delivery_time', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
+        $task_list = $task_model
+            ->when($request['section_id'] ?? null, function ($q) use ($request) {
+                $q->whereHas('firstTodoList', function ($q) use ($request) {
+                    $q->whereIn('id', function ($subQuery) {
+                        $subQuery->selectRaw('min(id)')
+                            ->from('todo_lists')
+                            ->groupBy('todoable_id');
+                    })->whereHas('user.role', function ($q) use ($request) {
+                        $q->where('section_id', $request->section_id);
+                    });
+                });
+            })->where('contract_id', '!=' , 316)
+            ->when(Auth::user()->id != 1, function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            })->when($request['start_date'] ?? null, function ($q) use ($start_date) {
+                $q->whereDate('created_at', '>=', $start_date);
+            })
+            ->when($request['end_date'] ?? null, function ($q) use ($end_date) {
+                $q->whereDate('created_at', '<=', $end_date);
+            })
+            ->Where('status', '!=', 'complete')
+            ->when($request['contract'] ?? null, function ($q) use ($request) {
+                $q->where('contract_id', $request['contract']);
+            })
+            ->when($request['title'] ?? null, function ($q) use ($request) {
+                $q->Where('title', 'like', '%' . $request['title'] . '%');
+            })->when($flag, function ($q) use ($request) {
+                $q->where('status', $request['status']);
+            })->when($request['has_delivery'] ?? null, function ($q) use ($request) {
+                if ($request['has_delivery'] == '1') {
+                    $q->whereNull('delivery_time');
+                } else {
+                    $q->whereNotNull('delivery_time');
+                }
+            })
+            ->when($request['start_delivery_date'] ?? null, function ($q) use ($start_delivery_time) {
+                $q->whereDate('delivery_time', '>=', $start_delivery_time);
+            })
+            ->when($request['end_delivery_date'] ?? null, function ($q) use ($end_delivery_time) {
+                $q->whereDate('delivery_time', '<=', $end_delivery_time);
+            })
+            ->orderBy('delivery_time', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $task_id_list = $task_list->pluck('id');
         if ($flag) {
@@ -524,10 +569,11 @@ class TaskController extends Controller
 //        $queries = DB::getQueryLog();
 //        dd($queries);
 
+        $task_contract_316  = new TaskCollection($task_list_with_316);
         $data = new TaskCollection($task_list);
 
 
-        return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data]);
+        return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data , 'iran_tech_task' => $task_contract_316]);
 
     }
 

@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4cd567a-739f-499f-8a2a-36fd4d5e7e10" name="Changes" comment="bug: Conditional on the existence of a customer Second change">
+    <list default="true" id="a4cd567a-739f-499f-8a2a-36fd4d5e7e10" name="Changes" comment="bug: Fixing the appearance of the fever and changing the fever for all task">
+      <change afterPath="$PROJECT_DIR$/nuxt/components/admin/task/singel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nuxt/components/admin/task/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/components/admin/task/list.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nuxt/components/admin/tasks/allTask.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/components/admin/tasks/allTask.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nuxt/pages/admin/tasks/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/pages/admin/tasks/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nuxt/pages/admin/task/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/pages/admin/task/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nuxt/store/admin/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/store/admin/task.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +21,13 @@
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/laravelServer/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Options API Component" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -182,20 +192,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/chenge-tasks-design&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PhpStorm 2023.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;vuejs.nuxt.types-notification-shown&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/chenge-tasks-design",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PhpStorm 2023.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true",
+    "vuejs.nuxt.types-notification-shown": "true"
+  },
+  "keyToStringList": {
+    "vue.recent.templates": [
+      "Vue Options API Component"
+    ]
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -229,7 +244,10 @@
       <updated>1742107072874</updated>
       <workItem from="1742107074764" duration="6177000" />
       <workItem from="1742196245935" duration="3292000" />
-      <workItem from="1744109451113" duration="8432000" />
+      <workItem from="1744109451113" duration="11242000" />
+      <workItem from="1744178073105" duration="8728000" />
+      <workItem from="1744439694548" duration="2608000" />
+      <workItem from="1751277978361" duration="7807000" />
     </task>
     <task id="LOCAL-00003" summary="feat: All Task new Design">
       <option name="closed" value="true" />
@@ -255,7 +273,23 @@
       <option name="project" value="LOCAL" />
       <updated>1742196996093</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: set tab for all task.">
+      <option name="closed" value="true" />
+      <created>1744120529247</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1744120529247</updated>
+    </task>
+    <task id="LOCAL-00007" summary="bug: Fixing the appearance of the fever and changing the fever for all task">
+      <option name="closed" value="true" />
+      <created>1744195156829</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1744195156829</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,13 +307,16 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <MESSAGE value="feat: Adding tasks according to the contract" />
     <MESSAGE value="deg: Fix task history" />
     <MESSAGE value="Creating filters for tasks" />
     <MESSAGE value="feat: All Task new Design" />
     <MESSAGE value="bug: Conditional on the existence of a customer" />
     <MESSAGE value="bug: Conditional on the existence of a customer Second change" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug: Conditional on the existence of a customer Second change" />
+    <MESSAGE value="feat: set tab for all task." />
+    <MESSAGE value="bug: Fixing the appearance of the fever and changing the fever for all task" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug: Fixing the appearance of the fever and changing the fever for all task" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

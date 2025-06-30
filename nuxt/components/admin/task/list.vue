@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="col-12 m-auto">
       <Card class="row mb-2">
       <Form  v-model="searchForm" class="row" ref="searchForm"
@@ -125,135 +126,35 @@
         </FormItem>
       </Form>
     </Modal>
-    <div v-if="!task_loading">
-      <Card class="w-100 my-2 bg-warning-task" v-if="notSetTaskDeliveryTime.length > 0">
-        <p class="mb-1">تسک هایی که هنوز تایم داده نشده </p>
-        <div class="row px-2" >
-          <adminTaskItem v-for="(task , index) in notSetTaskDeliveryTime" :key="`${index}k`" @showModal="getSingleTask" :task="task"
-                         :limitedSectionList="limitedSectionList"
-                         :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>
-        </div>
-      </Card>
-      <Card class="w-100 my-2 bg-dark-task" v-if="pastUndoneTasks.length > 0">
-        <p class="mb-1">تسک هایی که تایم های آن گذشته است </p>
-        <div class="row px-2" >
-          <adminTaskItem v-for="(task , index) in pastUndoneTasks" :key="`${index}k`" :task="task"
-                         :limitedSectionList="limitedSectionList"  @showModal="getSingleTask"
-                         :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>
-        </div>
-      </Card>
-      <Card class="w-100 my-2" v-if="doingTasks.length > 0">
-        <p class="mb-1">تسک های در حال انجام</p>
-        <div class="row px-2" >
-          <adminTaskItem v-for="(task , index) in doingTasks" :key="`${index}k`" :task="task"
-                         :limitedSectionList="limitedSectionList"  @showModal="getSingleTask"
-                         :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>
-        </div>
-      </Card>
-      <Card class="w-100 my-2 bg-done-task" v-if="doneTasks.length > 0">
-        <p class="mb-1">تسک های انجام شده</p>
-        <div class="row px-2" >
-          <adminTaskItem v-for="(task , index) in doneTasks" :key="`${index}k`" :task="task"
-                         :limitedSectionList="limitedSectionList"  @showModal="getSingleTask"
-                         :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>
-        </div>
-      </Card>
-      <Card class="w-100 my-2 bg-secondary-text" v-if="archiveTasks.length > 0">
-        <p class="mb-1">تسک های آرشیو شده</p>
-        <div class="row px-2" >
-          <adminTaskItem v-for="(task , index) in archiveTasks" :key="`${index}k`" :task="task"
-                         :limitedSectionList="limitedSectionList"  @showModal="getSingleTask"
-                         :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>
-        </div>
-      </Card>
-<!--      <Tabs type="card" style="direction: ltr">-->
 
-<!--        <TabPane label="همه" >-->
-<!--                <Card class="w-100 my-2 bg-warning-task" v-if="notSetTaskDeliveryTime.length > 0">-->
-<!--                  <p class="mb-1">تسک هایی که هنوز تایم داده نشده </p>-->
-<!--                  <div class="row px-2" >-->
-<!--                    <adminTaskItem v-for="(task , index) in notSetTaskDeliveryTime" :key="`${index}k`" @showModal="getSingleTask" :task="task"-->
-<!--                                   :limitedSectionList="limitedSectionList"-->
-<!--                                   :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>-->
-<!--                  </div>-->
-<!--                </Card>-->
-<!--                <Card class="w-100 my-2 bg-dark-task" v-if="pastUndoneTasks.length > 0">-->
-<!--                  <p class="mb-1">تسک هایی که تایم های آن گذشته است </p>-->
-<!--                  <div class="row px-2" >-->
-<!--                  <adminTaskItem v-for="(task , index) in pastUndoneTasks" :key="`${index}k`" :task="task"-->
-<!--                                 :limitedSectionList="limitedSectionList"  @showModal="getSingleTask"-->
-<!--                                 :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>-->
-<!--                  </div>-->
-<!--                </Card>-->
-<!--                <Card class="w-100 my-2" v-if="doingTasks.length > 0">-->
-<!--                  <p class="mb-1">تسک های در حال انجام</p>-->
-<!--                  <div class="row px-2" >-->
-<!--                    <adminTaskItem v-for="(task , index) in doingTasks" :key="`${index}k`" :task="task"-->
-<!--                                 :limitedSectionList="limitedSectionList"  @showModal="getSingleTask"-->
-<!--                                 :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>-->
-<!--                  </div>-->
-<!--                </Card>-->
-<!--                <Card class="w-100 my-2 bg-done-task" v-if="doneTasks.length > 0">-->
-<!--                  <p class="mb-1">تسک های در حال انجام</p>-->
-<!--                  <div class="row px-2" >-->
-<!--                    <adminTaskItem v-for="(task , index) in doneTasks" :key="`${index}k`" :task="task"-->
-<!--                                   :limitedSectionList="limitedSectionList"  @showModal="getSingleTask"-->
-<!--                                   :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>-->
-<!--                  </div>-->
-<!--                </Card>-->
-<!--                <Card class="w-100 my-2 bg-secondary-text" v-if="archiveTasks.length > 0">-->
-<!--                  <p class="mb-1">تسک های آرشیو شده</p>-->
-<!--                  <div class="row px-2" >-->
-<!--                    <adminTaskItem v-for="(task , index) in archiveTasks" :key="`${index}k`" :task="task"-->
-<!--                                 :limitedSectionList="limitedSectionList"-->
-<!--                                 :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>-->
-<!--                  </div>-->
-<!--                </Card>-->
-<!--        </TabPane>-->
-<!--        <TabPane label="هنوز تایم داده نشده" v-if="notSetTaskDeliveryTime.length > 0">-->
-<!--          <div class="row px-2" >-->
-<!--            <adminTaskItem v-for="(task , index) in notSetTaskDeliveryTime" :key="`${index}k`" @showModal="getSingleTask" :task="task"-->
-<!--                           :limitedSectionList="limitedSectionList"-->
-<!--                           :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>-->
-<!--          </div>-->
-<!--        </TabPane>-->
-<!--        <TabPane label="تایم های گذشته" v-if="pastUndoneTasks.length > 0">-->
-<!--          <div class="row px-2" >-->
-<!--            <adminTaskItem v-for="(task , index) in pastUndoneTasks" :key="`${index}k`" :task="task"-->
-<!--                           :limitedSectionList="limitedSectionList"  @showModal="getSingleTask"-->
-<!--                           :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>-->
-<!--          </div>-->
-<!--        </TabPane>-->
-<!--        <TabPane label="در حال انجام"  v-if="doingTasks.length > 0">-->
-<!--          <div class="row px-2" >-->
-<!--            <adminTaskItem v-for="(task , index) in doingTasks" :key="`${index}k`" :task="task"-->
-<!--                           :limitedSectionList="limitedSectionList"  @showModal="getSingleTask"-->
-<!--                           :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>-->
-<!--          </div>-->
-<!--        </TabPane>-->
-<!--        <TabPane label="انجام شده"  v-if="doneTasks.length > 0">-->
-<!--          <div class="row px-2" >-->
-<!--            <adminTaskItem v-for="(task , index) in doneTasks" :key="`${index}k`" :task="task"-->
-<!--                           :limitedSectionList="limitedSectionList"  @showModal="getSingleTask"-->
-<!--                           :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>-->
-<!--          </div>-->
-<!--        </TabPane>-->
-<!--        <TabPane label="آرشیو شده"  v-if="archiveTasks.length > 0">-->
-<!--          <div class="row px-2" >-->
-<!--            <adminTaskItem v-for="(task , index) in archiveTasks" :key="`${index}k`" :task="task"-->
-<!--                           :limitedSectionList="limitedSectionList"-->
-<!--                           :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList"/>-->
-<!--          </div>-->
-<!--        </TabPane>-->
-<!--      </Tabs>-->
+    <div class="custom-tabs-container">
+      <div class="custom-tabs-header">
+        <div
+          class="custom-tab-title"
+          :class="{ 'active': activeTab === 'data_task' }"
+          @click="changeTab('data_task')"
+        >
+          تسک ها
+        </div>
+        <div
+          class="custom-tab-title"
+          :class="{ 'active': activeTab === 'iran_task' }"
+          @click="changeTab('iran_task')"
+        >
+          ایران تکنولوژی
+        </div>
+      </div>
+      <div class="custom-tabs-content">
+        <div v-show="activeTab === 'data_task'" class="custom-tab-pane">
+          <admin-task-singel :task_loading="task_loading" :task_list="task_list" :contractList="contractList" sectionList="sectionList" :taskLabelList="taskLabelList" />
 
+        </div>
+        <div v-show="activeTab === 'iran_task'" class="custom-tab-pane">
+          <admin-task-singel :task_loading="task_loading" :task_list="iranTechTask" :contractList="contractList" sectionList="sectionList" :taskLabelList="taskLabelList" />
+        </div>
+      </div>
     </div>
-    <Modal v-model="detailModal" title="جزییات تسک" width="1000" footer-hide>
-      <Col span="24" class="px-2 my-1 d-flex justify-content-center" v-if="single_task_loading">
-        <Spin size="large"> </Spin>
-      </Col>
-      <admin-task-detail v-if="!single_task_loading && singleTask" :task="singleTask"/>
-    </Modal>
+
 
   </div>
 </template>
@@ -262,13 +163,14 @@ import {mapState} from "vuex";
 
 export default {
   name : 'task-list' ,
-  props : ['task_list' ,'sectionList' , 'contractList' , 'taskLabelList' , 'task_loading' , 'searchForm'] ,
+  props : ['task_list' ,'sectionList' , 'contractList' , 'taskLabelList' , 'task_loading' , 'searchForm','iranTechTask'] ,
   data () {
     return {
       detailModal : false,
       single_task_loading : false,
       createModal : false,
       searchLoading : false ,
+      activeTab: 'data_task',
       statusList : [
         {
           title : 'hold' ,
@@ -348,6 +250,10 @@ export default {
         this.single_task_loading = false
       })
     },
+    changeTab(tabName) {
+      this.activeTab = tabName;
+
+    },
   },
   computed : {
     ...mapState('admin/task' , ['singleTask']),
@@ -389,6 +295,56 @@ export default {
 </script>
 
 <style >
+.custom-tabs-container {
+  direction: rtl;
+  font-family: inherit;
+  overflow-x: hidden;
+}
+
+.custom-tabs-header {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+.custom-tab-title {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-tab-title:hover {
+  color: #2d8cf0;
+}
+
+.custom-tab-title.active {
+  color: #2d8cf0;
+  border-bottom-color: #2d8cf0;
+}
+
+.custom-tabs-content {
+  padding: 5px;
+}
+
+.custom-tab-pane {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+
 .ivu-card-head {
   display: none;
 }

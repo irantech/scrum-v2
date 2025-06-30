@@ -103,7 +103,6 @@ export default {
       </div>
 
       <div class="custom-tabs-container">
-
         <div class="custom-tabs-header">
           <div
             class="custom-tab-title"
@@ -127,8 +126,6 @@ export default {
             تسک های آرشیوی
           </div>
         </div>
-
-
         <div class="custom-tabs-content">
 
           <div v-show="activeTab === 'given_time'" class="custom-tab-pane">
