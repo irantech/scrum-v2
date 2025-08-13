@@ -14,17 +14,7 @@ export default {
 
   },
   methods:{
-    limitedSectionList(){
-      let list = [];
-      if(this.sectionList && this.sectionList.length > 0) {
-        this.sectionList.forEach(x => {
-          if (x.order != '2') {
-            list.push(x)
-          }
-        })
-      }
-      return list
-    },
+
     getSingleTask(task_id){
       console.log(task_id)
       this.detailModal = true
@@ -52,6 +42,17 @@ export default {
     },
     doingTasks() {
       return this.task_list.filter(task =>  task.status != 'complete' && task.status != 'done' && this.today_date <= task.delivery_time_base);
+    },
+    limitedSectionList(){
+      let list = [];
+      if(this.sectionList && this.sectionList.length > 0) {
+        this.sectionList.forEach(x => {
+          if (x.order != '2') {
+            list.push(x)
+          }
+        })
+      }
+      return list
     },
   },
 }
