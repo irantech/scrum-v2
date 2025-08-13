@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4cd567a-739f-499f-8a2a-36fd4d5e7e10" name="Changes" comment="bug: Fixing the appearance of the fever and changing the fever for all task">
-      <change afterPath="$PROJECT_DIR$/nuxt/components/admin/task/singel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nuxt/components/admin/task/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/components/admin/task/list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nuxt/components/admin/tasks/allTask.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/components/admin/tasks/allTask.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nuxt/components/admin/task/singel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/components/admin/task/singel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nuxt/pages/admin/task/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/pages/admin/task/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nuxt/store/admin/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/store/admin/task.js" afterDir="false" />
     </list>
@@ -30,6 +29,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -196,12 +200,14 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/chenge-tasks-design",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "fatima",
+    "last_opened_file_path": "E:/scrum-v22",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PhpStorm 2023.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PhpStorm 2023.1.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true",
     "vuejs.nuxt.types-notification-shown": "true"
   },
@@ -248,6 +254,7 @@
       <workItem from="1744178073105" duration="8728000" />
       <workItem from="1744439694548" duration="2608000" />
       <workItem from="1751277978361" duration="7807000" />
+      <workItem from="1755070088195" duration="8736000" />
     </task>
     <task id="LOCAL-00003" summary="feat: All Task new Design">
       <option name="closed" value="true" />

@@ -3,6 +3,7 @@ export const state = () => ({
   singleTask : '' ,
   taskList: [] ,
   iranTechTask: [] ,
+  iranTechError: [] ,
   activeSubTask : '' ,
   selectedSubTask : [] ,
   allTask : [] ,
@@ -38,6 +39,9 @@ export const mutations = {
   } ,
   SET_TASK_LIST_IRANTECH : (state, taskList)  => {
     state.iranTechTask = taskList;
+  } ,
+  SET_TASK_LIST_IRANTECH_ERROR : (state, taskList)  => {
+    state.iranTechError = taskList;
   } ,
   ALL_TASK : (state, allTask)  => {
     state.allTask = allTask;
@@ -240,9 +244,10 @@ export const actions = {
     return new Promise((resolve, reject) => {
     this.$axios.post('getTask' ,  payload)
       .then(response => {
-        console.log('hamed',response.data.iran_tech_task)
+
         state.commit('SET_TASK_LIST', response.data.data);
         state.commit('SET_TASK_LIST_IRANTECH', response.data.iran_tech_task)
+        state.commit('SET_TASK_LIST_IRANTECH_ERROR', response.data.iran_tech_error)
         resolve(response)
       })
       .catch(error => console.log(error))

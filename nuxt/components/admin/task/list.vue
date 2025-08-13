@@ -126,7 +126,6 @@
         </FormItem>
       </Form>
     </Modal>
-
     <div class="custom-tabs-container">
       <div class="custom-tabs-header">
         <div
@@ -143,14 +142,24 @@
         >
           ایران تکنولوژی
         </div>
+        <div
+          class="custom-tab-title"
+          :class="{ 'active': activeTab === 'iran_task_error' }"
+          @click="changeTab('iran_task_error')"
+        >
+          ایرادات ایران تکنولوژی
+        </div>
       </div>
       <div class="custom-tabs-content">
         <div v-show="activeTab === 'data_task'" class="custom-tab-pane">
-          <admin-task-singel :task_loading="task_loading" :task_list="task_list" :contractList="contractList" sectionList="sectionList" :taskLabelList="taskLabelList" />
+          <admin-task-singel :task_loading="task_loading" :task_list="task_list" :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList" />
 
         </div>
         <div v-show="activeTab === 'iran_task'" class="custom-tab-pane">
-          <admin-task-singel :task_loading="task_loading" :task_list="iranTechTask" :contractList="contractList" sectionList="sectionList" :taskLabelList="taskLabelList" />
+          <admin-task-singel :task_loading="task_loading" :task_list="iranTechTask" :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList" />
+        </div>
+        <div v-show="activeTab === 'iran_task_error'" class="custom-tab-pane">
+          <admin-task-singel :task_loading="task_loading" :task_list="iranTechError" :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList" />
         </div>
       </div>
     </div>
@@ -163,7 +172,7 @@ import {mapState} from "vuex";
 
 export default {
   name : 'task-list' ,
-  props : ['task_list' ,'sectionList' , 'contractList' , 'taskLabelList' , 'task_loading' , 'searchForm','iranTechTask'] ,
+  props : ['task_list' ,'sectionList' , 'contractList' , 'taskLabelList' , 'task_loading' , 'searchForm','iranTechTask' , 'iranTechError'] ,
   data () {
     return {
       detailModal : false,
@@ -303,7 +312,7 @@ export default {
 
 .custom-tabs-header {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   grid-column-gap: 0;
   grid-row-gap: 0;
