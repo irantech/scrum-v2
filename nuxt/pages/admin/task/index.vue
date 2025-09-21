@@ -3,7 +3,7 @@
     <adminIncludeCrumb name="تسک ها" />
 
     <adminTaskList :task_list="taskList" :iranTechTask="iranTechTask" :sectionList="sectionList"
-                   :contractList="contractList"
+                   :contractList="contractList" :userList="userList"
                    :searchForm="form" @setSearchData="setSearchData"
                    :taskLabelList="taskLabelList" :task_loading="task_loading"/>
   </div>
@@ -28,7 +28,8 @@ export default {
         title : '' ,
         has_delivery : '' ,
         status : '',
-        section_id : ''
+        section_id : '',
+        user_id : ''
       },
     }
   },

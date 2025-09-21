@@ -454,7 +454,7 @@ class TaskController extends Controller
             $end_delivery_time = Verta::parse($request['end_delivery_date'])->datetime()->format('y-m-d');
         }
         $task_model = new Task();
-        $task_list_with_316 = $task_model
+        $task_list_with_364 = $task_model
             ->when($request['section_id'] ?? null, function ($q) use ($request) {
                 $q->whereHas('firstTodoList', function ($q) use ($request) {
                     $q->whereIn('id', function ($subQuery) {
@@ -465,7 +465,17 @@ class TaskController extends Controller
                         $q->where('section_id', $request->section_id);
                     });
                 });
-            })->where('contract_id',  316)
+            })
+            ->when($request['user_id'] ?? null, function ($q) use ($request) {
+                $q->whereExists(function ($subQuery) use ($request) {
+                    $subQuery->selectRaw('1')
+                        ->from('todo_lists as t1')
+                        ->whereColumn('t1.todoable_id', 'tasks.id')
+                        ->where('t1.user_id', $request['user_id'])
+                        ->whereRaw('it_t1.id = (SELECT MAX(t2.id) FROM it_todo_lists t2 WHERE t2.todoable_id = it_t1.todoable_id)');
+                });
+            })
+            ->whereIn('contract_id', [364])
             ->when(Auth::user()->id != 1, function ($q) {
                 $q->where('user_id', Auth::user()->id);
             })->when($request['start_date'] ?? null, function ($q) use ($start_date) {
@@ -499,7 +509,61 @@ class TaskController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-
+        $task_list_with_316 = $task_model
+            ->when($request['section_id'] ?? null, function ($q) use ($request) {
+                $q->whereHas('firstTodoList', function ($q) use ($request) {
+                    $q->whereIn('id', function ($subQuery) {
+                        $subQuery->selectRaw('min(id)')
+                            ->from('todo_lists')
+                            ->groupBy('todoable_id');
+                    })->whereHas('user.role', function ($q) use ($request) {
+                        $q->where('section_id', $request->section_id);
+                    });
+                });
+            })
+            ->when($request['user_id'] ?? null, function ($q) use ($request) {
+                $q->whereExists(function ($subQuery) use ($request) {
+                    $subQuery->selectRaw('1')
+                        ->from('todo_lists as t1')
+                        ->whereColumn('t1.todoable_id', 'tasks.id')
+                        ->where('t1.user_id', $request['user_id'])
+                        ->whereRaw('it_t1.id = (SELECT MAX(t2.id) FROM it_todo_lists t2 WHERE t2.todoable_id = it_t1.todoable_id)');
+                });
+            })
+            ->where('contract_id' , '!=' , 364)
+            ->whereIn('contract_id', [316 , 353 , 357 , 351 , 350 , 352])
+            ->when(Auth::user()->id != 1, function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            })->when($request['start_date'] ?? null, function ($q) use ($start_date) {
+                $q->whereDate('created_at', '>=', $start_date);
+            })
+            ->when($request['end_date'] ?? null, function ($q) use ($end_date) {
+                $q->whereDate('created_at', '<=', $end_date);
+            })
+            ->Where('status', '!=', 'complete')
+            ->when($request['contract'] ?? null, function ($q) use ($request) {
+                $q->where('contract_id', $request['contract']);
+            })
+            ->when($request['title'] ?? null, function ($q) use ($request) {
+                $q->Where('title', 'like', '%' . $request['title'] . '%');
+            })->when($flag, function ($q) use ($request) {
+                $q->where('status', $request['status']);
+            })->when($request['has_delivery'] ?? null, function ($q) use ($request) {
+                if ($request['has_delivery'] == '1') {
+                    $q->whereNull('delivery_time');
+                } else {
+                    $q->whereNotNull('delivery_time');
+                }
+            })
+            ->when($request['start_delivery_date'] ?? null, function ($q) use ($start_delivery_time) {
+                $q->whereDate('delivery_time', '>=', $start_delivery_time);
+            })
+            ->when($request['end_delivery_date'] ?? null, function ($q) use ($end_delivery_time) {
+                $q->whereDate('delivery_time', '<=', $end_delivery_time);
+            })
+            ->orderBy('delivery_time', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
         $task_list = $task_model
             ->when($request['section_id'] ?? null, function ($q) use ($request) {
                 $q->whereHas('firstTodoList', function ($q) use ($request) {
@@ -511,7 +575,17 @@ class TaskController extends Controller
                         $q->where('section_id', $request->section_id);
                     });
                 });
-            })->where('contract_id', '!=' , 316)
+            })
+            ->when($request['user_id'] ?? null, function ($q) use ($request) {
+                $q->whereExists(function ($subQuery) use ($request) {
+                    $subQuery->selectRaw('1')
+                        ->from('todo_lists as t1')
+                        ->whereColumn('t1.todoable_id', 'tasks.id')
+                        ->where('t1.user_id', $request['user_id'])
+                        ->whereRaw('it_t1.id = (SELECT MAX(t2.id) FROM it_todo_lists t2 WHERE t2.todoable_id = it_t1.todoable_id)');
+                });
+            })
+            ->whereNotIn('contract_id',  [316 , 353 , 357 , 351 , 350 , 352, 364])
             ->when(Auth::user()->id != 1, function ($q) {
                 $q->where('user_id', Auth::user()->id);
             })->when($request['start_date'] ?? null, function ($q) use ($start_date) {
@@ -559,11 +633,12 @@ class TaskController extends Controller
 //        $queries = DB::getQueryLog();
 //        dd($queries);
 
+        $task_contract_364  = new TaskCollection($task_list_with_364);
         $task_contract_316  = new TaskCollection($task_list_with_316);
         $data = new TaskCollection($task_list);
 
 
-        return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data , 'iran_tech_task' => $task_contract_316]);
+        return response()->json(['message' => __('scrum.api.get_success'), 'data' => $data , 'iran_tech_task' => $task_contract_316 , 'iran_tech_error' => $task_contract_364]);
 
     }
 
