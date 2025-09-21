@@ -280,7 +280,7 @@ Route::namespace( 'API' )->group( function () {
         Route::middleware('scope:admin-handle-sms-templates')
             ->apiResource('smsTemplate' , 'SmsTemplateController');
     });
-    Route::post('showTasks',[TaskController::class,'showTasks']);
+    Route::post('showTasks',[TaskController::class,'showTasks'])->middleware(('auth:api'));
 
     Route::group(['namespace' => 'Customer'] , function(){
         Route::any( 'customer/{hash}/get-contracts', 'CustomerController@CustomerProjectsByHash' );

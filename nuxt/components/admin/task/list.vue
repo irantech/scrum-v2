@@ -101,16 +101,14 @@
         <FormItem label="عنوان" prop="title" class="col-12">
           <Input v-model="formCreate.title"></Input>
         </FormItem>
-
-
         <FormItem label="لینک طرح" class="col-6">
           <Input v-model="formCreate.theme_link"></Input>
         </FormItem>
         <FormItem label="لینک سایت" class="col-6">
           <Input v-model="formCreate.site_link"></Input>
         </FormItem>
-        <FormItem label="قرارداد مشخص" prop="section_id" class="col-6">
-          <Select v-model="formCreate.section_id" filterable label="مشتری">
+        <FormItem label="قرارداد مشخص" prop="contract_id" class="col-6">
+          <Select v-model="formCreate.contract_id" filterable label="مشتری">
             <Option v-for="item in contractList" :value="item.id" :key="item.id">{{ item.customer ? item.customer.name : '' }}({{item.title}}) {{item.contract_code}}</Option>
           </Select>
         </FormItem>
@@ -135,7 +133,6 @@
         </FormItem>
       </Form>
     </Modal>
-
     <div class="custom-tabs-container">
       <div class="custom-tabs-header">
         <div
@@ -152,14 +149,24 @@
         >
           ایران تکنولوژی
         </div>
+        <div
+          class="custom-tab-title"
+          :class="{ 'active': activeTab === 'iran_task_error' }"
+          @click="changeTab('iran_task_error')"
+        >
+          ایرادات ایران تکنولوژی
+        </div>
       </div>
       <div class="custom-tabs-content">
         <div v-show="activeTab === 'data_task'" class="custom-tab-pane">
-          <admin-task-singel :task_loading="task_loading" :task_list="task_list" :contractList="contractList" sectionList="sectionList" :taskLabelList="taskLabelList" />
+          <admin-task-singel :task_loading="task_loading" :task_list="task_list" :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList" />
 
         </div>
         <div v-show="activeTab === 'iran_task'" class="custom-tab-pane">
-          <admin-task-singel :task_loading="task_loading" :task_list="iranTechTask" :contractList="contractList" sectionList="sectionList" :taskLabelList="taskLabelList" />
+          <admin-task-singel :task_loading="task_loading" :task_list="iranTechTask" :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList" />
+        </div>
+        <div v-show="activeTab === 'iran_task_error'" class="custom-tab-pane">
+          <admin-task-singel :task_loading="task_loading" :task_list="iranTechError" :contractList="contractList" :sectionList="sectionList" :taskLabelList="taskLabelList" />
         </div>
       </div>
     </div>
@@ -171,8 +178,8 @@
 import {mapState} from "vuex";
 
 export default {
-  name : 'task-list' ,
-  props : ['task_list' ,'sectionList' , 'contractList' , 'taskLabelList' , 'task_loading' , 'searchForm','iranTechTask' ,'userList'] ,
+  name : 'task-list' 
+  props : ['task_list' ,'sectionList' , 'contractList' , 'taskLabelList' , 'task_loading' , 'searchForm','iranTechTask' , 'iranTechError','userList'] ,
   data () {
     return {
       detailModal : false,
@@ -213,7 +220,10 @@ export default {
           { required: true, message: 'یک عنوان وارد کنید', trigger: 'change' }
         ],
         section_id: [
-          { required: true, message: 'انتخاب بخش مورد نظر الزامی است', trigger: 'change' , type : 'integer'}
+          { required: true, message: 'انتخاب بخش مورد نظر الزامی است', trigger: 'change' , type : 'integer'},
+        ],
+        contract_id: [
+          { required: true, message: 'انتخاب بخش مورد نظر الزامی است', trigger: 'change' , type : 'integer'},
         ],
       },
       createLoading : false
@@ -309,7 +319,7 @@ export default {
 
 .custom-tabs-header {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   grid-column-gap: 0;
   grid-row-gap: 0;

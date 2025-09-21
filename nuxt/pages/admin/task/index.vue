@@ -2,6 +2,7 @@
   <div>
     <adminIncludeCrumb name="تسک ها" />
 
+
     <adminTaskList :task_list="taskList" :iranTechTask="iranTechTask" :sectionList="sectionList"
                    :contractList="contractList" :userList="userList"
                    :searchForm="form" @setSearchData="setSearchData"
@@ -44,6 +45,7 @@ export default {
   computed :{
     ...mapState('admin/task' , ['taskList']),
     ...mapState('admin/task' , ['iranTechTask']),
+    ...mapState('admin/task' , ['iranTechError']),
     ...mapState('admin/section' , ['sectionList']),
     ...mapState('admin/task' , ['taskLabelList']),
     ...mapState('admin/contract' , ['contractList']),
