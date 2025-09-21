@@ -77,6 +77,13 @@
             </Select>
           </FormItem>
         </div>
+        <div class="col-12 col-md-4">
+          <FormItem prop="user" class="mb-2">
+            <Select v-model="searchForm.user_id" placeholder="نام کاربر">
+              <Option v-for="(user , index) in userList"  :key="index" :value="user.id">{{ user.name }}</Option>
+            </Select>
+          </FormItem>
+        </div>
         <div class="col-2">
           <Button type="success" :loading="searchLoading" html-type="submit">جستجو</Button>
         </div>
@@ -171,8 +178,8 @@
 import {mapState} from "vuex";
 
 export default {
-  name : 'task-list' ,
-  props : ['task_list' ,'sectionList' , 'contractList' , 'taskLabelList' , 'task_loading' , 'searchForm','iranTechTask' , 'iranTechError'] ,
+  name : 'task-list' 
+  props : ['task_list' ,'sectionList' , 'contractList' , 'taskLabelList' , 'task_loading' , 'searchForm','iranTechTask' , 'iranTechError','userList'] ,
   data () {
     return {
       detailModal : false,

@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4cd567a-739f-499f-8a2a-36fd4d5e7e10" name="Changes" comment="bug: Fixing the appearance of the fever and changing the fever for all task">
+
+    <list default="true" id="a4cd567a-739f-499f-8a2a-36fd4d5e7e10" name="Changes" comment="feat: Adding tabs to separate Iran Tech tasks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravelServer/app/Http/Controllers/API/Task/TaskController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nuxt/components/admin/task/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/components/admin/task/list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nuxt/components/admin/task/singel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/components/admin/task/singel.vue" afterDir="false" />
+
       <change beforePath="$PROJECT_DIR$/nuxt/pages/admin/task/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/pages/admin/task/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nuxt/store/admin/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt/store/admin/task.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,6 +196,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -210,13 +211,14 @@
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PhpStorm 2023.1.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true",
     "vuejs.nuxt.types-notification-shown": "true"
+
   },
-  "keyToStringList": {
-    "vue.recent.templates": [
-      "Vue Options API Component"
+  &quot;keyToStringList&quot;: {
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Options API Component&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -253,8 +255,10 @@
       <workItem from="1744109451113" duration="11242000" />
       <workItem from="1744178073105" duration="8728000" />
       <workItem from="1744439694548" duration="2608000" />
+
       <workItem from="1751277978361" duration="7807000" />
       <workItem from="1755070088195" duration="8736000" />
+
     </task>
     <task id="LOCAL-00003" summary="feat: All Task new Design">
       <option name="closed" value="true" />
@@ -296,7 +300,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744195156829</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: Adding tabs to separate Iran Tech tasks">
+      <option name="closed" value="true" />
+      <created>1751288426916</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1751288426916</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -323,7 +335,8 @@
     <MESSAGE value="bug: Conditional on the existence of a customer Second change" />
     <MESSAGE value="feat: set tab for all task." />
     <MESSAGE value="bug: Fixing the appearance of the fever and changing the fever for all task" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug: Fixing the appearance of the fever and changing the fever for all task" />
+    <MESSAGE value="feat: Adding tabs to separate Iran Tech tasks" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Adding tabs to separate Iran Tech tasks" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

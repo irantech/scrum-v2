@@ -475,7 +475,17 @@ class TaskController extends Controller
                         $q->where('section_id', $request->section_id);
                     });
                 });
-            })->whereIn('contract_id', [364])
+            })
+            ->when($request['user_id'] ?? null, function ($q) use ($request) {
+                $q->whereExists(function ($subQuery) use ($request) {
+                    $subQuery->selectRaw('1')
+                        ->from('todo_lists as t1')
+                        ->whereColumn('t1.todoable_id', 'tasks.id')
+                        ->where('t1.user_id', $request['user_id'])
+                        ->whereRaw('it_t1.id = (SELECT MAX(t2.id) FROM it_todo_lists t2 WHERE t2.todoable_id = it_t1.todoable_id)');
+                });
+            })
+            ->whereIn('contract_id', [364])
             ->when(Auth::user()->id != 1, function ($q) {
                 $q->where('user_id', Auth::user()->id);
             })->when($request['start_date'] ?? null, function ($q) use ($start_date) {
@@ -519,6 +529,15 @@ class TaskController extends Controller
                     })->whereHas('user.role', function ($q) use ($request) {
                         $q->where('section_id', $request->section_id);
                     });
+                });
+            })
+            ->when($request['user_id'] ?? null, function ($q) use ($request) {
+                $q->whereExists(function ($subQuery) use ($request) {
+                    $subQuery->selectRaw('1')
+                        ->from('todo_lists as t1')
+                        ->whereColumn('t1.todoable_id', 'tasks.id')
+                        ->where('t1.user_id', $request['user_id'])
+                        ->whereRaw('it_t1.id = (SELECT MAX(t2.id) FROM it_todo_lists t2 WHERE t2.todoable_id = it_t1.todoable_id)');
                 });
             })
             ->where('contract_id' , '!=' , 364)
@@ -566,7 +585,17 @@ class TaskController extends Controller
                         $q->where('section_id', $request->section_id);
                     });
                 });
-            })->whereNotIn('contract_id',  [316 , 353 , 357 , 351 , 350 , 352, 364])
+            })
+            ->when($request['user_id'] ?? null, function ($q) use ($request) {
+                $q->whereExists(function ($subQuery) use ($request) {
+                    $subQuery->selectRaw('1')
+                        ->from('todo_lists as t1')
+                        ->whereColumn('t1.todoable_id', 'tasks.id')
+                        ->where('t1.user_id', $request['user_id'])
+                        ->whereRaw('it_t1.id = (SELECT MAX(t2.id) FROM it_todo_lists t2 WHERE t2.todoable_id = it_t1.todoable_id)');
+                });
+            })
+            ->whereNotIn('contract_id',  [316 , 353 , 357 , 351 , 350 , 352, 364])
             ->when(Auth::user()->id != 1, function ($q) {
                 $q->where('user_id', Auth::user()->id);
             })->when($request['start_date'] ?? null, function ($q) use ($start_date) {
